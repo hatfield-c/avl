@@ -12,6 +12,7 @@ import os
 import sys
 import SUMO_vehicle
 import TrafficLight
+import Cli
 
 class TrafficSimulator(object):
     def __init__(self, NetworkName):
@@ -32,8 +33,6 @@ class TrafficSimulator(object):
         sumoCmd = [sumoBinary, "-c",
                    FolderPath + self.NetworkName, "--start"]
         traci.start(sumoCmd)
-
-        print("Sumo is running")
 
     def ParseNetwork(self):
         # Get edge IDs
@@ -56,15 +55,10 @@ class TrafficSimulator(object):
 
     def StepSumo(self, SumoObjects, TrafficLights):
 
-        try:
-            traci.simulationStep()  # step simulatior
-        except:
-            print("Restarting SUMO")
-            self.RestartSumo(SumoObjects)
+        traci.simulationStep()  # step simulatior
 
         SumoObjectsRaw0 = traci.vehicle.getIDList()  # get every vehicle ID
         SumoObjectNames = list(set(SumoObjectsRaw0))  # Make it unique
-
 
         # Remove SUMO objects from the list if they left the network
         for Obj in SumoObjects:

@@ -1,74 +1,120 @@
-# ======================================================
-# Copyright (C) 2019 BME Automated Drive Lab
-# This program and the accompanying materials
-# are made available under the terms of the MIT license.
-# ======================================================
-# Author: Balazs Varga 
-# Date: 2019. 11. 10.
-# ======================================================
-
+import sys
 import time
-from queue import Queue
+import threading
+import traci
+import traceback
+
 import TrafficSimulator
 import TCP_server
-import Unity
+import Cli
 
-class SumoUnity(object):
+from queue import Queue
+
+class SumoUnity:
     def __init__(self, IP, Port, SumoNetwork):
 
         self.NetworkName = SumoNetwork
-
-        # Define queues for communication
         self.UnityQueue = Queue(maxsize=1)
 
-        #Launch SUMO
+        Cli.printHeading3("SUMO")
+        print("Starting SUMO...")
+
         self.TrafficSim = TrafficSimulator.TrafficSimulator(self.NetworkName)
+
+        Cli.printLine(1, "SUMO is running!")
+
+        print("Parsing traffic lights...")
+
         self.TrafficLights = self.TrafficSim.ParseTrafficLights()
         self.SumoObjects = []
 
-        #Start TCP server
+        Cli.printLine(1, "Parsed!")
+        print("SUMO has been initialized successfully.")
+
         self.ServerIP = IP
         self.ServerPort = Port
 
+        Cli.printHeading3("TCP Server")
+        print("Initializing TCP server...")
+
         self.Server = TCP_server.TCP_Server(self.ServerIP, self.ServerPort)
+
+        Cli.printLine(1, "TCP server initialized!")
+
+        print("Starting TCP server...")
+        Cli.printLine(1, "Attempting to open TCP server at [" + str(self.Server.IP) + ":" + str(self.Server.port) + "]...")
+
         self.Server.StartServer(self.UnityQueue)
 
+        Cli.printLine(2, "TCP server opened!")
+        Cli.printLine(1, "TCP server started!")
+        print("TCP server is ready.")
+
     def main(self):
+
+        Cli.printHeading3("Simulation")
+        print("Begin simulation.")
 
         deltaT = 0.02
 
         while True:
 
-            try:                
-                #Get timestamp
-                TiStamp1 = time.time()
+            TiStamp1 = time.time()
 
-                #Monitor TCP connection
-                self.Server.ReopenSocket(self.UnityQueue)
+            self.SumoObjects, self.TrafficLights = self.TrafficSim.StepSumo(self.SumoObjects, self.TrafficLights)
 
-                #Update SUMO
-                self.SumoObjects, self.TrafficLights = self.TrafficSim.StepSumo(self.SumoObjects, self.TrafficLights)
+            self.enqueData(self.SumoObjects, self.TrafficLights)
 
+            while not self.UnityQueue.empty():
 
-                #Update Unity
-                Unity.ToUnity(self.SumoObjects, self.TrafficLights, self.UnityQueue)
+                msg = self.UnityQueue.get()
+                self.Server.UnityClient.send(msg.encode())
+                    
+            TiStamp2 = time.time() - TiStamp1
+            if TiStamp2 > deltaT:
+                pass
+            else:
+                time.sleep(deltaT-TiStamp2)
 
-                #Synchronize time
-                TiStamp2 = time.time() - TiStamp1
-                if TiStamp2 > deltaT:
-                    pass
-                else:
-                    time.sleep(deltaT-TiStamp2)
+    def enqueData(self, Vehicles, TrafficLights):
 
-            except KeyboardInterrupt as e:
-                exit()
+        DataToUnity = "O1G"
 
+        for veh in Vehicles:
+            DataToUnity += veh.ID + ";" + "{0:.3f}".format(veh.PosX_Center) + ";" + "{0:.3f}".format(veh.PosY_Center) + ";" + "{0:.2f}".format(veh.Velocity) + ";"  + "{0:.2f}".format(veh.Heading) + ";" + str(int(veh.StBrakePedal)) + ";" + str(veh.SizeClass) + "@"
+
+        for tls in TrafficLights:
+            pass
+
+        DataToUnity = DataToUnity + "&\n"
+
+        with self.UnityQueue.mutex:
+            self.UnityQueue.queue.clear()
+        
+        self.UnityQueue.put(DataToUnity)
 
 IP = 'localhost'
 port = 4042
-SumoNetwork = "Rectangle/Network_01.sumocfg"  # Name of the network to be opened
+SumoNetwork = "Rectangle/Network_01.sumocfg"
 
-#INIT
-Simulation = SumoUnity(IP, port, SumoNetwork)
-#MAIN
-Simulation.main()
+Cli.printHeading1("UTD Autonomous Vehicle Lab (AVL)")
+
+print("Welcome! The application will now initialize.")
+
+try:
+    Simulation = SumoUnity(IP, port, SumoNetwork)
+    Simulation.main()
+
+    Cli.printHeading2("Exit Application")
+    print("Exited normally.")
+except KeyboardInterrupt:
+    Cli.printHeading2("Exit Application")
+    print("Exited via keyboard interrupt.")
+except traci.exceptions.FatalTraCIError as traciException:
+    Cli.printHeading2("Exit Application")
+    print("SUMO is no longer connected. Cause: ")
+    Cli.printLine(1, traciException)
+except:
+    Cli.printHeading2("Exit Application")
+    print("Uncaught exception!\n")
+    traceback.print_exception(*sys.exc_info())

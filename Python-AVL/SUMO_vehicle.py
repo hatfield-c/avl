@@ -1,12 +1,3 @@
-# ======================================================
-# Copyright (C) 2019 BME Automated Drive Lab
-# This program and the accompanying materials
-# are made available under the terms of the MIT license.
-# ======================================================
-# Author: Balazs Varga 
-# Date: 2019. 11. 10.
-# ======================================================
-
 import math
 import traci
 
@@ -40,26 +31,19 @@ class SumoObject(object):
 
     def UpdateVehicle(self):
 
-        try:
-            if traci.vehicle.getSignals(self.ID) & 8 == 8: #Bitmask - 8 for brake light
-                self.StBrakePedal = True
-            else:
-                self.StBrakePedal = False
+        if traci.vehicle.getSignals(self.ID) & 8 == 8: #Bitmask - 8 for brake light
+            self.StBrakePedal = True
+        else:
+            self.StBrakePedal = False
 
-            tmp_pos = traci.vehicle.getPosition(self.ID)  # position: x,y
-            self.PosX_FrontBumper = tmp_pos[0]  # X position (front bumper, meters)
-            self.PosY_FrontBumper = tmp_pos[1]  # Y position (front bumper, meters)
-            self.Velocity = traci.vehicle.getSpeed(self.ID)
-            self.Heading = traci.vehicle.getAngle(self.ID)
-            self.Edge = traci.vehicle.getRoadID(self.ID)
+        tmp_pos = traci.vehicle.getPosition(self.ID)  # position: x,y
+        self.PosX_FrontBumper = tmp_pos[0]  # X position (front bumper, meters)
+        self.PosY_FrontBumper = tmp_pos[1]  # Y position (front bumper, meters)
+        self.Velocity = traci.vehicle.getSpeed(self.ID)
+        self.Heading = traci.vehicle.getAngle(self.ID)
+        self.Edge = traci.vehicle.getRoadID(self.ID)
 
-            self.__CalculateCenter()  # self.PosX_Center, self.PosY_Center (center, meters)
-
-        except:
-            print("Error updating SUMO vehicle: ", self.ID)
-            # Try to put it back
-            self.ReinsertVehicle()
-
+        self.__CalculateCenter()  # self.PosX_Center, self.PosY_Center (center, meters)
 
     def ReinsertVehicle(self):
 
