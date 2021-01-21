@@ -64,6 +64,10 @@ public class scr_Main : MonoBehaviour
 
     public void SplitData(string message, float timer)           //split incoming string per vehicle
     {
+        if(message == null) {
+            return;
+        }
+
         if (message.Contains("@"))      // @ is the separator between vehicles
         {
             Array.Clear(IDlist, 0, IDlist.Length);
