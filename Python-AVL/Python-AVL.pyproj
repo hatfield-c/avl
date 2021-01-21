@@ -30,11 +30,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.py" />
+    <Compile Include="Cli.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SUMO_vehicle.py" />
     <Compile Include="TCP_server.py" />
     <Compile Include="TrafficLight.py" />
     <Compile Include="TrafficSimulator.py" />
-    <Compile Include="Unity.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
