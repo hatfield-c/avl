@@ -20,6 +20,7 @@ class TCP_Server(object):
         self.UnityThread = []
 
     def StartServer(self, UnityQueue):
+        Cli.printLine(2, "Connecting to Unity...")
 
         self.ServerSocket.listen(self.Num_Listener)
         
@@ -35,14 +36,17 @@ class TCP_Server(object):
                     time.sleep(0.01)
             
             ClientName = '00000'
-
+            trying = True
             while ClientName is '00000':
-                ClientName = clientSocket.recv(5)
+                try:
+                    ClientName = clientSocket.recv(5)
 
-                Cli.printLine(2, "Client " + str(ClientName) + " connected!")
+                    Cli.printLine(3, "Client " + str(ClientName) + " connected!")
+                except BlockingIOError:
+                    time.sleep(0.01)
 
             if ClientName == 'U3D00'.encode('utf8'):
-                Cli.printLine(2, "Unity 3D connected!")
+                Cli.printLine(3, "Unity 3D connected!")
                 
                 self.UnityClient = clientSocket
                 self.UnityAddress = tmpAddress

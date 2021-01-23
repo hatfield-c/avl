@@ -98,34 +98,33 @@ public class scr_Main : MonoBehaviour
         }
     }
 
-    public void Transform(Dictionary<string, CarInfo> CarDict,  string[] IDs)
-    {
-        int num = CarDict.Count; 
+    public void Transform(Dictionary<string, CarInfo> CarDict, string[] IDs) {
+        int num = CarDict.Count;
         int j = 6;  //default
 
         for (int i = 0; i < num; i++)  //running through all vehicle
         {
-        CarInfo tmp_CarInfo = CarDict[IDs[i]];  //ccreating tmp CarInfo to handle the current object
-        switch (tmp_CarInfo.vehid) // If the ID is matching with one case, they get j index to this element from "MoveAbleVehList"
-            {
-                    case "carA":
-                        j = 0;
-                        break;
-                    case "carB":
-                        j = 1;
-                        break;
-                    case "carC":
-                        j = 2;
-                        break;
-                    case "carD":
-                        j = 3;
-                        break;
-                    case "carE":
-                        j = 4;
-                        break;
-                    default:
-                        print("something is wrong");
-                        break;
+            CarInfo tmp_CarInfo = CarDict[IDs[i]];  //ccreating tmp CarInfo to handle the current object
+            switch (tmp_CarInfo.vehid) // If the ID is matching with one case, they get j index to this element from "MoveAbleVehList"
+                {
+                case "carA":
+                    j = 0;
+                    break;
+                case "carB":
+                    j = 1;
+                    break;
+                case "carC":
+                    j = 2;
+                    break;
+                case "carD":
+                    j = 3;
+                    break;
+                case "carE":
+                    j = 4;
+                    break;
+                default:
+                    print("something is wrong");
+                    break;
             }
             Vector3 tempPos = car[j].transform.position;               // get the current position
             tempPos.x = (float)(tmp_CarInfo.posx + posoffset_x);       //adding the offset
@@ -135,8 +134,22 @@ public class scr_Main : MonoBehaviour
             Vector3 ydir = new Vector3(0, 1, 0);    //y direction to rotation
             rot = Quaternion.AngleAxis((tmp_CarInfo.heading), ydir);
             car[j].transform.SetPositionAndRotation(tempPos, rot);  //set the position and the rotation
-            car[j].GetComponent<scr_VehicleHandler>().CalculateSteering(tmp_CarInfo.heading, tmp_CarInfo.speed, timer);
-            car[j].GetComponent<scr_VehicleHandler>().BrakeLightSwitch(tmp_CarInfo.brakestate);
+
+            
+            VehicleBase vehicle = car[j].GetComponent<VehicleBase>();
+
+            if (vehicle == null) {
+                car[j].GetComponent<scr_VehicleHandler>().CalculateSteering(tmp_CarInfo.heading, tmp_CarInfo.speed, timer);
+                car[j].GetComponent<scr_VehicleHandler>().BrakeLightSwitch(tmp_CarInfo.brakestate);
+            } else {
+                VehicleState state = vehicle.GetVehicleState();
+                state.SetHeading(tmp_CarInfo.heading);
+                state.SetSpeed(tmp_CarInfo.speed);
+                state.SetTimer(timer);
+                state.SetIsBraking(tmp_CarInfo.brakestate);
+
+                vehicle.UpdateState();
+            }
         }
     }
 }
