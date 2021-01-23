@@ -161,7 +161,7 @@ MonoBehaviour:
     interpolate: 0
     collisionMode: 0
   textureData:
-    carTexture: {fileID: 2800000, guid: 1888014c6fd939f47bfdbf35ff144b77, type: 3}
+    carTexture: {fileID: 2800000, guid: 07abf9a0ebd1eb44e8b8ae46fabecbab, type: 3}
     pixelRedrawPos: {x: 0, y: 0}
     pixelRedrawSize: {x: 15, y: 16}
   brakeLights:
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 6204719316617296622}
-  speedmultiplier: 0.1
+  wheelRotationRate: 0.1
 --- !u!1 &5960577840736222597
 GameObject:
   m_ObjectHideFlags: 0
