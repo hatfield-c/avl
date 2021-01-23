@@ -24,6 +24,10 @@ public class VehicleBase : MonoBehaviour
         return this.vehicleState;
     }
 
+    public void Init() {
+
+    }
+
     void Start() {
         AVehiclePrefab prefabBlueprint = this.vehicleRepo.GetVehiclePrefab(this.defaultPrefabIndex);
 

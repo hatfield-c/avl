@@ -23,6 +23,7 @@ class SumoObject(object):
             self.PosY_FrontBumper = tmp_pos[1] # Y position (front bumper, meters)
             self.Velocity = traci.vehicle.getSpeed(self.ID)
             self.Heading = traci.vehicle.getAngle(self.ID)
+            self.Color = traci.vehicle.getColor(self.ID)
 
             self.__CalculateCenter() #self.PosX_Center, self.PosY_Center (center, meters)
 

@@ -81,7 +81,14 @@ class SumoUnity:
         DataToUnity = "O1G"
 
         for veh in Vehicles:
-            DataToUnity += veh.ID + ";" + "{0:.3f}".format(veh.PosX_Center) + ";" + "{0:.3f}".format(veh.PosY_Center) + ";" + "{0:.2f}".format(veh.Velocity) + ";"  + "{0:.2f}".format(veh.Heading) + ";" + str(int(veh.StBrakePedal)) + ";" + str(veh.SizeClass) + "@"
+            DataToUnity += veh.ID + ";"
+            DataToUnity += "{0:.3f}".format(veh.PosX_Center) + ";"
+            DataToUnity += "{0:.3f}".format(veh.PosY_Center) + ";"
+            DataToUnity += "{0:.2f}".format(veh.Velocity) + ";"
+            DataToUnity += "{0:.2f}".format(veh.Heading) + ";"
+            DataToUnity += str(int(veh.StBrakePedal)) + ";"
+            DataToUnity += str(veh.SizeClass) + ";"
+            DataToUnity += str(veh.Color) + "@"
 
         for tls in TrafficLights:
             pass

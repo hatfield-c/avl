@@ -8,6 +8,7 @@ public class VehicleState
     protected float speed;
     protected float timer;
     protected bool isBraking;
+    public Color color;
 
     public float GetHeading() {
         return this.heading;

@@ -163,6 +163,7 @@ public class CarInfo
     public float heading;
     public float brakelight; //float
     public int sizeclass;
+    public Color color;
 
     public bool brakestate; //bool
 
@@ -170,6 +171,7 @@ public class CarInfo
     {
         if (txt.Contains(";"))
         {
+            
             string[] a = txt.Split(';'); //split the data of a vehicle, the data order: vehid, posx, posy, speed, heading, brakelight state, sizeclass
             if (a.Length >= 7)
             {
@@ -180,6 +182,7 @@ public class CarInfo
                 heading = (float)Convert.ToDouble(a[4], new CultureInfo("en-US"));
                 brakelight = (float)Convert.ToDouble(a[5], new CultureInfo("en-US"));
                 sizeclass = (int)Convert.ToDouble(a[6], new CultureInfo("en-US"));      //not used in this project
+                color = this.extractColor(a[7]);
 
                 if (brakelight == 1)
                     brakestate = true;
@@ -191,5 +194,19 @@ public class CarInfo
                 Debug.Log("incorrect messeage length");
             }
         }
+    }
+
+    protected Color extractColor(string s) {
+        string rawDigits = s.Substring(1, s.Length - 2);
+        string[] digits = rawDigits.Split(',');
+
+        Color color = new Color(
+            (float)Convert.ToDouble(digits[0], new CultureInfo("en-US")) / 255f,
+            (float)Convert.ToDouble(digits[1], new CultureInfo("en-US")) / 255f,
+            (float)Convert.ToDouble(digits[2], new CultureInfo("en-US")) / 255f,
+            (float)Convert.ToDouble(digits[3], new CultureInfo("en-US")) / 255f
+        );
+
+        return color;
     }
 }
