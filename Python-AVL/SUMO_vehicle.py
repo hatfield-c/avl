@@ -1,5 +1,6 @@
 import math
 import traci
+import json
 
 class SumoObject(object):
 
@@ -84,3 +85,23 @@ class SumoObject(object):
             self.SizeClass = 13 #Large car
 
 
+    def jsonUpdateData(self):
+        data = {}
+
+        data["vehicleId"] = self.ID
+        data["speed"] = self.Velocity
+        data["heading"] = self.Heading
+        data["position"] = [self.PosX_Center, self.PosY_Center]
+        data["brake"] = self.StBrakePedal
+        data["currentEdge"] = self.Edge
+
+        return json.dumps(data)
+
+    def jsonInitData(self):
+        data = {}
+
+        data["vehicleId"] = self.ID
+        data["sizeClass"] = self.SizeClass
+        data["colorHex"] = '#%02x%02x%02x' % self.Color[0:3]
+
+        return json.dumps(data)

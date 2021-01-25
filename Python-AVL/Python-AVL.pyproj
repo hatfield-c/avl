@@ -33,6 +33,12 @@
     <Compile Include="Cli.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TcpCommands.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SumoManager.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SUMO_vehicle.py" />
     <Compile Include="TCP_server.py" />
     <Compile Include="TrafficLight.py" />

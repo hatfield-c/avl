@@ -36,8 +36,8 @@ public class VehicleBase : MonoBehaviour
         VehiclePhysicsParams physicsParams = this.prefab.GetPhysicsParams();
         physicsParams.InitRigidbody(this.rb);
 
-        VehicleData data = new VehicleData();
-        data.color = new Color(0.5f, 0f, 0f);
+        VehicleInitData data = new VehicleInitData();
+        data.colorHex = "#080000";
         this.prefab.Init(data);
     }
 }

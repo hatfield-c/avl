@@ -25,6 +25,12 @@ using static System.Console;
 
 public class scr_TCP : MonoBehaviour
 {
+    public const string UNITY_INIT_CAR = "UNITY_INIT_CAR";
+    public const string UNITY_UPDT_CAR = "UNITY_UPDT_CAR";
+
+    public const char MSG_DELIM = '$';
+    public const char DATA_DELIM = '|';
+
     private TcpClient socketConnection;
     private Thread clientReceiveThread;
     private int ipPort = 4042;                      //TCP/IP PORT
@@ -51,11 +57,9 @@ public class scr_TCP : MonoBehaviour
         if (TCP_recv_queue.Count > 0)
         {
             string msg = TCP_recv_queue.Dequeue();
-            if (msg.Contains("O1G") && msg.Contains("&"))
+            if (msg.Contains(scr_TCP.UNITY_UPDT_CAR))
             {
-                cleardincoming = msg.Substring(3);                  //delete the message start delimiter
-                cleardincoming2 = cleardincoming.Substring(0, cleardincoming.IndexOf("&")-1); //deleting the delimiter and the last @ separator after the last vehicles paramaters
-                Rx = cleardincoming2;
+                Rx = msg;
             }
         }
         else

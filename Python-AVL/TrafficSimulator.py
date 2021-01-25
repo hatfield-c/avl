@@ -20,6 +20,8 @@ class TrafficSimulator(object):
         self.NetworkName = NetworkName
         self.StartSumo()
         self.ParseNetwork()
+        self.sumoObjects = []
+
 
     def StartSumo(self):
         if 'SUMO_HOME' in os.environ:

@@ -19,7 +19,7 @@ class TCP_Server(object):
         self.UnityRunning = False
         self.UnityThread = []
 
-    def StartServer(self, UnityQueue):
+    def StartServer(self):
         Cli.printLine(2, "Connecting to Unity...")
 
         self.ServerSocket.listen(self.Num_Listener)

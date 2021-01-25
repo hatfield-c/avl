@@ -4,47 +4,38 @@ import threading
 import traci
 import traceback
 
-import TrafficSimulator
+import SumoManager
 import TCP_server
+import TcpCommands
 import Cli
 
 from queue import Queue
 
-class SumoUnity:
-    def __init__(self, IP, Port, SumoNetwork):
-
-        self.NetworkName = SumoNetwork
-        self.UnityQueue = Queue(maxsize=1)
+class AvlApplication:
+    def __init__(self, ip, port, sumoBinaryPath, networkPath):
 
         Cli.printHeading3("SUMO")
         print("Starting SUMO...")
 
-        self.TrafficSim = TrafficSimulator.TrafficSimulator(self.NetworkName)
+        self.sumoManager = SumoManager.SumoManager(sumoBinaryPath, networkPath)
 
         Cli.printLine(1, "SUMO is running!")
-
-        print("Parsing traffic lights...")
-
-        self.TrafficLights = self.TrafficSim.ParseTrafficLights()
-        self.SumoObjects = []
-
-        Cli.printLine(1, "Parsed!")
         print("SUMO has been initialized successfully.")
 
-        self.ServerIP = IP
-        self.ServerPort = Port
+        self.serverIP = ip
+        self.serverPort = port
 
         Cli.printHeading3("TCP Server")
         print("Initializing TCP server...")
 
-        self.Server = TCP_server.TCP_Server(self.ServerIP, self.ServerPort)
+        self.server = TCP_server.TCP_Server(self.serverIP, self.serverPort)
 
         Cli.printLine(1, "TCP server initialized!")
 
         print("Starting TCP server...")
-        Cli.printLine(1, "Attempting to open TCP server at [" + str(self.Server.IP) + ":" + str(self.Server.port) + "]...")
+        Cli.printLine(1, "Attempting to open TCP server at [" + str(self.server.IP) + ":" + str(self.server.port) + "]...")
 
-        self.Server.StartServer(self.UnityQueue)
+        self.server.StartServer()
 
         Cli.printLine(2, "TCP server opened!")
         Cli.printLine(1, "TCP server started!")
@@ -61,14 +52,15 @@ class SumoUnity:
 
             TiStamp1 = time.time()
 
-            self.SumoObjects, self.TrafficLights = self.TrafficSim.StepSumo(self.SumoObjects, self.TrafficLights)
+            self.sumoManager.stepSumo()
 
-            self.enqueData(self.SumoObjects, self.TrafficLights)
+            msg = self.encodeData(
+                TcpCommands.DST_UNITY, 
+                TcpCommands.UNITY_UPDT_CAR, 
+                self.sumoManager.encodeVehicleUpdateData()
+            )
 
-            while not self.UnityQueue.empty():
-
-                msg = self.UnityQueue.get()
-                self.Server.UnityClient.send(msg.encode())
+            self.server.UnityClient.send(msg.encode())
                     
             TiStamp2 = time.time() - TiStamp1
             if TiStamp2 > deltaT:
@@ -76,41 +68,26 @@ class SumoUnity:
             else:
                 time.sleep(deltaT-TiStamp2)
 
-    def enqueData(self, Vehicles, TrafficLights):
-
-        DataToUnity = "O1G"
-
-        for veh in Vehicles:
-            DataToUnity += veh.ID + ";"
-            DataToUnity += "{0:.3f}".format(veh.PosX_Center) + ";"
-            DataToUnity += "{0:.3f}".format(veh.PosY_Center) + ";"
-            DataToUnity += "{0:.2f}".format(veh.Velocity) + ";"
-            DataToUnity += "{0:.2f}".format(veh.Heading) + ";"
-            DataToUnity += str(int(veh.StBrakePedal)) + ";"
-            DataToUnity += str(veh.SizeClass) + ";"
-            DataToUnity += str(veh.Color) + "@"
-
-        for tls in TrafficLights:
-            pass
-
-        DataToUnity = DataToUnity + "&\n"
-
-        with self.UnityQueue.mutex:
-            self.UnityQueue.queue.clear()
-        
-        self.UnityQueue.put(DataToUnity)
+    def encodeData(
+        self,
+        destinationCode,
+        commandCode,
+        data
+    ):
+        return destinationCode + TcpCommands.MSG_DELIM + commandCode + TcpCommands.MSG_DELIM + data
 
 IP = 'localhost'
 port = 4042
-SumoNetwork = "Rectangle/Network_01.sumocfg"
+sumoBinaryPath = "C:/Sumo/bin/sumo-gui"
+networkPath = "../SUMO_Networks/Rectangle/Network_01.sumocfg"
 
 Cli.printHeading1("UTD Autonomous Vehicle Lab (AVL)")
 
 print("Welcome! The application will now initialize.")
 
 try:
-    Simulation = SumoUnity(IP, port, SumoNetwork)
-    Simulation.main()
+    avl = AvlApplication(IP, port, sumoBinaryPath, networkPath)
+    avl.main()
 
     Cli.printHeading2("Exit Application")
     print("Exited normally.")

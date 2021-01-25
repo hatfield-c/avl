@@ -36,7 +36,7 @@ public class scr_Main : MonoBehaviour
     private string[] IDlist = new string[5];
     private string[] oldIDlist = new string[5];
     GameObject[] car = new GameObject[5];
-    private Dictionary<string, CarInfo> CarDict = new Dictionary<string, CarInfo>();
+    private Dictionary<string, VehicleUpdateData> CarDict = new Dictionary<string, VehicleUpdateData>();
 
 
     [Header("timer for motion vizualisation")]
@@ -68,44 +68,42 @@ public class scr_Main : MonoBehaviour
             return;
         }
 
-        if (message.Contains("@"))      // @ is the separator between vehicles
+        Array.Clear(IDlist, 0, IDlist.Length);
+        string[] messageComponents = message.Split(scr_TCP.MSG_DELIM);
+        string[] dataPerVehicle = messageComponents[2].Split(scr_TCP.DATA_DELIM);       
+
+        for (int i = 0; i < dataPerVehicle.Length; i++)     
         {
-            Array.Clear(IDlist, 0, IDlist.Length);
-            string[] DataPerVehicle = message.Split('@');       
-            for (int i = 0; i < DataPerVehicle.Length; i++)     
+            VehicleUpdateData data = JsonUtility.FromJson<VehicleUpdateData>(dataPerVehicle[i]);
+
+            //CarInfo car = new CarInfo(DataPerVehicle[i]);       //creating a CarInfo class with name car
+            IDlist[i] = data.vehicleId;  //adding the id to the ID list to check
+            if (Array.IndexOf(oldIDlist, data.vehicleId) == -1 && data.vehicleId != null) //check the ID, if the new ID is element of the old list, it returns with the index, if not element, it returns with -1
             {
-                CarInfo car = new CarInfo(DataPerVehicle[i]);       //creating a CarInfo class with name car
-                IDlist[i] = car.vehid;  //adding the id to the ID list to check
-                if (Array.IndexOf(oldIDlist, car.vehid) == -1 && car.vehid != null) //check the ID, if the new ID is element of the old list, it returns with the index, if not element, it returns with -1
-                {
-                    CarDict.Add(car.vehid, car);      //fill up dictionary
-                }
-                else if (car.vehid != null)
-                {
-                    CarDict[car.vehid] = car;       //update dictionary
-                }
-                else
-                {
-
-                }
+                CarDict.Add(data.vehicleId, data);      //fill up dictionary
             }
-            Transform(CarDict, IDlist);    //call the transfrom function
-            oldIDlist = IDlist; //update the list
-        }
-        else
-        {
+            else if (data.vehicleId != null)
+            {
+                CarDict[data.vehicleId] = data;       //update dictionary
+            }
+            else
+            {
 
+            }
         }
+        Transform(CarDict, IDlist);    //call the transfrom function
+        oldIDlist = IDlist; //update the list
+
     }
 
-    public void Transform(Dictionary<string, CarInfo> CarDict, string[] IDs) {
+    public void Transform(Dictionary<string, VehicleUpdateData> CarDict, string[] IDs) {
         int num = CarDict.Count;
         int j = 6;  //default
 
         for (int i = 0; i < num; i++)  //running through all vehicle
         {
-            CarInfo tmp_CarInfo = CarDict[IDs[i]];  //ccreating tmp CarInfo to handle the current object
-            switch (tmp_CarInfo.vehid) // If the ID is matching with one case, they get j index to this element from "MoveAbleVehList"
+            VehicleUpdateData tmp_CarInfo = CarDict[IDs[i]];  //ccreating tmp CarInfo to handle the current object
+            switch (tmp_CarInfo.vehicleId) // If the ID is matching with one case, they get j index to this element from "MoveAbleVehList"
                 {
                 case "carA":
                     j = 0;
@@ -127,26 +125,25 @@ public class scr_Main : MonoBehaviour
                     break;
             }
             Vector3 tempPos = car[j].transform.position;               // get the current position
-            tempPos.x = (float)(tmp_CarInfo.posx + posoffset_x);       //adding the offset
-            tempPos.z = (float)(tmp_CarInfo.posy + posoffset_y);
+            tempPos.x = (float)(tmp_CarInfo.position[0] + posoffset_x);       //adding the offset
+            tempPos.z = (float)(tmp_CarInfo.position[1] + posoffset_y);
             Quaternion tempRot = car[j].transform.rotation;            // get the current position
             Quaternion rot;
             Vector3 ydir = new Vector3(0, 1, 0);    //y direction to rotation
             rot = Quaternion.AngleAxis((tmp_CarInfo.heading), ydir);
             car[j].transform.SetPositionAndRotation(tempPos, rot);  //set the position and the rotation
-
             
             VehicleBase vehicle = car[j].GetComponent<VehicleBase>();
 
             if (vehicle == null) {
                 car[j].GetComponent<scr_VehicleHandler>().CalculateSteering(tmp_CarInfo.heading, tmp_CarInfo.speed, timer);
-                car[j].GetComponent<scr_VehicleHandler>().BrakeLightSwitch(tmp_CarInfo.brakestate);
+                car[j].GetComponent<scr_VehicleHandler>().BrakeLightSwitch(tmp_CarInfo.brake);
             } else {
                 VehicleState state = vehicle.GetVehicleState();
                 state.SetHeading(tmp_CarInfo.heading);
                 state.SetSpeed(tmp_CarInfo.speed);
                 state.SetTimer(timer);
-                state.SetIsBraking(tmp_CarInfo.brakestate);
+                state.SetIsBraking(tmp_CarInfo.brake);
 
                 vehicle.UpdateState();
             }
