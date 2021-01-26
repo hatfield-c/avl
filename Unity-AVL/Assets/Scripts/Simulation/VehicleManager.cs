@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimulationManager : MonoBehaviour
+public class VehicleManager : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] protected scr_TCP tcpServer = null;
-
-    [Header("Space Offsets")]
-    [SerializeField] protected Vector2 positionOffset = new Vector2();
-
     [Header("Dev")]
     [SerializeField] protected List<string> carNameList = new List<string>();
 
@@ -19,42 +13,17 @@ public class SimulationManager : MonoBehaviour
     protected VehicleState stateBuffer = null;
     protected GameObject objectBuffer = null;
     protected Vector3 vector3Buffer = new Vector3();
+    protected Vector2 positionOffset = new Vector2();
 
-    void Start() {
+    public void Init(Vector2 positionOffset) {
+        this.positionOffset = positionOffset;
 
         foreach (string carName in this.carNameList) {
             this.activeVehicles.Add(carName, GameObject.Find(carName).GetComponent<VehicleBase>());
         }
     }
 
-    void FixedUpdate() {
-
-        string msg = this.tcpServer.RxMsg();
-        this.ProcessMessage(msg);
-    }
-
-    public void ProcessMessage(string message) {
-        if (message == null) {
-            return;
-        }
-
-        string[] messageComponents = message.Split(scr_TCP.MSG_DELIM);
-
-        if(messageComponents[0] != scr_TCP.TO_UNITY) {
-            return;
-        }
-
-        switch (messageComponents[1]) {
-            case scr_TCP.UNITY_UPDT_CAR:
-                this.UpdateCars(messageComponents[2]);
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    protected void UpdateCars(string rawData) {
+    public void UpdateCars(string rawData) {
         string[] dataPerVehicle = rawData.Split(scr_TCP.DATA_DELIM);
 
         for (int i = 0; i < dataPerVehicle.Length; i++) {
