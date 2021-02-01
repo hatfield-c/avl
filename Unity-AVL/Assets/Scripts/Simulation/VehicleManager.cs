@@ -1,11 +1,17 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class VehicleManager : MonoBehaviour
 {
-    [Header("Dev")]
-    [SerializeField] protected List<string> carNameList = new List<string>();
+    [Header("References")]
+    [SerializeField] protected GameObject vehicleContainer = null;
+    [SerializeField] protected VehicleFactory factory = null;
+    [SerializeField] protected Warehouse warehouse = null;
+
+    [Header("Parameters")]
+    [SerializeField] protected VehicleManifest vehicleManifest = new VehicleManifest();
 
     protected Dictionary<string, VehicleBase> activeVehicles = new Dictionary<string, VehicleBase>();
 
@@ -18,9 +24,9 @@ public class VehicleManager : MonoBehaviour
     public void Init(Vector2 positionOffset) {
         this.positionOffset = positionOffset;
 
-        foreach (string carName in this.carNameList) {
-            this.activeVehicles.Add(carName, GameObject.Find(carName).GetComponent<VehicleBase>());
-        }
+        List<VehicleBase> vehicleList = this.factory.CreateAllVehicles(this.vehicleManifest);
+        List<IStorable> storableList = vehicleList.Cast<IStorable>().ToList();
+        this.warehouse.InitFromList(storableList);
     }
 
     public void UpdateCars(string rawData) {
