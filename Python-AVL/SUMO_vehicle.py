@@ -28,6 +28,8 @@ class SumoObject(object):
 
             self.__CalculateCenter() #self.PosX_Center, self.PosY_Center (center, meters)
 
+            self.vehicleClass = traci.vehicle.getVehicleClass(self.ID)
+
         except:
             print("Error creating container for SUMO vehicle: ", self.ID)
 
@@ -85,6 +87,23 @@ class SumoObject(object):
             self.SizeClass = 13 #Large car
 
 
+    def jsonDeleteData(self):
+        data = {}
+
+        data["vehicleId"] = self.ID
+
+        return json.dumps(data)
+
+    def jsonInitData(self):
+        data = {}
+
+        data["vehicleId"] = self.ID
+        data["sizeClass"] = self.SizeClass
+        data["vehicleClass"] = self.vehicleClass
+        data["colorHex"] = '#%02x%02x%02x' % self.Color[0:3]
+
+        return json.dumps(data)
+
     def jsonUpdateData(self):
         data = {}
 
@@ -94,14 +113,5 @@ class SumoObject(object):
         data["position"] = [self.PosX_Center, self.PosY_Center]
         data["brake"] = self.StBrakePedal
         data["currentEdge"] = self.Edge
-
-        return json.dumps(data)
-
-    def jsonInitData(self):
-        data = {}
-
-        data["vehicleId"] = self.ID
-        data["sizeClass"] = self.SizeClass
-        data["colorHex"] = '#%02x%02x%02x' % self.Color[0:3]
 
         return json.dumps(data)

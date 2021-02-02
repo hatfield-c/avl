@@ -5,7 +5,7 @@ import traci
 import traceback
 
 import SumoManager
-import TCP_server
+import TcpServer
 import TcpCommands
 import Cli
 
@@ -28,14 +28,14 @@ class AvlApplication:
         Cli.printHeading3("TCP Server")
         print("Initializing TCP server...")
 
-        self.server = TCP_server.TCP_Server(self.serverIP, self.serverPort)
+        self.server = TcpServer.TcpServer(self.serverIP, self.serverPort, 60)
 
         Cli.printLine(1, "TCP server initialized!")
 
         print("Starting TCP server...")
         Cli.printLine(1, "Attempting to open TCP server at [" + str(self.server.IP) + ":" + str(self.server.port) + "]...")
 
-        self.server.StartServer()
+        self.server.startServer()
 
         Cli.printLine(2, "TCP server opened!")
         Cli.printLine(1, "TCP server started!")
@@ -54,13 +54,27 @@ class AvlApplication:
 
             self.sumoManager.stepSumo()
 
-            msg = self.encodeData(
+            deleteMessage = self.buildMessage(
+                TcpCommands.DST_UNITY, 
+                TcpCommands.UNITY_DELT_CAR,
+                self.sumoManager.encodeVehicleDeleteData()
+            )
+
+            initMessage = self.buildMessage(
+                TcpCommands.DST_UNITY, 
+                TcpCommands.UNITY_INIT_CAR, 
+                self.sumoManager.encodeVehicleInitData()
+            )
+
+            updateMessage = self.buildMessage(
                 TcpCommands.DST_UNITY, 
                 TcpCommands.UNITY_UPDT_CAR, 
                 self.sumoManager.encodeVehicleUpdateData()
-            )
+            )       
 
-            self.server.UnityClient.send(msg.encode())
+            self.server.sendMessage(deleteMessage)
+            self.server.sendMessage(initMessage)
+            self.server.sendMessage(updateMessage)
                     
             TiStamp2 = time.time() - TiStamp1
             if TiStamp2 > deltaT:
@@ -68,13 +82,16 @@ class AvlApplication:
             else:
                 time.sleep(deltaT-TiStamp2)
 
-    def encodeData(
+    def buildMessage(
         self,
         destinationCode,
         commandCode,
         data
     ):
-        return destinationCode + TcpCommands.MSG_DELIM + commandCode + TcpCommands.MSG_DELIM + data
+        if data is None:
+            return None
+
+        return destinationCode + TcpCommands.MSG_DELIM + commandCode + TcpCommands.MSG_DELIM + data + "\n"
 
 IP = 'localhost'
 port = 4042

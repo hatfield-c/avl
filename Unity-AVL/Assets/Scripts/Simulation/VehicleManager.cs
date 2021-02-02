@@ -15,11 +15,10 @@ public class VehicleManager : MonoBehaviour
 
     protected Dictionary<string, VehicleBase> activeVehicles = new Dictionary<string, VehicleBase>();
 
-    protected VehicleBase vehicleBuffer = null;
-    protected VehicleUpdateData updateBuffer = null;
-    protected VehicleState stateBuffer = null;
-    protected Vector3 vector3Buffer = new Vector3();
     protected Vector2 positionOffset = new Vector2();
+    protected const string UPDATE_ERR_MSG = "[Vehicle Manager:Update Error]";
+    protected const string DELETE_ERR_MSG = "[Vehicle Manager:Delete Error]";
+    protected const string INIT_ERR_MSG = "[Vehicle Manager:Init Error]";
 
     public void Init(Vector2 positionOffset) {
         this.positionOffset = positionOffset;
@@ -32,37 +31,137 @@ public class VehicleManager : MonoBehaviour
     public void UpdateCars(string rawData) {
         string[] dataPerVehicle = rawData.Split(scr_TCP.DATA_DELIM);
 
+        VehicleUpdateData updateData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
-            this.updateBuffer = JsonUtility.FromJson<VehicleUpdateData>(dataPerVehicle[i]);
+            updateData = JsonUtility.FromJson<VehicleUpdateData>(dataPerVehicle[i]);
 
-            if (this.updateBuffer.vehicleId == null) {
-                Debug.LogError("Vehicle data received from SUMO which lacks a proper vehicle ID.");
+            if (updateData.vehicleId == null) {
+                this.LogError(
+                    VehicleManager.UPDATE_ERR_MSG,
+                    "Vehicle ID received from SUMO is null"
+                );
                 continue;
             }
 
-            if (!this.activeVehicles.ContainsKey(this.updateBuffer.vehicleId)) {
-
-                Debug.LogError("Vehicle ID [" + this.updateBuffer.vehicleId + "] was not found in the dictionary of active vehicles.");
+            if (!this.activeVehicles.ContainsKey(updateData.vehicleId)) {
+                this.LogError(
+                        VehicleManager.UPDATE_ERR_MSG,
+                        "Vehicle ID '" + 
+                        updateData.vehicleId +
+                        "' was not found in the dictionary of active vehicles."
+                );
                 continue;
-
             }
 
-            this.vehicleBuffer = this.activeVehicles[this.updateBuffer.vehicleId];
+            updateData.position[0] += this.positionOffset.x;
+            updateData.position[1] += this.positionOffset.y;
 
-            this.vector3Buffer = this.vehicleBuffer.transform.position;
-            this.vector3Buffer.x = (float)(this.updateBuffer.position[0] + this.positionOffset.x);
-            this.vector3Buffer.z = (float)(this.updateBuffer.position[1] + this.positionOffset.y);
-
-            this.vehicleBuffer.transform.position = this.vector3Buffer;
-            this.vehicleBuffer.transform.rotation = Quaternion.AngleAxis(this.updateBuffer.heading, Vector3.up);
-
-            this.stateBuffer = this.vehicleBuffer.GetVehicleState();
-            this.stateBuffer.SetHeading(this.updateBuffer.heading);
-            this.stateBuffer.SetSpeed(this.updateBuffer.speed);
-            this.stateBuffer.SetTimer(Time.fixedDeltaTime);
-            this.stateBuffer.SetIsBraking(this.updateBuffer.brake);
-
-            this.vehicleBuffer.UpdateState();
+            VehicleBase vehicle = this.activeVehicles[updateData.vehicleId];
+            vehicle.UpdateState(updateData);
         }
+    }
+
+    public void InitCars(string rawData) {
+        string[] dataPerVehicle = rawData.Split(scr_TCP.DATA_DELIM);
+        
+        VehicleInitData initData;
+        for (int i = 0; i < dataPerVehicle.Length; i++) {
+            initData = JsonUtility.FromJson<VehicleInitData>(dataPerVehicle[i]);
+
+            if (initData.vehicleId == null) {
+                this.LogError(
+                    VehicleManager.INIT_ERR_MSG,
+                    "Vehicle ID received from SUMO is null."
+                );
+                continue;
+            }
+
+            initData.vehicleType = this.DetermineType(initData.vehicleClass);
+
+            if (!this.warehouse.HasItem(initData.vehicleType.ToString())) {
+                this.LogError(
+                    VehicleManager.INIT_ERR_MSG,
+                    "Fatal error! The maximum number of vehicles of type '" +
+                    initData.vehicleType.ToString() +
+                    "' has been reached. Please increase the maximum allowable number for this vehicle type, " +
+                    "or decrease the number needed for the simulation."
+                );
+
+                TcpServer.KillClient();
+            }
+
+            VehicleBase vehicle = (VehicleBase)this.warehouse.FetchItem(initData.vehicleType.ToString());
+            vehicle.Init(initData);
+            vehicle.transform.parent = this.vehicleContainer.transform;
+
+
+            if (this.activeVehicles.ContainsKey(initData.vehicleId)) {
+                this.LogError(
+                    VehicleManager.INIT_ERR_MSG,
+                    "Fatal error! Trying to init vehicle with ID '" +
+                    initData.vehicleId +
+                    "', but a vehicle with this ID already exists in the simulation!"
+                );
+
+                TcpServer.KillClient();
+            }
+
+            this.activeVehicles.Add(initData.vehicleId, vehicle);
+        }
+    }
+
+    public void DeleteCars(string rawData) {
+        string[] dataPerVehicle = rawData.Split(scr_TCP.DATA_DELIM);
+
+        VehicleDeleteData deleteData;
+        for (int i = 0; i < dataPerVehicle.Length; i++) {
+            deleteData = JsonUtility.FromJson<VehicleDeleteData>(dataPerVehicle[i]);
+
+            if (deleteData.vehicleId == null) {
+                this.LogError(
+                    VehicleManager.DELETE_ERR_MSG,
+                    "Vehicle ID received from SUMO is null"
+                );
+                continue;
+            }
+
+            if (!this.activeVehicles.ContainsKey(deleteData.vehicleId)) {
+                this.LogError(
+                        VehicleManager.DELETE_ERR_MSG,
+                        "Vehicle ID '" +
+                        deleteData.vehicleId +
+                        "' was not found in the dictionary of active vehicles."
+                );
+                continue;
+            }
+
+            VehicleBase vehicle = this.activeVehicles[deleteData.vehicleId];
+            this.activeVehicles.Remove(deleteData.vehicleId);
+
+            vehicle.Disable();
+            this.warehouse.StockItem((IStorable)vehicle);
+        }
+    }
+
+    protected VehicleFactory.VehicleTypes DetermineType(string vehicleClass) {
+        VehicleFactory.VehicleTypes vehicleType;
+
+        switch (vehicleClass) {
+            case "passenger":
+                vehicleType = VehicleFactory.VehicleTypes.Car;
+                break;
+            case "trailer":
+                vehicleType = VehicleFactory.VehicleTypes.Trailer;
+                break;
+            default:
+                vehicleType = VehicleFactory.VehicleTypes.None;
+                break;
+        }
+
+        return vehicleType;
+    }
+
+    protected void LogError(string type, string msg) {
+        Debug.LogError(type + ": " + msg);
     }
 }

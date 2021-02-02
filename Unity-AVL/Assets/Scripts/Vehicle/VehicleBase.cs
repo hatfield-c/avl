@@ -19,7 +19,16 @@ public class VehicleBase : MonoBehaviour, IStorable
     protected VehicleState vehicleState = new VehicleState();
     protected AVehiclePrefab prefab = null;
 
-    public void UpdateState() {
+    public void Init(VehicleInitData initData) {
+        this.name = initData.vehicleId;
+        this.vehicleState.Init(initData);
+
+        this.prefab.Init(this.vehicleState);
+        this.Enable();
+    }
+
+    public void UpdateState(VehicleUpdateData updateData) {
+        this.vehicleState.Update(updateData, this.transform);
         this.prefab.UpdateState(this.vehicleState);
     }
 
@@ -27,19 +36,15 @@ public class VehicleBase : MonoBehaviour, IStorable
         return this.vehicleState;
     }
 
-    public void Init(VehicleInitData initData) {
-        AVehiclePrefab prefabBlueprint = this.vehicleRepo.GetVehiclePrefab(this.defaultPrefabIndex);
+    public void BuildCar(VehicleFactory.VehicleTypes vehicleType) {
+        this.vehicleType = vehicleType;
+
+        AVehiclePrefab prefabBlueprint = this.vehicleRepo.GetRandomPrefab();
 
         this.prefab = Instantiate(prefabBlueprint, this.transform.position, this.transform.rotation, this.transform);
 
         VehiclePhysicsParams physicsParams = this.prefab.GetPhysicsParams();
         physicsParams.InitRigidbody(this.rb);
-
-        this.prefab.Init(initData);
-    }
-
-    public void SetType(VehicleFactory.VehicleTypes vehicleType) {
-        this.vehicleType = vehicleType;
     }
 
     public GameObject GetMyGameObject() {
@@ -55,12 +60,12 @@ public class VehicleBase : MonoBehaviour, IStorable
     }
 
     public void Disable() {
+        this.name = this.vehicleType.ToString() + "_UNUSED";
+        this.vehicleState.Reset();
         this.gameObject.SetActive(false);
     }
 
-    void Start() {
-        VehicleInitData data = new VehicleInitData();
-        data.colorHex = "#080000";
-        this.Init(data);
+    public string GetId() {
+        return this.vehicleState.GetId();
     }
 }

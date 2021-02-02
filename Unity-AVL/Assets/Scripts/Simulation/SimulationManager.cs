@@ -5,20 +5,28 @@ using UnityEngine;
 public class SimulationManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] protected scr_TCP tcpServer = null;
     [SerializeField] protected VehicleManager vehicleManager = null;
 
-    [Header("Space Offsets")]
+    [Header("Parameters")]
+    [SerializeField] protected TcpServer tcpServer = new TcpServer();
     [SerializeField] protected Vector2 positionOffset = new Vector2();
+
+    protected string messageBuffer = "";
 
     void Awake() {
         this.vehicleManager.Init(this.positionOffset);
+        this.tcpServer.StartClient();
     }
 
     void FixedUpdate() {
+        while (this.tcpServer.HasMessages()) {
+            this.messageBuffer = tcpServer.GetMessage();
+            this.ProcessMessage(this.messageBuffer);
+        }
+    }
 
-        string msg = this.tcpServer.RxMsg();
-        this.ProcessMessage(msg);
+    void OnDestroy() {
+        TcpServer.KillClient();
     }
 
     public void ProcessMessage(string message) {
@@ -26,14 +34,20 @@ public class SimulationManager : MonoBehaviour
             return;
         }
 
-        string[] messageComponents = message.Split(scr_TCP.MSG_DELIM);
+        string[] messageComponents = message.Split(TcpServer.MSG_DELIM);
 
-        if(messageComponents[0] != scr_TCP.TO_UNITY) {
+        if(messageComponents[0] != TcpServer.TO_UNITY) {
             return;
         }
 
         switch (messageComponents[1]) {
-            case scr_TCP.UNITY_UPDT_CAR:
+            case TcpServer.UNITY_DELT_CAR:
+                this.vehicleManager.DeleteCars(messageComponents[2]);
+                break;
+            case TcpServer.UNITY_INIT_CAR:
+                this.vehicleManager.InitCars(messageComponents[2]);
+                break;
+            case TcpServer.UNITY_UPDT_CAR:
                 this.vehicleManager.UpdateCars(messageComponents[2]);
                 break;
             default:
@@ -42,5 +56,4 @@ public class SimulationManager : MonoBehaviour
 
     }
 
- 
 }

@@ -30,8 +30,8 @@ public class SovietPrefab : AVehiclePrefab
 
     protected Texture2D generatedTexture = null;
 
-    public override void Init(VehicleInitData initData) {
-        this.InitCarTexture(initData.colorHex);
+    public override void Init(VehicleState vehicleState) {
+        this.InitCarTexture(vehicleState.GetColor());
     }
 
     public override void UpdateState(VehicleState state) {
@@ -50,10 +50,7 @@ public class SovietPrefab : AVehiclePrefab
         return this.wheelData;
     }
 
-    protected void InitCarTexture(string colorHex) {
-        Color color;
-        ColorUtility.TryParseHtmlString(colorHex, out color);
-
+    protected void InitCarTexture(Color color) {
         this.generatedTexture = new Texture2D(this.textureData.carTexture.width, this.textureData.carTexture.height);
         Graphics.CopyTexture(this.textureData.carTexture, this.generatedTexture);
 

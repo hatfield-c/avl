@@ -39,6 +39,7 @@ public class Warehouse : MonoBehaviour
 
         item.GetMyGameObject().transform.parent = this.transform;
         item.GetMyGameObject().transform.position = this.transform.position;
+        item.GetMyGameObject().transform.rotation = this.transform.rotation;
         this.Shelves[item.GetArchetype()].Add(item);
     }
 

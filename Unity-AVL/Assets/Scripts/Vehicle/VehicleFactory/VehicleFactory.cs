@@ -36,7 +36,8 @@ public class VehicleFactory : MonoBehaviour
             this.transform
         );
         VehicleBase vehicle = vehicleObject.GetComponent<VehicleBase>();
-        vehicle.SetType(vehicleType);
+        vehicle.BuildCar(vehicleType);
+        vehicle.Disable();
 
         return vehicle;
     }
