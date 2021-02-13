@@ -53,28 +53,7 @@ class AvlApplication:
             TiStamp1 = time.time()
 
             self.sumoManager.stepSumo()
-
-            deleteMessage = self.buildMessage(
-                TcpCommands.DST_UNITY, 
-                TcpCommands.UNITY_DELT_CAR,
-                self.sumoManager.encodeVehicleDeleteData()
-            )
-
-            initMessage = self.buildMessage(
-                TcpCommands.DST_UNITY, 
-                TcpCommands.UNITY_INIT_CAR, 
-                self.sumoManager.encodeVehicleInitData()
-            )
-
-            updateMessage = self.buildMessage(
-                TcpCommands.DST_UNITY, 
-                TcpCommands.UNITY_UPDT_CAR, 
-                self.sumoManager.encodeVehicleUpdateData()
-            )       
-
-            self.server.sendMessage(deleteMessage)
-            self.server.sendMessage(initMessage)
-            self.server.sendMessage(updateMessage)
+            self.sumoManager.sendStateToUnity(self.server)
                     
             TiStamp2 = time.time() - TiStamp1
             if TiStamp2 > deltaT:

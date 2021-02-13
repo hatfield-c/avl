@@ -4,6 +4,8 @@ import sys
 import SUMO_vehicle
 import Cli
 import TcpCommands
+import TerrainManager
+import VehicleManager
 
 class SumoManager:
     def __init__(self, sumoBinaryPath, networkPath):
@@ -20,94 +22,36 @@ class SumoManager:
         sumoCmd = [ self.sumoBinaryPath, "-c", self.networkPath, "--start" ]
         traci.start(sumoCmd)
 
-        self.edges = self.buildRoadNetwork()
-        
-        self.deleteVehicles = {}
-        self.initVehicles = {}
-        self.activeVehicles = {}
-        
-    def buildRoadNetwork(self):
-        edgeIds = traci.lane.getIDList()
+        self.vehicleManager = VehicleManager.VehicleManager()
+        self.terrainManager = TerrainManager.TerrainManager()
 
-        edges = {}
-        for id in edgeIds:
-            edges[id] = traci.lane.getShape(id)
+        self.junctions = self.terrainManager.getJunctions()
 
     def stepSumo(self):
 
         traci.simulationStep() 
+        self.vehicleManager.update()
 
-        activeIds = traci.vehicle.getIDList()
 
-        self.buildDeleteList(activeIds)
-        self.buildInitList(activeIds)
+    def sendStateToUnity(self, server):
+            deleteMessage = server.CompileMessage(
+                TcpCommands.DST_UNITY, 
+                TcpCommands.UNITY_DELT_CAR,
+                self.vehicleManager.encodeVehicleDeleteData()
+            )
 
-        for vehicleKey in self.activeVehicles:
-            self.activeVehicles[vehicleKey].UpdateVehicle()
+            initMessage = server.CompileMessage(
+                TcpCommands.DST_UNITY, 
+                TcpCommands.UNITY_INIT_CAR, 
+                self.vehicleManager.encodeVehicleInitData()
+            )
 
-    def buildDeleteList(self, activeIds):
-        for vehicleKey in self.activeVehicles:
-            if(vehicleKey not in activeIds):
-                self.deleteVehicles[vehicleKey] = self.activeVehicles.pop(vehicleKey)
+            updateMessage = server.CompileMessage(
+                TcpCommands.DST_UNITY, 
+                TcpCommands.UNITY_UPDT_CAR, 
+                self.vehicleManager.encodeVehicleUpdateData()
+            )       
 
-    def buildInitList(self, activeIds):
-        for vehicleId in activeIds:
-            if(vehicleId not in list(self.activeVehicles.keys())):
-                newVehicle = SUMO_vehicle.SumoObject(vehicleId)
-                self.initVehicles[vehicleId] = newVehicle
-                self.activeVehicles[vehicleId] = newVehicle
-
-    def popDeleteList(self):
-        deleteList = self.deleteVehicles
-        self.deleteVehicles = {}
-
-        return deleteList
-
-    def popInitList(self):
-        initList = self.initVehicles
-        self.initVehicles = {}
-
-        return initList
-
-    def encodeVehicleDeleteData(self):
-        if len(self.deleteVehicles) < 1:
-            return None
-
-        deleteVehicles = self.popDeleteList()
-
-        vehicleData = ""
-
-        for vehicleId in deleteVehicles:
-            vehicleData += deleteVehicles[vehicleId].jsonDeleteData() + TcpCommands.DATA_DELIM
-            
-        vehicleData = vehicleData[ : -len(TcpCommands.DATA_DELIM)]
-
-        return vehicleData     
-
-    def encodeVehicleInitData(self):
-        if len(self.initVehicles) < 1:
-            return None
-
-        initVehicles = self.popInitList()
-
-        vehicleData = ""
-
-        for vehicleId in initVehicles:
-            vehicleData += initVehicles[vehicleId].jsonInitData() + TcpCommands.DATA_DELIM
-            
-        vehicleData = vehicleData[ : -len(TcpCommands.DATA_DELIM)]
-
-        return vehicleData     
-
-    def encodeVehicleUpdateData(self):
-        if len(self.activeVehicles) < 1:
-            return None
-
-        vehicleData = ""
-
-        for vehicleId in self.activeVehicles:
-            vehicleData += self.activeVehicles[vehicleId].jsonUpdateData() + TcpCommands.DATA_DELIM
-            
-        vehicleData = vehicleData[ : -len(TcpCommands.DATA_DELIM)]
-
-        return vehicleData        
+            server.sendMessage(deleteMessage)
+            server.sendMessage(initMessage)
+            server.sendMessage(updateMessage)

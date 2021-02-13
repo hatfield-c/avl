@@ -109,3 +109,14 @@ class TcpServer:
 
     def closeSocket(self):
         self.serverSocket.close()
+
+    @staticmethod
+    def CompileMessage(
+        destinationCode,
+        commandCode,
+        data
+    ):
+        if data is None:
+            return None
+
+        return destinationCode + TcpCommands.MSG_DELIM + commandCode + TcpCommands.MSG_DELIM + data + "\n"

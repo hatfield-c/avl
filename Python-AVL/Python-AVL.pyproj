@@ -33,6 +33,12 @@
     <Compile Include="Cli.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MemoryProtector.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SumoJunction.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TcpCommands.py">
       <SubType>Code</SubType>
     </Compile>
