@@ -44,6 +44,11 @@ class AvlApplication:
     def main(self):
 
         Cli.printHeading3("Simulation")
+        print("Initializing Unity...")
+        self.sumoManager.initUnity(self.server)
+
+        Cli.printLine(1, "Ready to simulate in Unity!")
+
         print("Begin simulation.")
 
         deltaT = 0.02

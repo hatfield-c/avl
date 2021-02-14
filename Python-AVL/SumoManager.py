@@ -25,13 +25,22 @@ class SumoManager:
         self.vehicleManager = VehicleManager.VehicleManager()
         self.terrainManager = TerrainManager.TerrainManager()
 
-        self.junctions = self.terrainManager.getJunctions()
-
     def stepSumo(self):
 
         traci.simulationStep() 
         self.vehicleManager.update()
 
+    def initUnity(self, server):
+        Cli.printLine(1, "Building terrain...")
+
+        terrainMessage = server.CompileMessage(
+            TcpCommands.DST_UNITY,
+            TcpCommands.UNITY_INIT_JUNC,
+            self.terrainManager.encodeJunctionData()
+        )
+        server.sendMessage(terrainMessage)
+
+        Cli.printLine(2, "Terrain created!")
 
     def sendStateToUnity(self, server):
             deleteMessage = server.CompileMessage(
