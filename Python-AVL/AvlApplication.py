@@ -8,32 +8,28 @@ import SumoManager
 import TcpServer
 import TcpCommands
 import Cli
-
-from queue import Queue
+import Config
 
 class AvlApplication:
-    def __init__(self, ip, port, sumoBinaryPath, networkPath):
+    def __init__(self):
 
         Cli.printHeading3("SUMO")
         print("Starting SUMO...")
 
-        self.sumoManager = SumoManager.SumoManager(sumoBinaryPath, networkPath)
+        self.sumoManager = SumoManager.SumoManager()
 
         Cli.printLine(1, "SUMO is running!")
         print("SUMO has been initialized successfully.")
 
-        self.serverIP = ip
-        self.serverPort = port
-
         Cli.printHeading3("TCP Server")
         print("Initializing TCP server...")
 
-        self.server = TcpServer.TcpServer(self.serverIP, self.serverPort, 60)
+        self.server = TcpServer.TcpServer(timeout = 60)
 
         Cli.printLine(1, "TCP server initialized!")
 
         print("Starting TCP server...")
-        Cli.printLine(1, "Attempting to open TCP server at [" + str(self.server.IP) + ":" + str(self.server.port) + "]...")
+        Cli.printLine(1, "Attempting to open TCP server at [" + Config.TCP_IP_ADDR + ":" + Config.TCP_PORT + "]...")
 
         self.server.startServer()
 
@@ -77,17 +73,14 @@ class AvlApplication:
 
         return destinationCode + TcpCommands.MSG_DELIM + commandCode + TcpCommands.MSG_DELIM + data + "\n"
 
-IP = 'localhost'
-port = 4042
-sumoBinaryPath = "C:/Sumo/bin/sumo-gui"
-networkPath = "../SUMO_Networks/Rectangle/Network_01.sumocfg"
+
 
 Cli.printHeading1("UTD Autonomous Vehicle Lab (AVL)")
 
 print("Welcome! The application will now initialize.")
 
 try:
-    avl = AvlApplication(IP, port, sumoBinaryPath, networkPath)
+    avl = AvlApplication()
     avl.main()
 
     Cli.printHeading2("Exit Application")

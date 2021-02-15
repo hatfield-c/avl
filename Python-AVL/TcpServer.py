@@ -4,18 +4,20 @@ import socket
 
 import Cli
 import TcpCommands
+import Config
 
 class TcpServer:
-    def __init__(self, IP, port, timeout):
-        self.IP = IP
-        self.port = port
+    def __init__(self, timeout):
         self.timeout = timeout
         self.connectionCount = 1
 
         self.serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.serverSocket.setblocking(False)
 
-        socketAddress = (self.IP, self.port)
+        socketAddress = (
+            Config.TCP_IP_ADDR, 
+            int(Config.TCP_PORT)
+        )
         self.serverSocket.bind(socketAddress)
 
         self.unityClient = None
