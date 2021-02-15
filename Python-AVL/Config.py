@@ -1,4 +1,9 @@
 # ******************************************
+#       Project Config
+# ******************************************
+ROOT_PATH = "C:/Users/Cody/Documents/Academic/Projects/AV/avl/"
+
+# ******************************************
 #       TCP Server Config
 # ******************************************
 TCP_IP_ADDR = 'localhost'
