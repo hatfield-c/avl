@@ -401,14 +401,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleManager: {fileID: 1268741540}
+  terrainManager: {fileID: 1282949207}
   tcpServer:
     clientName: UNITY_3D_0
     serverPort: 4042
     ipAddress: localhost
     streamBufferSize: 8192
-    maxConnections: 1
+    readIntervalSeconds: 0.02
     timeoutSeconds: 5
-  positionOffset: {x: 250, y: 250}
+  positionOffset: {x: 0, y: 0}
 --- !u!4 &266686385
 Transform:
   m_ObjectHideFlags: 0
@@ -574,7 +575,7 @@ Transform:
   m_Children:
   - {fileID: 1374225364}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &604426439
 GameObject:
@@ -843,7 +844,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057945116}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 279, y: 0.1, z: 294.5}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 604426440}
@@ -1191,6 +1192,53 @@ MonoBehaviour:
       type: 3}
     maxCars: 10
     maxTrailers: 1
+--- !u!1 &1282949205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1282949206}
+  - component: {fileID: 1282949207}
+  m_Layer: 0
+  m_Name: TerrainManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1282949206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282949205}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1564592126}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1282949207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282949205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9c6c6d99154c147a2c5c9521a14cf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  junctionPrefab: {fileID: 7545400673150511325, guid: 3576027e134b4174dad6b4d6db8cc9d8,
+    type: 3}
+  roadPrefab: {fileID: 0}
+  junctionContainer: {fileID: 1977324426}
 --- !u!1 &1374225363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,8 +1311,9 @@ Transform:
   m_Children:
   - {fileID: 266686385}
   - {fileID: 1268741539}
+  - {fileID: 1282949206}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1570368983
 GameObject:
@@ -1374,7 +1423,7 @@ Transform:
   m_Children:
   - {fileID: 432423923}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1779512414
 GameObject:
@@ -1534,6 +1583,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955078800}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1977324426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1977324427}
+  m_Layer: 0
+  m_Name: JunctionContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1977324427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977324426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 282.94986, y: -2.916916, z: 291.62964}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2109902429
 GameObject:
   m_ObjectHideFlags: 0

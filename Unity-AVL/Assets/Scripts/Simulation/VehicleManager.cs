@@ -15,13 +15,11 @@ public class VehicleManager : MonoBehaviour
 
     protected Dictionary<string, VehicleBase> activeVehicles = new Dictionary<string, VehicleBase>();
 
-    protected Vector2 positionOffset = new Vector2();
     protected const string UPDATE_ERR_MSG = "[Vehicle Manager:Update Error]";
     protected const string DELETE_ERR_MSG = "[Vehicle Manager:Delete Error]";
     protected const string INIT_ERR_MSG = "[Vehicle Manager:Init Error]";
 
-    public void Init(Vector2 positionOffset) {
-        this.positionOffset = positionOffset;
+    public void Init() {
 
         List<VehicleBase> vehicleList = this.factory.CreateAllVehicles(this.vehicleManifest);
         List<IStorable> storableList = vehicleList.Cast<IStorable>().ToList();
@@ -29,7 +27,7 @@ public class VehicleManager : MonoBehaviour
     }
 
     public void UpdateCars(string rawData) {
-        string[] dataPerVehicle = rawData.Split(scr_TCP.DATA_DELIM);
+        string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
 
         VehicleUpdateData updateData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
@@ -53,16 +51,13 @@ public class VehicleManager : MonoBehaviour
                 continue;
             }
 
-            updateData.position[0] += this.positionOffset.x;
-            updateData.position[1] += this.positionOffset.y;
-
             VehicleBase vehicle = this.activeVehicles[updateData.vehicleId];
             vehicle.UpdateState(updateData);
         }
     }
 
     public void InitCars(string rawData) {
-        string[] dataPerVehicle = rawData.Split(scr_TCP.DATA_DELIM);
+        string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
         
         VehicleInitData initData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
@@ -111,7 +106,7 @@ public class VehicleManager : MonoBehaviour
     }
 
     public void DeleteCars(string rawData) {
-        string[] dataPerVehicle = rawData.Split(scr_TCP.DATA_DELIM);
+        string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
 
         VehicleDeleteData deleteData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {

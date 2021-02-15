@@ -29,14 +29,29 @@
     <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.py" />
+    <Compile Include="AvlApplication.py" />
     <Compile Include="Cli.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Config.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MemoryProtector.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="playground.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SumoEdge.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SumoJunction.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VehicleManager.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TerrainManager.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TcpCommands.py">

@@ -16,6 +16,9 @@ public class TcpServer
     public const string UNITY_INIT_CAR = "UNITY_INIT_CAR";
     public const string UNITY_UPDT_CAR = "UNITY_UPDT_CAR";
 
+    public const string UNITY_INIT_JUNC = "UNITY_INIT_JUNC";
+    public const string UNITY_INIT_EDGE = "UNITY_INIT_EDGE";
+
     public const string TO_UNITY = "TO_UNITY";
     public const string TO_SUMO = "TO_SUMO";
 

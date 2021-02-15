@@ -6,15 +6,15 @@ public class SimulationManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected VehicleManager vehicleManager = null;
+    [SerializeField] protected TerrainManager terrainManager = null;
 
     [Header("Parameters")]
     [SerializeField] protected TcpServer tcpServer = new TcpServer();
-    [SerializeField] protected Vector2 positionOffset = new Vector2();
 
     protected string messageBuffer = "";
 
     void Awake() {
-        this.vehicleManager.Init(this.positionOffset);
+        this.vehicleManager.Init();
         this.tcpServer.StartClient();
     }
 
@@ -36,19 +36,29 @@ public class SimulationManager : MonoBehaviour
 
         string[] messageComponents = message.Split(TcpServer.MSG_DELIM);
 
-        if(messageComponents[0] != TcpServer.TO_UNITY) {
+        string destination = messageComponents[0];
+        string command = messageComponents[1];
+        string rawData = messageComponents[2];
+
+        if (destination != TcpServer.TO_UNITY) {
             return;
         }
 
-        switch (messageComponents[1]) {
+        switch (command) {
             case TcpServer.UNITY_DELT_CAR:
-                this.vehicleManager.DeleteCars(messageComponents[2]);
+                this.vehicleManager.DeleteCars(rawData);
                 break;
             case TcpServer.UNITY_INIT_CAR:
-                this.vehicleManager.InitCars(messageComponents[2]);
+                this.vehicleManager.InitCars(rawData);
                 break;
             case TcpServer.UNITY_UPDT_CAR:
-                this.vehicleManager.UpdateCars(messageComponents[2]);
+                this.vehicleManager.UpdateCars(rawData);
+                break;
+            case TcpServer.UNITY_INIT_JUNC:
+                this.terrainManager.CreateJunctions(rawData);
+                break;
+            case TcpServer.UNITY_INIT_EDGE:
+                this.terrainManager.CreateEdges(rawData);
                 break;
             default:
                 break;
