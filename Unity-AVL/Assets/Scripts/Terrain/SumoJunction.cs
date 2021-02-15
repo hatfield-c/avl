@@ -25,6 +25,13 @@ public class SumoJunction : MonoBehaviour
             );
 
             this.shape.Add(vertex);
+
+            if (initData.showShape) {
+                GameObject pillar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                pillar.transform.position = vertex;
+                pillar.transform.localScale = new Vector3(0.3f, 5f, 0.3f);
+                pillar.transform.parent = this.transform;
+            }
         }
 
     }
