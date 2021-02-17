@@ -16,6 +16,10 @@ public class TerrainManager : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] protected Material asphaltMaterial = null;
+    [SerializeField] protected Material lineMaterial = null;
+    [SerializeField] protected float lineLength = 2f;
+    [SerializeField] protected float lineSpacing = 1f;
+    [SerializeField] protected float linethickness = 0.15f;
 
     protected Dictionary<string, SumoJunction> junctionRepo = new Dictionary<string, SumoJunction>();
     protected Dictionary<string, SumoEdge> edgeRepo = new Dictionary<string, SumoEdge>();
@@ -81,7 +85,11 @@ public class TerrainManager : MonoBehaviour
             SumoEdge edge = edgeObject.GetComponent<SumoEdge>();
 
             initData.material = this.asphaltMaterial;
+            initData.lineMaterial = this.lineMaterial;
             initData.thickness = this.thickness;
+            initData.lineLength = this.lineLength;
+            initData.lineSpacing = this.lineSpacing;
+            initData.lineThickness = this.linethickness;
 
             edge.Init(initData, this.junctionRepo);
             edge.transform.parent = this.edgeContainer.transform;

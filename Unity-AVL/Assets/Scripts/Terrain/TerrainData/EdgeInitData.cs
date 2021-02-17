@@ -13,5 +13,9 @@ public class EdgeInitData
     public float width;
 
     public Material material;
+    public Material lineMaterial;
     public float thickness;
+    public float lineThickness;
+    public float lineLength;
+    public float lineSpacing;
 }
