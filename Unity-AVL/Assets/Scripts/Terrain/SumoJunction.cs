@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class SumoJunction : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] protected MeshRenderer meshRenderer = null;
+    [SerializeField] protected MeshFilter meshFilter = null;
+
     protected string junctionId = null;
     protected List<Vector2> shape = new List<Vector2>();
     protected List<Vector2> polygon = new List<Vector2>();
 
     protected Vector2 position = new Vector2();
 
-    protected MeshRenderer meshRenderer = null;
-    protected MeshFilter meshFilter = null;
-
-
     public void Init(JunctionInitData initData) {
-        this.meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
         this.meshRenderer.material = initData.material;
-
-        this.meshFilter = this.gameObject.GetComponent<MeshFilter>();
 
         this.gameObject.name = "Junction_ID: " + initData.junctionId;
 

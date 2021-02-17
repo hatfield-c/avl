@@ -32,7 +32,10 @@ class TerrainManager:
             eId = eObject.getID()
 
             edges[eId] = SumoEdge.SumoEdge(
-                eId,
+                ID = eId,
+                length = eObject.getLength(),
+                numLanes = len(eObject.getLanes()),
+                laneWidth = eObject.getLanes()[0].getWidth(),
                 toJunction = eObject.getToNode().getID(),
                 fromJunction = eObject.getFromNode().getID()
             )

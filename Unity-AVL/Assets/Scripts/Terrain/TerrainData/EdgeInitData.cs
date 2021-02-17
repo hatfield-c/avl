@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EdgeInitData : MonoBehaviour
+public class EdgeInitData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string edgeId;
+    public float length;
+    public int numLanes;
+    public float laneWidth;
+    public string toJunction;
+    public string fromJunction;
+    public float width;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Material material;
+    public float thickness;
 }

@@ -6,15 +6,19 @@ using Newtonsoft.Json;
 public class TerrainManager : MonoBehaviour
 {
     [Header("Edges")]
-    
     [SerializeField] protected GameObject edgePrefab = null;
+    [SerializeField] protected GameObject edgeContainer = null;
+    [SerializeField] protected float thickness = 0.1f;
 
     [Header("Junctions")]
     [SerializeField] protected GameObject junctionPrefab = null;
     [SerializeField] protected GameObject junctionContainer = null;
-    [SerializeField] protected Material junctionMaterial = null;
+
+    [Header("Parameters")]
+    [SerializeField] protected Material asphaltMaterial = null;
 
     protected Dictionary<string, SumoJunction> junctionRepo = new Dictionary<string, SumoJunction>();
+    protected Dictionary<string, SumoEdge> edgeRepo = new Dictionary<string, SumoEdge>();
 
     protected const string JUNC_INIT_ERR_MSG = "[Terrain Manager: Junction Init Error]";
     protected const string EDGE_INIT_ERR_MSG = "[Terrain Manager: Edge Init Error]";
@@ -38,7 +42,7 @@ public class TerrainManager : MonoBehaviour
             GameObject junctionObject = Instantiate(this.junctionPrefab);
             SumoJunction junction = junctionObject.GetComponent<SumoJunction>();
 
-            initData.material = this.junctionMaterial;
+            initData.material = this.asphaltMaterial;
 
             junction.Init(initData);
             junction.transform.parent = this.junctionContainer.transform;
@@ -59,55 +63,42 @@ public class TerrainManager : MonoBehaviour
     }
 
     public void CreateEdges(string rawData) {
-        /*
         string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
 
-        VehicleInitData initData;
+        EdgeInitData initData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
-            initData = JsonUtility.FromJson<VehicleInitData>(dataPerVehicle[i]);
+            initData = JsonConvert.DeserializeObject<EdgeInitData>(dataPerVehicle[i]);
 
-            if (initData.vehicleId == null) {
+            if (initData.edgeId == null) {
                 this.LogError(
-                    VehicleManager.INIT_ERR_MSG,
-                    "Vehicle ID received from SUMO is null."
+                    TerrainManager.EDGE_INIT_ERR_MSG,
+                    "Edge ID received from SUMO is null."
                 );
                 continue;
             }
 
-            initData.vehicleType = this.DetermineType(initData.vehicleClass);
+            GameObject edgeObject = Instantiate(this.edgePrefab);
+            SumoEdge edge = edgeObject.GetComponent<SumoEdge>();
 
-            if (!this.warehouse.HasItem(initData.vehicleType.ToString())) {
+            initData.material = this.asphaltMaterial;
+            initData.thickness = this.thickness;
+
+            edge.Init(initData, this.junctionRepo);
+            edge.transform.parent = this.edgeContainer.transform;
+
+            if (this.edgeRepo.ContainsKey(initData.edgeId)) {
                 this.LogError(
-                    VehicleManager.INIT_ERR_MSG,
-                    "Fatal error! The maximum number of vehicles of type '" +
-                    initData.vehicleType.ToString() +
-                    "' has been reached. Please increase the maximum allowable number for this vehicle type, " +
-                    "or decrease the number needed for the simulation."
+                    TerrainManager.EDGE_INIT_ERR_MSG,
+                    "Fatal error! Trying to init edge with ID '" +
+                    initData.edgeId +
+                    "', but an edge with this ID already exists in the simulation!"
                 );
 
                 TcpServer.KillClient();
             }
 
-            VehicleBase vehicle = (VehicleBase)this.warehouse.FetchItem(initData.vehicleType.ToString());
-            vehicle.Init(initData);
-            vehicle.transform.parent = this.vehicleContainer.transform;
-
-
-            if (this.activeVehicles.ContainsKey(initData.vehicleId)) {
-                this.LogError(
-                    VehicleManager.INIT_ERR_MSG,
-                    "Fatal error! Trying to init vehicle with ID '" +
-                    initData.vehicleId +
-                    "', but a vehicle with this ID already exists in the simulation!"
-                );
-
-                TcpServer.KillClient();
-            }
-
-            this.activeVehicles.Add(initData.vehicleId, vehicle);
-        
+            this.edgeRepo.Add(initData.edgeId, edge);
         }
-        */
     }
 
     protected void LogError(string type, string msg) {
