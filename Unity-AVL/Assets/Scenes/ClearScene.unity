@@ -230,7 +230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &90089775
 Transform:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &175277564
 Transform:
   m_ObjectHideFlags: 0
@@ -409,7 +409,6 @@ MonoBehaviour:
     streamBufferSize: 8192
     readIntervalSeconds: 0.02
     timeoutSeconds: 5
-  positionOffset: {x: 0, y: 0}
 --- !u!4 &266686385
 Transform:
   m_ObjectHideFlags: 0
@@ -441,7 +440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &291043436
 Transform:
   m_ObjectHideFlags: 0
@@ -844,7 +843,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057945116}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 28.8, y: 0.1, z: 44.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 604426440}
@@ -1235,10 +1234,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9c6c6d99154c147a2c5c9521a14cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  edgePrefab: {fileID: 0}
   junctionPrefab: {fileID: 7545400673150511325, guid: 3576027e134b4174dad6b4d6db8cc9d8,
     type: 3}
-  roadPrefab: {fileID: 0}
   junctionContainer: {fileID: 1977324426}
+  junctionMaterial: {fileID: 2100000, guid: 3a6891f81428cf2448274de04f81fab6, type: 2}
+  showJunctionShape: 1
 --- !u!1 &1374225363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,7 +1522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1955078801
 Transform:
   m_ObjectHideFlags: 0

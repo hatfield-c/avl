@@ -5,15 +5,14 @@ using Newtonsoft.Json;
 
 public class TerrainManager : MonoBehaviour
 {
-    [Header("Prefabs")]
+    [Header("Edges")]
+    
+    [SerializeField] protected GameObject edgePrefab = null;
+
+    [Header("Junctions")]
     [SerializeField] protected GameObject junctionPrefab = null;
-    [SerializeField] protected GameObject roadPrefab = null;
-
-    [Header("References")]
     [SerializeField] protected GameObject junctionContainer = null;
-
-    [Header("DEBUG")]
-    [SerializeField] protected bool showJunctionShape = false;
+    [SerializeField] protected Material junctionMaterial = null;
 
     protected Dictionary<string, SumoJunction> junctionRepo = new Dictionary<string, SumoJunction>();
 
@@ -39,7 +38,7 @@ public class TerrainManager : MonoBehaviour
             GameObject junctionObject = Instantiate(this.junctionPrefab);
             SumoJunction junction = junctionObject.GetComponent<SumoJunction>();
 
-            initData.showShape = this.showJunctionShape;
+            initData.material = this.junctionMaterial;
 
             junction.Init(initData);
             junction.transform.parent = this.junctionContainer.transform;

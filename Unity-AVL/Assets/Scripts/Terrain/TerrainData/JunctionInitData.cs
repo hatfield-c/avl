@@ -7,5 +7,5 @@ public class JunctionInitData
     public string junctionId;
     public List<double> position;
     public List<List<double>> shape;
-    public bool showShape = false;
+    public Material material;
 }
