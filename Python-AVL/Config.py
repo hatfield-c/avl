@@ -2,6 +2,7 @@
 #       Project Config
 # ******************************************
 ROOT_PATH = "C:/Users/Cody/Documents/Academic/Projects/AV/avl/"
+VERSION = "0.0.1"
 
 # ******************************************
 #       TCP Server Config

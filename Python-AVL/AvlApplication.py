@@ -75,7 +75,7 @@ class AvlApplication:
 
 
 
-Cli.printHeading1("UTD Autonomous Vehicle Lab (AVL)")
+Cli.printHeading1("UTD Autonomous Vehicle Lab (AVL) v" + Config.VERSION)
 
 print("Welcome! The application will now initialize.")
 
