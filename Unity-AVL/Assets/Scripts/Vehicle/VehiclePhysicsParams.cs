@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class VehiclePhysicsParams
 {
+    [Header("Rigidbody Parameters")]
     [SerializeField] protected float mass = 1f;
     [SerializeField] protected float drag = 0f;
     [SerializeField] protected float angularDrag = 0.05f;

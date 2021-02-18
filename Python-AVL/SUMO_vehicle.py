@@ -101,6 +101,8 @@ class SumoObject(object):
         data["sizeClass"] = self.SizeClass
         data["vehicleClass"] = self.vehicleClass
         data["colorHex"] = '#%02x%02x%02x' % self.Color[0:3]
+        data["position"] = [self.PosX_Center, self.PosY_Center]
+        data["heading"] = self.Heading
 
         return json.dumps(data)
 

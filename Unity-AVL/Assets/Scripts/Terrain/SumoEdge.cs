@@ -46,6 +46,8 @@ public class SumoEdge : MonoBehaviour
 
             float forwardOffset = (initData.lineLength / 2) + (i * (initData.lineSpacing + initData.lineLength)) - (initData.length / 2);
             lineObject.transform.Translate(Vector3.forward * forwardOffset);
+
+            lineObject.transform.parent = this.transform;
         }
     }
 }

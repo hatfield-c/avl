@@ -51,6 +51,8 @@ public class VehicleManager : MonoBehaviour
                 continue;
             }
 
+            //updateData.heading = Mathf.Repeat(90 - updateData.heading, 360);
+
             VehicleBase vehicle = this.activeVehicles[updateData.vehicleId];
             vehicle.UpdateState(updateData);
         }

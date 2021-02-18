@@ -134,8 +134,8 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5650707928881793805}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_Material: {fileID: 13400000, guid: ddf679c1ee5ef1f47bb76e18cbb8c8e9, type: 2}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.5218441, y: 1.3146306, z: 3.8986573}
@@ -155,11 +155,13 @@ MonoBehaviour:
   physicsParams:
     mass: 1200
     drag: 0
-    angularDrag: 0.05
+    angularDrag: 0
     useGravity: 1
-    isKinematic: 0
+    isKinematic: 1
     interpolate: 0
     collisionMode: 0
+  colliders:
+  - {fileID: 5650707928881793811}
   textureData:
     carTexture: {fileID: 2800000, guid: 07abf9a0ebd1eb44e8b8ae46fabecbab, type: 3}
     pixelRedrawPos: {x: 0, y: 0}

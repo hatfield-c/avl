@@ -11,35 +11,71 @@ public class VehicleState
     protected bool isBraking;
     protected Color color;
 
+    protected bool active;
+    protected Rigidbody rb = null;
+    protected Transform transform = null;
+
     protected Vector3 vector3Buffer = new Vector3();
+
+    protected Quaternion previousOrientation = new Quaternion();
 
     public void Init(VehicleInitData initData) {
         this.vehicleId = initData.vehicleId;
+        this.active = true;
 
         Color color;
         ColorUtility.TryParseHtmlString(initData.colorHex, out color);
         this.color = color;
+
+        this.transform.position = new Vector3(
+            initData.position[0],
+            2,
+            initData.position[1]
+        );
+
+        this.transform.rotation = Quaternion.AngleAxis(initData.heading, Vector3.up);
+        
+        this.rb.velocity = Vector3.zero;
+        this.rb.angularVelocity = Vector3.zero;
     }
 
-    public void Update(VehicleUpdateData updateData, Transform vehicleTransform) {
-        this.vector3Buffer = vehicleTransform.position;
+    public void Update(VehicleUpdateData updateData, float yOffset) {
         this.vector3Buffer.x = (float)(updateData.position[0]);
+        this.vector3Buffer.y = yOffset;
         this.vector3Buffer.z = (float)(updateData.position[1]);
 
-        vehicleTransform.position = this.vector3Buffer;
-        vehicleTransform.rotation = Quaternion.AngleAxis(updateData.heading, Vector3.up);
 
         this.heading = updateData.heading;
         this.speed = updateData.speed;
-        this.timer = Time.fixedDeltaTime;
         this.isBraking = updateData.brake;
+
+        this.previousOrientation = this.transform.rotation;
+
+        this.rb.MovePosition(this.vector3Buffer);
+        this.rb.MoveRotation(Quaternion.AngleAxis(updateData.heading, Vector3.up));
+    }
+
+    public void Collision() {
+        if (!this.active) {
+            return;
+        }
+
+        this.active = false;
+
+        this.rb.velocity = this.transform.forward * this.speed;
+
+        Quaternion difference = this.transform.rotation * Quaternion.Inverse(this.previousOrientation);
+        Vector3 angles = difference.eulerAngles * Mathf.Deg2Rad;
+        angles /= Time.fixedDeltaTime;
+
+        this.rb.angularVelocity = angles;
     }
 
     public void Reset() {
         this.vehicleId = null;
         this.heading = 0;
         this.speed = 0;
-        this.timer = 0;
+        this.timer = Time.fixedDeltaTime;
         this.isBraking = false;
         this.color = Color.white;
     }
@@ -66,5 +102,13 @@ public class VehicleState
 
     public Color GetColor() {
         return this.color;
+    }
+
+    public void SetRigidbody(Rigidbody rb) {
+        this.rb = rb;
+    }
+
+    public void SetTransform(Transform transform) {
+        this.transform = transform;
     }
 }

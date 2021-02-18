@@ -5,13 +5,13 @@ using UnityEngine;
 public class VehicleBase : MonoBehaviour, IStorable
 {
 
-
     [Header("Init Data")]
     [SerializeField] protected AVehicleRepository vehicleRepo = null;
 
     [Header("Init Paramters")]
     [SerializeField] protected int defaultPrefabIndex = 0;
     [SerializeField] protected VehicleFactory.VehicleTypes vehicleType = VehicleFactory.VehicleTypes.None;
+    [SerializeField] protected float spawnHeight = 2f;
 
     [Header("Internal References")]
     [SerializeField] protected Rigidbody rb = null;
@@ -21,6 +21,9 @@ public class VehicleBase : MonoBehaviour, IStorable
 
     public void Init(VehicleInitData initData) {
         this.name = initData.vehicleId;
+
+        this.vehicleState.SetTransform(this.transform);
+        this.vehicleState.SetRigidbody(this.rb);
         this.vehicleState.Init(initData);
 
         this.prefab.Init(this.vehicleState);
@@ -28,7 +31,7 @@ public class VehicleBase : MonoBehaviour, IStorable
     }
 
     public void UpdateState(VehicleUpdateData updateData) {
-        this.vehicleState.Update(updateData, this.transform);
+        this.vehicleState.Update(updateData, this.spawnHeight);
         this.prefab.UpdateState(this.vehicleState);
     }
 
@@ -67,5 +70,13 @@ public class VehicleBase : MonoBehaviour, IStorable
 
     public string GetId() {
         return this.vehicleState.GetId();
+    }
+
+    void OnTriggerEnter(Collider other) {
+        //Debug.Log($"{this.gameObject.name}, {other.name}");
+
+        foreach(Collider collider in this.prefab.GetColliders()) {
+            //collider.isTrigger = false;
+        }
     }
 }
