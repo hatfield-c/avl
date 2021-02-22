@@ -13,11 +13,36 @@ public class VehicleManager : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] protected VehicleManifest vehicleManifest = new VehicleManifest();
 
-    protected Dictionary<string, VehicleBase> activeVehicles = new Dictionary<string, VehicleBase>();
+    protected Dictionary<string, VehicleBase> sumoVehicles = new Dictionary<string, VehicleBase>();
+    protected Dictionary<string, VehicleBase> egoVehicles = new Dictionary<string, VehicleBase>();
 
     protected const string UPDATE_ERR_MSG = "[Vehicle Manager:Update Error]";
     protected const string DELETE_ERR_MSG = "[Vehicle Manager:Delete Error]";
     protected const string INIT_ERR_MSG = "[Vehicle Manager:Init Error]";
+
+    public string EncodeEgoData() {
+        if(this.egoVehicles.Count < 1) {
+            return null;
+        }
+
+        string egoData = "";
+
+        string vehicleId;
+        VehicleBase vehicle;
+
+        foreach (KeyValuePair<string, VehicleBase> pair in this.egoVehicles) {
+            vehicleId = pair.Key;
+            vehicle = pair.Value;
+
+            string jsonData = vehicle.toJson();
+
+            egoData += jsonData + TcpProtocol.DATA_DELIM;
+        }
+
+        egoData = egoData.Substring(0, (egoData.Length - 1));
+
+        return egoData;
+    }
 
     public void Init() {
 
@@ -27,7 +52,7 @@ public class VehicleManager : MonoBehaviour
     }
 
     public void UpdateCars(string rawData) {
-        string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
+        string[] dataPerVehicle = rawData.Split(TcpProtocol.DATA_DELIM);
 
         VehicleUpdateData updateData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
@@ -41,7 +66,7 @@ public class VehicleManager : MonoBehaviour
                 continue;
             }
 
-            if (!this.activeVehicles.ContainsKey(updateData.vehicleId)) {
+            if (!this.sumoVehicles.ContainsKey(updateData.vehicleId)) {
                 this.LogError(
                         VehicleManager.UPDATE_ERR_MSG,
                         "Vehicle ID '" + 
@@ -51,15 +76,13 @@ public class VehicleManager : MonoBehaviour
                 continue;
             }
 
-            //updateData.heading = Mathf.Repeat(90 - updateData.heading, 360);
-
-            VehicleBase vehicle = this.activeVehicles[updateData.vehicleId];
+            VehicleBase vehicle = this.sumoVehicles[updateData.vehicleId];
             vehicle.UpdateState(updateData);
         }
     }
 
     public void InitCars(string rawData) {
-        string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
+        string[] dataPerVehicle = rawData.Split(TcpProtocol.DATA_DELIM);
         
         VehicleInitData initData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
@@ -84,7 +107,7 @@ public class VehicleManager : MonoBehaviour
                     "or decrease the number needed for the simulation."
                 );
 
-                TcpServer.KillClient();
+                UnityListener.StopListening();
             }
 
             VehicleBase vehicle = (VehicleBase)this.warehouse.FetchItem(initData.vehicleType.ToString());
@@ -92,7 +115,7 @@ public class VehicleManager : MonoBehaviour
             vehicle.transform.parent = this.vehicleContainer.transform;
 
 
-            if (this.activeVehicles.ContainsKey(initData.vehicleId)) {
+            if (this.sumoVehicles.ContainsKey(initData.vehicleId)) {
                 this.LogError(
                     VehicleManager.INIT_ERR_MSG,
                     "Fatal error! Trying to init vehicle with ID '" +
@@ -100,15 +123,15 @@ public class VehicleManager : MonoBehaviour
                     "', but a vehicle with this ID already exists in the simulation!"
                 );
 
-                TcpServer.KillClient();
+                UnityListener.StopListening();
             }
 
-            this.activeVehicles.Add(initData.vehicleId, vehicle);
+            this.sumoVehicles.Add(initData.vehicleId, vehicle);
         }
     }
 
     public void DeleteCars(string rawData) {
-        string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
+        string[] dataPerVehicle = rawData.Split(TcpProtocol.DATA_DELIM);
 
         VehicleDeleteData deleteData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
@@ -122,7 +145,7 @@ public class VehicleManager : MonoBehaviour
                 continue;
             }
 
-            if (!this.activeVehicles.ContainsKey(deleteData.vehicleId)) {
+            if (!this.sumoVehicles.ContainsKey(deleteData.vehicleId)) {
                 this.LogError(
                         VehicleManager.DELETE_ERR_MSG,
                         "Vehicle ID '" +
@@ -132,8 +155,8 @@ public class VehicleManager : MonoBehaviour
                 continue;
             }
 
-            VehicleBase vehicle = this.activeVehicles[deleteData.vehicleId];
-            this.activeVehicles.Remove(deleteData.vehicleId);
+            VehicleBase vehicle = this.sumoVehicles[deleteData.vehicleId];
+            this.sumoVehicles.Remove(deleteData.vehicleId);
 
             vehicle.Disable();
             this.warehouse.StockItem((IStorable)vehicle);

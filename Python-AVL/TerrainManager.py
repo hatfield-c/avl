@@ -1,6 +1,6 @@
 import traci
 
-import TcpCommands
+import TcpProtocol
 import SumoManager
 import SumoJunction
 import SumoEdge
@@ -49,9 +49,9 @@ class TerrainManager:
         junctionData = ""
 
         for jId in self.junctions:
-            junctionData += self.junctions[jId].jsonInitData() + TcpCommands.DATA_DELIM
+            junctionData += self.junctions[jId].jsonInitData() + TcpProtocol.DATA_DELIM
             
-        junctionData = junctionData[ : -len(TcpCommands.DATA_DELIM)]
+        junctionData = junctionData[ : -len(TcpProtocol.DATA_DELIM)]
 
         return junctionData     
 
@@ -63,8 +63,8 @@ class TerrainManager:
         edgeData = ""
 
         for eId in self.edges:
-            edgeData += self.edges[eId].jsonInitData() + TcpCommands.DATA_DELIM
+            edgeData += self.edges[eId].jsonInitData() + TcpProtocol.DATA_DELIM
             
-        edgeData = edgeData[ : -len(TcpCommands.DATA_DELIM)]
+        edgeData = edgeData[ : -len(TcpProtocol.DATA_DELIM)]
         
         return edgeData     

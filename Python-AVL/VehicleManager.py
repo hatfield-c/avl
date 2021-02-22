@@ -1,6 +1,6 @@
 import traci
 import SUMO_vehicle
-import TcpCommands
+import TcpProtocol
 
 class VehicleManager:
     def __init__(self):
@@ -29,6 +29,9 @@ class VehicleManager:
                 self.initVehicles[vehicleId] = newVehicle
                 self.activeVehicles[vehicleId] = newVehicle
 
+    def updateSumoVehicle(self, rawData):
+        print(rawData)
+
     def popDeleteList(self):
         deleteList = self.deleteVehicles
         self.deleteVehicles = {}
@@ -50,9 +53,9 @@ class VehicleManager:
         vehicleData = ""
 
         for vehicleId in deleteVehicles:
-            vehicleData += deleteVehicles[vehicleId].jsonDeleteData() + TcpCommands.DATA_DELIM
+            vehicleData += deleteVehicles[vehicleId].jsonDeleteData() + TcpProtocol.DATA_DELIM
             
-        vehicleData = vehicleData[ : -len(TcpCommands.DATA_DELIM)]
+        vehicleData = vehicleData[ : -len(TcpProtocol.DATA_DELIM)]
 
         return vehicleData     
 
@@ -65,9 +68,9 @@ class VehicleManager:
         vehicleData = ""
 
         for vehicleId in initVehicles:
-            vehicleData += initVehicles[vehicleId].jsonInitData() + TcpCommands.DATA_DELIM
+            vehicleData += initVehicles[vehicleId].jsonInitData() + TcpProtocol.DATA_DELIM
             
-        vehicleData = vehicleData[ : -len(TcpCommands.DATA_DELIM)]
+        vehicleData = vehicleData[ : -len(TcpProtocol.DATA_DELIM)]
 
         return vehicleData     
 
@@ -78,8 +81,8 @@ class VehicleManager:
         vehicleData = ""
 
         for vehicleId in self.activeVehicles:
-            vehicleData += self.activeVehicles[vehicleId].jsonUpdateData() + TcpCommands.DATA_DELIM
+            vehicleData += self.activeVehicles[vehicleId].jsonUpdateData() + TcpProtocol.DATA_DELIM
             
-        vehicleData = vehicleData[ : -len(TcpCommands.DATA_DELIM)]
+        vehicleData = vehicleData[ : -len(TcpProtocol.DATA_DELIM)]
 
         return vehicleData      

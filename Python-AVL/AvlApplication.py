@@ -5,74 +5,71 @@ import traci
 import traceback
 
 import SumoManager
-import TcpServer
-import TcpCommands
+
+import SumoServer
+import SumoListener
 import Cli
 import Config
 
 class AvlApplication:
+
     def __init__(self):
 
-        Cli.printHeading3("SUMO")
+        Cli.printHeading3("Initialization")
+
+        print("Initializing SUMO Listener...")
+        self.sumoListener = SumoListener.SumoListener(timeout = 60)
+        Cli.printLine(1, "SUMO Listener initialized!\n")
+        
+
+        print("Initializing SUMO Server...")
+        self.sumoServer = SumoServer.SumoServer(timeout = 60)
+        Cli.printLine(1, "SUMO Server initialized!\n")
+        
+
         print("Starting SUMO...")
+        self.sumoManager = SumoManager.SumoManager(self.sumoListener)        
+        Cli.printLine(1, "SUMO is running!\n")
 
-        self.sumoManager = SumoManager.SumoManager()
+        print("The application has been initialized successfully.")
 
-        Cli.printLine(1, "SUMO is running!")
-        print("SUMO has been initialized successfully.")
+        Cli.printHeading3("TCP Communication")
+        
+        print("Starting SUMO Server...")
+        Cli.printLine(1, "Waiting for Unity Listener at [" + Config.TCP_IP_ADDR + ":" + Config.TCP_PORT_TO_UNITY + "]...")
 
-        Cli.printHeading3("TCP Server")
-        print("Initializing TCP server...")
+        self.sumoServer.startServing()
 
-        self.server = TcpServer.TcpServer(timeout = 60)
+        Cli.printLine(2, "SUMO Server connected to Unity Listener!")
+        Cli.printLine(1, "SUMO Server started!")
+        print("SUMO Server is ready.\n")
 
-        Cli.printLine(1, "TCP server initialized!")
+        print("Starting SUMO Listener...")
+        Cli.printLine(1, "Waiting for Unity Server at [" + Config.TCP_IP_ADDR + ":" + Config.TCP_PORT_TO_SUMO + "]...")
 
-        print("Starting TCP server...")
-        Cli.printLine(1, "Attempting to open TCP server at [" + Config.TCP_IP_ADDR + ":" + Config.TCP_PORT + "]...")
+        self.sumoListener.startListening(self.sumoManager)
 
-        self.server.startServer()
-
-        Cli.printLine(2, "TCP server opened!")
-        Cli.printLine(1, "TCP server started!")
-        print("TCP server is ready.")
+        Cli.printLine(2, "SUMO Listener connected to Unity Server!")
+        Cli.printLine(1, "SUMO Listener started!")
+        print("SUMO Listener is ready.")
 
     def main(self):
 
         Cli.printHeading3("Simulation")
         print("Initializing Unity...")
-        self.sumoManager.initUnity(self.server)
+        self.sumoManager.initUnity(self.sumoServer)
 
         Cli.printLine(1, "Ready to simulate in Unity!")
 
         print("Begin simulation.")
 
-        deltaT = 0.02
-
         while True:
 
-            TiStamp1 = time.time()
-
             self.sumoManager.stepSumo()
-            self.sumoManager.sendStateToUnity(self.server)
+            self.sumoManager.processUnityMessages(self.sumoListener)
+            self.sumoManager.sendStateToUnity(self.sumoServer)
                     
-            TiStamp2 = time.time() - TiStamp1
-            if TiStamp2 > deltaT:
-                pass
-            else:
-                time.sleep(deltaT-TiStamp2)
-
-    def buildMessage(
-        self,
-        destinationCode,
-        commandCode,
-        data
-    ):
-        if data is None:
-            return None
-
-        return destinationCode + TcpCommands.MSG_DELIM + commandCode + TcpCommands.MSG_DELIM + data + "\n"
-
+            time.sleep(Config.DELTA_TIME)
 
 
 Cli.printHeading1("UTD Autonomous Vehicle Lab (AVL) v" + Config.VERSION)
@@ -85,14 +82,27 @@ try:
 
     Cli.printHeading2("Exit Application")
     print("Exited normally.")
+
 except KeyboardInterrupt:
     Cli.printHeading2("Exit Application")
     print("Exited via keyboard interrupt.")
+
+except SystemExit:
+    Cli.printHeading2("Exit Application")
+    print("Auto-exited due to an application error.")
+
 except traci.exceptions.FatalTraCIError as traciException:
     Cli.printHeading2("Exit Application")
     print("SUMO is no longer connected. Cause: ")
     Cli.printLine(1, traciException)
+
 except:
     Cli.printHeading2("Exit Application")
     print("Uncaught exception!\n")
+    traceback.print_exception(*sys.exc_info())
+
+try:
+    SumoListener.SumoListener.StopListening()
+except:
+    print("Exception occured while stopping the Listener Thread.\n")
     traceback.print_exception(*sys.exc_info())

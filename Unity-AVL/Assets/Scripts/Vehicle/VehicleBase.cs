@@ -72,6 +72,40 @@ public class VehicleBase : MonoBehaviour, IStorable
         return this.vehicleState.GetId();
     }
 
+    public string toJson() {
+        /*def jsonUpdateData(self):
+        data = { }
+
+        data["vehicleId"] = self.ID
+        data["speed"] = self.Velocity
+        data["heading"] = self.Heading
+        data["position"] = [self.PosX_Center, self.PosY_Center]
+        data["brake"] = self.StBrakePedal
+        data["currentEdge"] = self.Edge
+
+        return json.dumps(data)*/
+
+        //public string vehicleId;
+        //public float speed;
+        //public float heading;
+        //public List<float> position;
+        //public bool brake;
+        //public string currentEdge;
+
+        VehicleUpdateData data = new VehicleUpdateData();
+        data.vehicleId = this.name;
+        
+        data.position = new List<float>();
+        data.position.Add(this.transform.position.x);
+        data.position.Add(this.transform.position.z);
+
+        data.speed = this.rb.velocity.magnitude;
+        data.brake = false;
+
+
+        return JsonUtility.ToJson(data);
+    }
+
     void OnTriggerEnter(Collider other) {
         //Debug.Log($"{this.gameObject.name}, {other.name}");
 

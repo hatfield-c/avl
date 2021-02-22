@@ -39,6 +39,9 @@
     <Compile Include="MemoryProtector.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SumoListener.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="playground.py">
       <SubType>Code</SubType>
     </Compile>
@@ -54,14 +57,17 @@
     <Compile Include="TerrainManager.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TcpCommands.py">
+    <Compile Include="TcpProtocol.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SumoManager.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SUMO_vehicle.py" />
-    <Compile Include="TcpServer.py" />
+    <Compile Include="SumoServer.py" />
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

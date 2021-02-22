@@ -5,7 +5,7 @@ import sys
 
 import SUMO_vehicle
 import Cli
-import TcpCommands
+import TcpProtocol
 import Config
 import TerrainManager
 import VehicleManager
@@ -14,7 +14,7 @@ class SumoManager:
 
     Network = None
 
-    def __init__(self):
+    def __init__(self, sumoListener):
 
         if 'SUMO_HOME' in os.environ:
             tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -30,8 +30,12 @@ class SumoManager:
         self.vehicleManager = VehicleManager.VehicleManager()
         self.terrainManager = TerrainManager.TerrainManager()
 
-    def stepSumo(self):
+        self.commands = {
+            TcpProtocol.SUMO_INIT_LISTENER: sumoListener.ConnectionSuccess,
+            TcpProtocol.SUMO_UPDT_CAR: self.vehicleManager.updateSumoVehicle
+        }
 
+    def stepSumo(self):
         traci.simulationStep() 
         self.vehicleManager.update()
 
@@ -39,15 +43,15 @@ class SumoManager:
         Cli.printLine(1, "Building terrain...")
 
         junctionMessage = server.CompileMessage(
-            TcpCommands.DST_UNITY,
-            TcpCommands.UNITY_INIT_JUNC,
+            TcpProtocol.DST_UNITY,
+            TcpProtocol.UNITY_INIT_JUNC,
             self.terrainManager.encodeJunctionData()
         )
         server.sendMessage(junctionMessage)
         
         edgeMessage = server.CompileMessage(
-            TcpCommands.DST_UNITY,
-            TcpCommands.UNITY_INIT_EDGE,
+            TcpProtocol.DST_UNITY,
+            TcpProtocol.UNITY_INIT_EDGE,
             self.terrainManager.encodeEdgeData()
         )
         server.sendMessage(edgeMessage)
@@ -55,24 +59,64 @@ class SumoManager:
         Cli.printLine(2, "Terrain created!")
 
     def sendStateToUnity(self, server):
+
         deleteMessage = server.CompileMessage(
-            TcpCommands.DST_UNITY, 
-            TcpCommands.UNITY_DELT_CAR,
+            TcpProtocol.DST_UNITY, 
+            TcpProtocol.UNITY_DELT_CAR,
             self.vehicleManager.encodeVehicleDeleteData()
         )
 
         initMessage = server.CompileMessage(
-            TcpCommands.DST_UNITY, 
-            TcpCommands.UNITY_INIT_CAR, 
+            TcpProtocol.DST_UNITY, 
+            TcpProtocol.UNITY_INIT_CAR, 
             self.vehicleManager.encodeVehicleInitData()
         )
 
         updateMessage = server.CompileMessage(
-            TcpCommands.DST_UNITY, 
-            TcpCommands.UNITY_UPDT_CAR, 
+            TcpProtocol.DST_UNITY, 
+            TcpProtocol.UNITY_UPDT_CAR, 
             self.vehicleManager.encodeVehicleUpdateData()
         )       
 
         server.sendMessage(deleteMessage)
         server.sendMessage(initMessage)
         server.sendMessage(updateMessage)
+
+    def processUnityMessages(self, listener):
+
+        while listener.messageQueue.qsize() > 0:
+            message = listener.messageQueue.get(False)
+
+            self.processMessage(message)
+
+    def processMessage(self, message):
+        messageParts = self.decodeMessage(message)
+
+        if messageParts["destination"] != TcpProtocol.DST_SUMO:
+            print("\n[ERROR]: A message was delivered to SUMO that was not addressed to SUMO, and will now be discarded. Message contents:")
+            print(message)
+            return
+
+        command = messageParts["command"]
+
+        if command not in self.commands:
+            print("\n[ERROR]: A message was delivered to SUMO that had an unfamiliar command, and will now be discarded. Message contents:")
+            print(message)
+            return
+
+        action = self.commands[command]
+        rawData = messageParts["data"]
+            
+        action(rawData)
+
+    def decodeMessage(self, rawString):
+        messageParts = {}
+
+        parts = rawString.split(TcpProtocol.MSG_DELIM)
+        
+        messageParts["destination"] = parts[0]
+        messageParts["command"] = parts[1]
+        messageParts["data"] = parts[2]
+
+        return messageParts
+        

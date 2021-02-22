@@ -29,7 +29,7 @@ public class TerrainManager : MonoBehaviour
 
     public void CreateJunctions(string rawData) {
 
-        string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
+        string[] dataPerVehicle = rawData.Split(TcpProtocol.DATA_DELIM);
 
         JunctionInitData initData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
@@ -59,7 +59,7 @@ public class TerrainManager : MonoBehaviour
                     "', but a junction with this ID already exists in the simulation!"
                 );
 
-                TcpServer.KillClient();
+                UnityListener.StopListening();
             }
 
             this.junctionRepo.Add(initData.junctionId, junction);
@@ -67,7 +67,7 @@ public class TerrainManager : MonoBehaviour
     }
 
     public void CreateEdges(string rawData) {
-        string[] dataPerVehicle = rawData.Split(TcpServer.DATA_DELIM);
+        string[] dataPerVehicle = rawData.Split(TcpProtocol.DATA_DELIM);
 
         EdgeInitData initData;
         for (int i = 0; i < dataPerVehicle.Length; i++) {
@@ -102,7 +102,7 @@ public class TerrainManager : MonoBehaviour
                     "', but an edge with this ID already exists in the simulation!"
                 );
 
-                TcpServer.KillClient();
+                UnityListener.StopListening();
             }
 
             this.edgeRepo.Add(initData.edgeId, edge);

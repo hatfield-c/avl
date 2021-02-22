@@ -16,6 +16,7 @@ UNITY_UPDT_CAR = "UNITY_UPDT_CAR"
 UNITY_INIT_JUNC = "UNITY_INIT_JUNC"
 UNITY_INIT_EDGE = "UNITY_INIT_EDGE"
 
+SUMO_INIT_LISTENER = "SUMO_INIT_LISTENER"
 SUMO_UPDT_CAR = "SUMO_UPDT_CAR"
 
 # ******************************************
@@ -23,3 +24,4 @@ SUMO_UPDT_CAR = "SUMO_UPDT_CAR"
 # ******************************************
 DATA_DELIM = "|"
 MSG_DELIM = "$"
+END_OF_MSG = "\n"
