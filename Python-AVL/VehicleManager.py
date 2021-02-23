@@ -48,6 +48,7 @@ class VehicleManager:
                 routeID = ""
             )
             traci.vehicle.setSpeedMode(vehicleId, 0)
+            traci.vehicle.setSpeed(vehID = vehicleId, speed = 0)
 
             self.egoVehicles[vehicleId] = SUMO_vehicle.SumoObject(vehicleId)
 
@@ -66,9 +67,10 @@ class VehicleManager:
             y = vehicleData["position"][1]
             heading = vehicleData["heading"]
 
+            traci.vehicle.setSpeed(vehID = vehicleId, speed = 0)
             traci.vehicle.moveToXY(
                 vehID = vehicleId,
-                edgeID = "",
+                edgeID = "EGO_EDGE",
                 lane = -1,
                 x = x,
                 y = y,

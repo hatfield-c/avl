@@ -85,6 +85,7 @@ public class VehicleBase : MonoBehaviour, IStorable
         data.speed = this.rb.velocity.magnitude;
         data.brake = false;
 
+        data.heading = this.transform.eulerAngles.y;
 
         return JsonUtility.ToJson(data);
     }
@@ -94,7 +95,9 @@ public class VehicleBase : MonoBehaviour, IStorable
 
         data.vehicleId = this.name;
         data.colorHex = ColorUtility.ToHtmlStringRGB(this.color);
+
         data.heading = this.transform.eulerAngles.y;
+
         data.vehicleClass = VehicleManager.DetermineVehicleClass(this.vehicleType);
 
         data.position = new List<float>();
