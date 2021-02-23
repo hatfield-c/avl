@@ -5,7 +5,6 @@ using UnityEngine;
 public class VehicleInitData
 {
     public string vehicleId;
-    public int sizeClass;
     public string colorHex;
     public string vehicleClass;
     public List<float> position;

@@ -112,17 +112,6 @@ class SumoListener:
                 Cli.printLine(3, "[ERROR] Error occured while trying to receive client name.")
                 exit()
 
-    def decodeClientName(self, message):
-        messagePieces = message.split(TcpProtocol.MSG_DELIM)
-
-        if len(messagePieces) != 2:
-            return None
-
-        if messagePieces[0] != TcpProtocol.CONNECTION_INIT_UNITY:
-            return None
-
-        return messagePieces[1]
-
     @staticmethod
     def ConnectionSuccess(message):
         data = json.loads(message)

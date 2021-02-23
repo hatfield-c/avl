@@ -32,7 +32,8 @@ class SumoManager:
 
         self.commands = {
             TcpProtocol.SUMO_INIT_LISTENER: sumoListener.ConnectionSuccess,
-            TcpProtocol.SUMO_UPDT_CAR: self.vehicleManager.updateSumoVehicle
+            TcpProtocol.SUMO_UPDT_EGO: self.vehicleManager.updateSumoVehicle,
+            TcpProtocol.SUMO_INIT_EGO: self.vehicleManager.initSumoVehicle
         }
 
     def stepSumo(self):
@@ -106,7 +107,7 @@ class SumoManager:
 
         action = self.commands[command]
         rawData = messageParts["data"]
-            
+        
         action(rawData)
 
     def decodeMessage(self, rawString):

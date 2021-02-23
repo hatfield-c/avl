@@ -12,6 +12,7 @@ public class VehicleManager : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] protected VehicleManifest vehicleManifest = new VehicleManifest();
+    [SerializeField] protected List<VehicleBase> egoVehicleList = new List<VehicleBase>();
 
     protected Dictionary<string, VehicleBase> sumoVehicles = new Dictionary<string, VehicleBase>();
     protected Dictionary<string, VehicleBase> egoVehicles = new Dictionary<string, VehicleBase>();
@@ -20,7 +21,31 @@ public class VehicleManager : MonoBehaviour
     protected const string DELETE_ERR_MSG = "[Vehicle Manager:Delete Error]";
     protected const string INIT_ERR_MSG = "[Vehicle Manager:Init Error]";
 
-    public string EncodeEgoData() {
+    public string EncodeInitData() {
+        if (this.egoVehicles.Count < 1) {
+            return null;
+        }
+
+        string egoData = "";
+
+        string vehicleId;
+        VehicleBase vehicle;
+
+        foreach (KeyValuePair<string, VehicleBase> pair in this.egoVehicles) {
+            vehicleId = pair.Key;
+            vehicle = pair.Value;
+
+            string jsonData = vehicle.GetInitJson();
+
+            egoData += jsonData + TcpProtocol.DATA_DELIM;
+        }
+
+        egoData = egoData.Substring(0, (egoData.Length - 1));
+
+        return egoData;
+    }
+
+    public string EncodeUpdateData() {
         if(this.egoVehicles.Count < 1) {
             return null;
         }
@@ -34,21 +59,39 @@ public class VehicleManager : MonoBehaviour
             vehicleId = pair.Key;
             vehicle = pair.Value;
 
-            string jsonData = vehicle.toJson();
+            string jsonData = vehicle.GetUpdateJson();
 
             egoData += jsonData + TcpProtocol.DATA_DELIM;
         }
 
         egoData = egoData.Substring(0, (egoData.Length - 1));
-
+        
         return egoData;
     }
 
     public void Init() {
-
         List<VehicleBase> vehicleList = this.factory.CreateAllVehicles(this.vehicleManifest);
         List<IStorable> storableList = vehicleList.Cast<IStorable>().ToList();
         this.warehouse.InitFromList(storableList);
+
+        foreach (VehicleBase egoVehicle in this.egoVehicleList) {
+            VehicleInitData dummyData = egoVehicle.BuildInitData();
+            egoVehicle.BuildCar(dummyData.vehicleType);
+            egoVehicle.Init(dummyData);
+
+            this.egoVehicles.Add(egoVehicle.GetId(), egoVehicle);
+        }
+    }
+
+    public string GetEgoInitMessage() {
+        string initData = this.EncodeInitData();
+        string initMessage = UnityServer.CompileMessage(
+            TcpProtocol.TO_SUMO,
+            TcpProtocol.SUMO_INIT_EGO,
+            initData
+        );
+
+        return initMessage;
     }
 
     public void UpdateCars(string rawData) {
@@ -96,7 +139,7 @@ public class VehicleManager : MonoBehaviour
                 continue;
             }
 
-            initData.vehicleType = this.DetermineType(initData.vehicleClass);
+            initData.vehicleType = VehicleManager.DetermineType(initData.vehicleClass);
 
             if (!this.warehouse.HasItem(initData.vehicleType.ToString())) {
                 this.LogError(
@@ -163,7 +206,7 @@ public class VehicleManager : MonoBehaviour
         }
     }
 
-    protected VehicleFactory.VehicleTypes DetermineType(string vehicleClass) {
+    public static VehicleFactory.VehicleTypes DetermineType(string vehicleClass) {
         VehicleFactory.VehicleTypes vehicleType;
 
         switch (vehicleClass) {
@@ -179,6 +222,27 @@ public class VehicleManager : MonoBehaviour
         }
 
         return vehicleType;
+    }
+
+    public static string DetermineVehicleClass(VehicleFactory.VehicleTypes vehicleType) {
+        string vehicleClass = "";
+
+        switch (vehicleType) {
+            case VehicleFactory.VehicleTypes.Car:
+                vehicleClass = "passenger";
+                break;
+            case VehicleFactory.VehicleTypes.Trailer:
+                vehicleClass = "trailer";
+                break;
+            case VehicleFactory.VehicleTypes.None:
+                vehicleClass = "custom1";
+                break;
+            default:
+                vehicleClass = null;
+                break;
+        }
+
+        return vehicleClass;
     }
 
     protected void LogError(string type, string msg) {

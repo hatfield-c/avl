@@ -13,6 +13,7 @@ public static class TcpProtocol {
     public const string UNITY_INIT_EDGE = "UNITY_INIT_EDGE";
 
     public const string SUMO_INIT_LISTENER = "SUMO_INIT_LISTENER";
+    public const string SUMO_INIT_EGO = "SUMO_INIT_EGO";
     public const string SUMO_UPDT_EGO = "SUMO_UPDT_EGO";
 
     public const string TO_UNITY = "TO_UNITY";

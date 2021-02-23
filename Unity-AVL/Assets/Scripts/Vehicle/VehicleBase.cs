@@ -12,6 +12,7 @@ public class VehicleBase : MonoBehaviour, IStorable
     [SerializeField] protected int defaultPrefabIndex = 0;
     [SerializeField] protected VehicleFactory.VehicleTypes vehicleType = VehicleFactory.VehicleTypes.None;
     [SerializeField] protected float spawnHeight = 2f;
+    [SerializeField] protected Color color = new Color();
 
     [Header("Internal References")]
     [SerializeField] protected Rigidbody rb = null;
@@ -72,25 +73,7 @@ public class VehicleBase : MonoBehaviour, IStorable
         return this.vehicleState.GetId();
     }
 
-    public string toJson() {
-        /*def jsonUpdateData(self):
-        data = { }
-
-        data["vehicleId"] = self.ID
-        data["speed"] = self.Velocity
-        data["heading"] = self.Heading
-        data["position"] = [self.PosX_Center, self.PosY_Center]
-        data["brake"] = self.StBrakePedal
-        data["currentEdge"] = self.Edge
-
-        return json.dumps(data)*/
-
-        //public string vehicleId;
-        //public float speed;
-        //public float heading;
-        //public List<float> position;
-        //public bool brake;
-        //public string currentEdge;
+    public string GetUpdateJson() {
 
         VehicleUpdateData data = new VehicleUpdateData();
         data.vehicleId = this.name;
@@ -102,6 +85,27 @@ public class VehicleBase : MonoBehaviour, IStorable
         data.speed = this.rb.velocity.magnitude;
         data.brake = false;
 
+
+        return JsonUtility.ToJson(data);
+    }
+
+    public VehicleInitData BuildInitData() {
+        VehicleInitData data = new VehicleInitData();
+
+        data.vehicleId = this.name;
+        data.colorHex = ColorUtility.ToHtmlStringRGB(this.color);
+        data.heading = this.transform.eulerAngles.y;
+        data.vehicleClass = VehicleManager.DetermineVehicleClass(this.vehicleType);
+
+        data.position = new List<float>();
+        data.position.Add(this.transform.position.x);
+        data.position.Add(this.transform.position.z);
+
+        return data;
+    }
+
+    public string GetInitJson() {
+        VehicleInitData data = this.BuildInitData();
 
         return JsonUtility.ToJson(data);
     }

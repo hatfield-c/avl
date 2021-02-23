@@ -41,7 +41,7 @@ public class UnityServer
 
         connectionTimer.Stop();
         
-        string initMessage = this.CompileMessage(
+        string initMessage = UnityServer.CompileMessage(
             TcpProtocol.TO_SUMO, 
             TcpProtocol.SUMO_INIT_LISTENER, 
             "{\"message\": \"CONNECTION SUCCESS!\"}"
@@ -53,7 +53,7 @@ public class UnityServer
         if (this.socketConnection == null) {
             UnityEngine.Debug.LogError("No server connection was found. SendMessage() aborted.");
         }
-
+        
         try {
             if (this.networkStream.CanWrite) {
                 byte[] encodedMessage = Encoding.ASCII.GetBytes(message);
@@ -68,7 +68,7 @@ public class UnityServer
 
     }
 
-    public string CompileMessage(string destination, string command, string data) {
+    public static string CompileMessage(string destination, string command, string data) {
         return  destination + TcpProtocol.MSG_DELIM + command + TcpProtocol.MSG_DELIM + data + "\n";
     }
 

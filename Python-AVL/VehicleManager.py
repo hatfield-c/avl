@@ -1,4 +1,5 @@
 import traci
+import json
 import SUMO_vehicle
 import TcpProtocol
 
@@ -7,30 +8,73 @@ class VehicleManager:
         self.deleteVehicles = {}
         self.initVehicles = {}
         self.activeVehicles = {}
+        self.egoVehicles = {}
 
     def update(self):
-        activeVehicles = traci.vehicle.getIDList()
+        activeIds = traci.vehicle.getIDList()
 
-        self.buildDeleteList(activeVehicles)
-        self.buildInitList(activeVehicles)
+        self.buildDeleteList(activeIds)
+        self.buildInitList(activeIds)
 
         for vehicleKey in self.activeVehicles:
             self.activeVehicles[vehicleKey].UpdateVehicle()
     
     def buildDeleteList(self, activeIds):
         for vehicleKey in self.activeVehicles:
-            if(vehicleKey not in activeIds):
+            if vehicleKey not in activeIds and vehicleKey not in self.egoVehicles:
                 self.deleteVehicles[vehicleKey] = self.activeVehicles.pop(vehicleKey)
 
     def buildInitList(self, activeIds):
         for vehicleId in activeIds:
-            if(vehicleId not in list(self.activeVehicles.keys())):
+            if vehicleId not in self.activeVehicles and vehicleId not in self.egoVehicles:
                 newVehicle = SUMO_vehicle.SumoObject(vehicleId)
                 self.initVehicles[vehicleId] = newVehicle
                 self.activeVehicles[vehicleId] = newVehicle
 
+    def initSumoVehicle(self, rawData):
+        rawInitDatum = rawData.split(TcpProtocol.DATA_DELIM)
+
+        for rawInitData in rawInitDatum:
+            initData = json.loads(rawInitData)
+
+            vehicleId = initData["vehicleId"]
+            vehicleType = initData["vehicleType"]
+            x = initData["position"][0]
+            y = initData["position"][1]
+            heading = initData["heading"]
+
+            traci.vehicle.add(
+                vehID = vehicleId,
+                routeID = ""
+            )
+            traci.vehicle.setSpeedMode(vehicleId, 0)
+
+            self.egoVehicles[vehicleId] = SUMO_vehicle.SumoObject(vehicleId)
+
+            if vehicleId in self.activeVehicles:
+                self.activeVehicles.pop(vehicleId)
+
+
     def updateSumoVehicle(self, rawData):
-        print(rawData)
+        rawVehicleDatum = rawData.split(TcpProtocol.DATA_DELIM)
+
+        for rawVehicleData in rawVehicleDatum:
+            vehicleData = json.loads(rawVehicleData)
+
+            vehicleId = vehicleData["vehicleId"]
+            x = vehicleData["position"][0]
+            y = vehicleData["position"][1]
+            heading = vehicleData["heading"]
+
+            traci.vehicle.moveToXY(
+                vehID = vehicleId,
+                edgeID = "",
+                lane = -1,
+                x = x,
+                y = y,
+                angle = heading,
+                keepRoute = 2
+            )
 
     def popDeleteList(self):
         deleteList = self.deleteVehicles

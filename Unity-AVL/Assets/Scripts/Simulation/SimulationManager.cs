@@ -18,6 +18,9 @@ public class SimulationManager : MonoBehaviour
         this.vehicleManager.Init();
         this.unityListener.StartListening();
         this.unityServer.ConnectToSumoListener();
+
+        string egoInitMessage = this.vehicleManager.GetEgoInitMessage();
+        this.unityServer.SendMessage(egoInitMessage);
     }
 
     void FixedUpdate() {
@@ -26,13 +29,18 @@ public class SimulationManager : MonoBehaviour
             this.ProcessInboundMessage(this.messageBuffer);
         }
 
-        //string egoData = this.vehicleManager.EncodeEgoData();
-        //if(egoData == null) {
-        //    return;
-        //}
+        string egoData = this.vehicleManager.EncodeUpdateData();
 
-        //string outboundMessage = TcpServer.TO_SUMO + TcpServer.MSG_DELIM + TcpServer.SUMO_UPDT_EGO + TcpServer.MSG_DELIM + egoData;
+        if(egoData == null) {
+            return;
+        }
 
+        string outboundMessage = UnityServer.CompileMessage(
+            TcpProtocol.TO_SUMO, 
+            TcpProtocol.SUMO_UPDT_EGO, 
+            egoData
+        );
+        this.unityServer.SendMessage(outboundMessage);
     }
 
     void OnDestroy() {
