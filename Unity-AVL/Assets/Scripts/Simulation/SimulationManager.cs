@@ -20,6 +20,11 @@ public class SimulationManager : MonoBehaviour
         this.unityServer.ConnectToSumoListener();
 
         string egoInitMessage = this.vehicleManager.GetEgoInitMessage();
+
+        if(egoInitMessage == null) {
+            return;
+        }
+
         this.unityServer.SendMessage(egoInitMessage);
     }
 
@@ -30,7 +35,7 @@ public class SimulationManager : MonoBehaviour
         }
 
         string egoData = this.vehicleManager.EncodeUpdateData();
-
+        
         if(egoData == null) {
             return;
         }

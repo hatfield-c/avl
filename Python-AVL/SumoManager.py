@@ -87,7 +87,7 @@ class SumoManager:
 
         while listener.messageQueue.qsize() > 0:
             message = listener.messageQueue.get(False)
-
+            
             self.processMessage(message)
 
     def processMessage(self, message):

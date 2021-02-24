@@ -11,24 +11,33 @@ public class VehicleBase : MonoBehaviour, IStorable
     [Header("Init Paramters")]
     [SerializeField] protected int defaultPrefabIndex = 0;
     [SerializeField] protected VehicleFactory.VehicleTypes vehicleType = VehicleFactory.VehicleTypes.None;
-    [SerializeField] protected float spawnHeight = 2f;
+    [SerializeField] protected float spawnHeight = 1f;
+
+    [Header("Ego Parameters")]
     [SerializeField] protected Color color = new Color();
+    [SerializeField] protected float width = 1.8f;
+    [SerializeField] protected float length = 5f;
+    [SerializeField] protected float height = 1.5f;
 
     [Header("Internal References")]
     [SerializeField] protected Rigidbody rb = null;
 
     protected VehicleState vehicleState = new VehicleState();
+    
     protected AVehiclePrefab prefab = null;
 
     public void Init(VehicleInitData initData) {
-        this.name = initData.vehicleId;
+        this.Enable();
 
+        this.name = initData.vehicleId;
+        
         this.vehicleState.SetTransform(this.transform);
         this.vehicleState.SetRigidbody(this.rb);
         this.vehicleState.Init(initData);
 
         this.prefab.Init(this.vehicleState);
-        this.Enable();
+        this.ScaleVehicle(initData);
+
     }
 
     public void UpdateState(VehicleUpdateData updateData) {
@@ -66,7 +75,13 @@ public class VehicleBase : MonoBehaviour, IStorable
     public void Disable() {
         this.name = this.vehicleType.ToString() + "_UNUSED";
         this.vehicleState.Reset();
+
+        this.transform.localScale = Vector3.one;
+        this.prefab.transform.localScale = Vector3.one;
+
+        this.transform.position = Vector3.zero;
         this.gameObject.SetActive(false);
+
     }
 
     public string GetId() {
@@ -96,13 +111,11 @@ public class VehicleBase : MonoBehaviour, IStorable
         data.vehicleId = this.name;
         data.colorHex = ColorUtility.ToHtmlStringRGB(this.color);
 
-        data.heading = this.transform.eulerAngles.y;
-
+        data.length = this.length;
+        data.width = this.width;
+        data.height = this.height;
+        
         data.vehicleClass = VehicleManager.DetermineVehicleClass(this.vehicleType);
-
-        data.position = new List<float>();
-        data.position.Add(this.transform.position.x);
-        data.position.Add(this.transform.position.z);
 
         return data;
     }
@@ -111,6 +124,24 @@ public class VehicleBase : MonoBehaviour, IStorable
         VehicleInitData data = this.BuildInitData();
 
         return JsonUtility.ToJson(data);
+    }
+
+    protected void ScaleVehicle(VehicleInitData initData) {
+        float width = initData.width;
+        float length = initData.length;
+        float height = initData.height;
+
+        Bounds bounds = this.prefab.GetBoundingBox();
+
+        float widthScale = width / bounds.size.x;
+        float lengthScale = length /bounds.size.z;
+        float heightScale = height / bounds.size.y;
+
+        this.prefab.transform.localScale = new Vector3(
+            widthScale, 
+            heightScale, 
+            lengthScale
+        );
     }
 
     void OnTriggerEnter(Collider other) {

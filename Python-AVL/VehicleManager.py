@@ -39,9 +39,6 @@ class VehicleManager:
 
             vehicleId = initData["vehicleId"]
             vehicleType = initData["vehicleType"]
-            x = initData["position"][0]
-            y = initData["position"][1]
-            heading = initData["heading"]
 
             traci.vehicle.add(
                 vehID = vehicleId,
@@ -70,7 +67,7 @@ class VehicleManager:
             traci.vehicle.setSpeed(vehID = vehicleId, speed = 0)
             traci.vehicle.moveToXY(
                 vehID = vehicleId,
-                edgeID = "EGO_EDGE",
+                edgeID = "",
                 lane = -1,
                 x = x,
                 y = y,

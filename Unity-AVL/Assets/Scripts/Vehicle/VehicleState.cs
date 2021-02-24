@@ -26,14 +26,6 @@ public class VehicleState
         Color color;
         ColorUtility.TryParseHtmlString(initData.colorHex, out color);
         this.color = color;
-
-        this.transform.position = new Vector3(
-            initData.position[0],
-            2,
-            initData.position[1]
-        );
-
-        this.transform.rotation = Quaternion.AngleAxis(initData.heading, Vector3.up);
         
         this.rb.velocity = Vector3.zero;
         this.rb.angularVelocity = Vector3.zero;

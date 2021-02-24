@@ -7,7 +7,8 @@ public class VehicleInitData
     public string vehicleId;
     public string colorHex;
     public string vehicleClass;
-    public List<float> position;
-    public float heading;
+    public float width;
+    public float length;
+    public float height;
     public VehicleFactory.VehicleTypes vehicleType;
 }

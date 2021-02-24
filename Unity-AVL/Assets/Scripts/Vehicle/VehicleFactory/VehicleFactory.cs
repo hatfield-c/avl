@@ -31,11 +31,12 @@ public class VehicleFactory : MonoBehaviour
     public VehicleBase CreateVehicle(GameObject blueprint, VehicleTypes vehicleType) {
         GameObject vehicleObject = GameObject.Instantiate(
             blueprint, 
-            this.transform.position, this.
-            transform.rotation, 
+            this.transform.position, 
+            this.transform.rotation, 
             this.transform
         );
         VehicleBase vehicle = vehicleObject.GetComponent<VehicleBase>();
+
         vehicle.BuildCar(vehicleType);
         vehicle.Disable();
 

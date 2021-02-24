@@ -502,6 +502,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5650707928881793811, guid: 52c999d2c77011d4384f9812a4b69847,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.751204
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650707928881793811, guid: 52c999d2c77011d4384f9812a4b69847,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.5236018
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650707928881793811, guid: 52c999d2c77011d4384f9812a4b69847,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 4.3396425
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650707928881793811, guid: 52c999d2c77011d4384f9812a4b69847,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.26074612
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650707928881793811, guid: 52c999d2c77011d4384f9812a4b69847,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.015683293
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650707928881793811, guid: 52c999d2c77011d4384f9812a4b69847,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6204719316617296622, guid: 52c999d2c77011d4384f9812a4b69847,
         type: 3}
       propertyPath: wheels.Array.size

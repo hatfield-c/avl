@@ -8,11 +8,14 @@ class SumoObject(object):
         self.ID = str(SumoID)  # VehicleID
         try:
 
+            self.height = traci.vehicle.getHeight(self.ID)
+
             self.ObjType = traci.vehicle.getTypeID(self.ID)
             self.Route = traci.vehicle.getRouteID(self.ID)
             self.Edge = traci.vehicle.getRoadID(self.ID)
             self.Length = traci.vehicle.getLength(self.ID)
             self.Width = traci.vehicle.getWidth(self.ID)
+            
             self.__CalculateSizeClass() #Vehicle size category
             if traci.vehicle.getSignals(self.ID) & 8 == 8: #Bitmask - 8 for brake light
                 self.StBrakePedal = True
@@ -101,8 +104,9 @@ class SumoObject(object):
         data["sizeClass"] = self.SizeClass
         data["vehicleClass"] = self.vehicleClass
         data["colorHex"] = '#%02x%02x%02x' % self.Color[0:3]
-        data["position"] = [self.PosX_Center, self.PosY_Center]
-        data["heading"] = self.Heading
+        data["length"] = self.Length
+        data["width"] = self.Width
+        data["height"] = self.height
 
         return json.dumps(data)
 

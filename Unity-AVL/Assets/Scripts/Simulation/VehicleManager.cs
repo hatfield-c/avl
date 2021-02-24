@@ -21,6 +21,20 @@ public class VehicleManager : MonoBehaviour
     protected const string DELETE_ERR_MSG = "[Vehicle Manager:Delete Error]";
     protected const string INIT_ERR_MSG = "[Vehicle Manager:Init Error]";
 
+    public void Init() {
+        List<VehicleBase> vehicleList = this.factory.CreateAllVehicles(this.vehicleManifest);
+        List<IStorable> storableList = vehicleList.Cast<IStorable>().ToList();
+        this.warehouse.InitFromList(storableList);
+
+        foreach (VehicleBase egoVehicle in this.egoVehicleList) {
+            VehicleInitData dummyData = egoVehicle.BuildInitData();
+            egoVehicle.BuildCar(dummyData.vehicleType);
+            egoVehicle.Init(dummyData);
+
+            this.egoVehicles.Add(egoVehicle.GetId(), egoVehicle);
+        }
+    }
+
     public string EncodeInitData() {
         if (this.egoVehicles.Count < 1) {
             return null;
@@ -69,22 +83,13 @@ public class VehicleManager : MonoBehaviour
         return egoData;
     }
 
-    public void Init() {
-        List<VehicleBase> vehicleList = this.factory.CreateAllVehicles(this.vehicleManifest);
-        List<IStorable> storableList = vehicleList.Cast<IStorable>().ToList();
-        this.warehouse.InitFromList(storableList);
-
-        foreach (VehicleBase egoVehicle in this.egoVehicleList) {
-            VehicleInitData dummyData = egoVehicle.BuildInitData();
-            egoVehicle.BuildCar(dummyData.vehicleType);
-            egoVehicle.Init(dummyData);
-
-            this.egoVehicles.Add(egoVehicle.GetId(), egoVehicle);
-        }
-    }
-
     public string GetEgoInitMessage() {
         string initData = this.EncodeInitData();
+
+        if(initData == null) {
+            return null;
+        }
+
         string initMessage = UnityServer.CompileMessage(
             TcpProtocol.TO_SUMO,
             TcpProtocol.SUMO_INIT_EGO,
@@ -154,9 +159,10 @@ public class VehicleManager : MonoBehaviour
             }
 
             VehicleBase vehicle = (VehicleBase)this.warehouse.FetchItem(initData.vehicleType.ToString());
+            
             vehicle.Init(initData);
             vehicle.transform.parent = this.vehicleContainer.transform;
-
+            
 
             if (this.sumoVehicles.ContainsKey(initData.vehicleId)) {
                 this.LogError(

@@ -62,4 +62,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleRepo: {fileID: 11400000, guid: 70ec4f92305dbfe45b51176d224b83c1, type: 2}
   defaultPrefabIndex: 0
+  vehicleType: 0
+  spawnHeight: 0.59
+  color: {r: 0, g: 0, b: 0, a: 0}
+  width: 1.8
+  length: 5
+  height: 1.5
   rb: {fileID: 7365048258377545639}
+  prefab: {fileID: 0}

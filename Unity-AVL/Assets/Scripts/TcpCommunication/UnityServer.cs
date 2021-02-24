@@ -63,7 +63,7 @@ public class UnityServer
         } catch (System.Exception exception) {
             UnityEngine.Debug.Log(exception.StackTrace);
             UnityEngine.Debug.Log(exception.Message);
-            UnityEngine.Debug.LogError("Exception thrown while trying to send the confirmation message. Discarding message.");
+            UnityEngine.Debug.LogError("Exception thrown while trying to send message to SUMO. Discarding message.");
         }
 
     }
