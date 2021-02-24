@@ -60,18 +60,22 @@ class VehicleManager:
             vehicleData = json.loads(rawVehicleData)
 
             vehicleId = vehicleData["vehicleId"]
-            x = vehicleData["position"][0]
-            y = vehicleData["position"][1]
+
+            xCenter = vehicleData["position"][0]
+            yCenter = vehicleData["position"][1]
             heading = vehicleData["heading"]
+
+            vehicle = self.egoVehicles[vehicleId]
+            vehicle.updateFromUnity(vehicleData)
 
             traci.vehicle.setSpeed(vehID = vehicleId, speed = 0)
             traci.vehicle.moveToXY(
                 vehID = vehicleId,
                 edgeID = "",
                 lane = -1,
-                x = x,
-                y = y,
-                angle = heading,
+                x = vehicle.PosX_FrontBumper,
+                y = vehicle.PosY_FrontBumper,
+                angle = vehicle.Heading,
                 keepRoute = 2
             )
 

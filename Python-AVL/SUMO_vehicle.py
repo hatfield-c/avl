@@ -89,6 +89,16 @@ class SumoObject(object):
         else:
             self.SizeClass = 13 #Large car
 
+    def updateFromUnity(self, data):
+        self.PosX_Center = data["position"][0]
+        self.PosY_Center = data["position"][1]
+        self.Heading = data["heading"]
+
+        self.calculateBumper()
+
+    def calculateBumper(self):
+        self.PosX_FrontBumper = self.PosX_Center + (math.sin(math.radians(self.Heading)) * (self.Length / 2))
+        self.PosY_FrontBumper = self.PosY_Center + (math.cos(math.radians(self.Heading)) * (self.Length / 2))
 
     def jsonDeleteData(self):
         data = {}

@@ -38,6 +38,12 @@ public class VehicleBase : MonoBehaviour, IStorable
         this.prefab.Init(this.vehicleState);
         this.ScaleVehicle(initData);
 
+        this.transform.position = new Vector3(
+            this.transform.position.x,
+            this.spawnHeight,
+            this.transform.position.z
+        );
+
     }
 
     public void UpdateState(VehicleUpdateData updateData) {
