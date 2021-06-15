@@ -16,11 +16,7 @@ class SumoManager:
 
     def __init__(self, sumoListener):
 
-        if 'SUMO_HOME' in os.environ:
-            tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-            sys.path.append(tools)
-        else:
-            sys.exit("please declare environment variable 'SUMO_HOME'")
+        sys.path.append(Config.SUMO_BINARY_PATH)
 
         sumoCmd = [ Config.SUMO_BINARY_PATH, "-c", Config.SUMO_CFG_PATH, "--start" ]
         traci.start(sumoCmd)

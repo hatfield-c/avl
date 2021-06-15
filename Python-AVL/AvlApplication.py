@@ -89,7 +89,8 @@ except KeyboardInterrupt:
 
 except SystemExit:
     Cli.printHeading2("Exit Application")
-    print("Auto-exited due to an application error.")
+    print("Auto-exited due to an application error.\n")
+    traceback.print_exception(*sys.exc_info())
 
 except traci.exceptions.FatalTraCIError as traciException:
     Cli.printHeading2("Exit Application")

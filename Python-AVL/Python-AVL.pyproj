@@ -12,7 +12,7 @@
     <OutputPath>.</OutputPath>
     <Name>Python-AVL</Name>
     <RootNamespace>Python-AVL</RootNamespace>
-    <InterpreterId>CondaEnv|CondaEnv|av-project</InterpreterId>
+    <InterpreterId>Global|VisualStudio|av-project</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,6 +24,7 @@
   </PropertyGroup>
   <ItemGroup>
     <InterpreterReference Include="CondaEnv|CondaEnv|av-project" />
+    <InterpreterReference Include="Global|VisualStudio|av-project" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
