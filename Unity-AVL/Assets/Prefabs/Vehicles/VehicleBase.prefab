@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5511338066244800570}
   m_Layer: 0
   m_Name: VehicleBase
-  m_TagString: Untagged
+  m_TagString: car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,4 +69,4 @@ MonoBehaviour:
   length: 5
   height: 1.5
   rb: {fileID: 7365048258377545639}
-  prefab: {fileID: 0}
+  collider: {fileID: 0}

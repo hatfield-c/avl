@@ -17,7 +17,7 @@ public class SimulationManager : MonoBehaviour
     void Awake() {
         this.vehicleManager.Init();
         this.unityListener.StartListening();
-        this.unityServer.ConnectToSumoListener();
+        UnityServer.ConnectToSumoListener();
 
         string egoInitMessage = this.vehicleManager.GetEgoInitMessage();
 
@@ -25,7 +25,7 @@ public class SimulationManager : MonoBehaviour
             return;
         }
 
-        this.unityServer.SendMessage(egoInitMessage);
+        UnityServer.SendMessage(egoInitMessage);
     }
 
     void FixedUpdate() {
@@ -45,7 +45,7 @@ public class SimulationManager : MonoBehaviour
             TcpProtocol.SUMO_UPDT_EGO, 
             egoData
         );
-        this.unityServer.SendMessage(outboundMessage);
+        UnityServer.SendMessage(outboundMessage);
     }
 
     void OnDestroy() {

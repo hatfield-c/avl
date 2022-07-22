@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class VehicleFactory : MonoBehaviour
 {
+    [SerializeField] protected float initSpacing;
+
     public enum VehicleTypes {
         None,
         Car,

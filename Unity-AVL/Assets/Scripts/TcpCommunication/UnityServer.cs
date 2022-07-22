@@ -11,24 +11,36 @@ public class UnityServer
     [SerializeField] protected string ipAddress = "localhost";
     [SerializeField] protected int toSumoPort = 4043;
     [SerializeField] protected int timeoutSeconds = 5;
+    protected static string IP_ADDRESS = "localhost";
+    protected static int TO_SUMO_PORT = 4043;
+    protected static int TIMEOUT = 5;
 
-    protected Queue<string> messageQueue = new Queue<string>();
-    protected TcpClient socketConnection = null;
-    protected NetworkStream networkStream = null;
+    protected static Queue<string> QUEUE = new Queue<string>();
+    protected static TcpClient CONNECTION = null;
+    protected static NetworkStream STREAM = null;
 
     public static bool isReadingStream = true;
 
-    public void ConnectToSumoListener() {
+    public UnityServer() {
+        UnityServer.IP_ADDRESS = this.ipAddress;
+        UnityServer.TO_SUMO_PORT = this.toSumoPort;
+        UnityServer.TIMEOUT = this.timeoutSeconds;
+    }
+
+    public static void ConnectToSumoListener() {
         Stopwatch connectionTimer = new Stopwatch();
         connectionTimer.Start();
 
         bool attemptConnection = true;
         while (attemptConnection) {
 
-            if (connectionTimer.ElapsedMilliseconds / 1000 < this.timeoutSeconds) {
-                this.socketConnection = new TcpClient();
-                this.socketConnection.Connect(this.ipAddress, this.toSumoPort);
-                this.networkStream = this.socketConnection.GetStream();
+            if (connectionTimer.ElapsedMilliseconds / 1000 < UnityServer.TIMEOUT) {
+                UnityServer.CONNECTION = new TcpClient();
+                UnityServer.CONNECTION.Connect(
+                    UnityServer.IP_ADDRESS, 
+                    UnityServer.TO_SUMO_PORT
+                );
+                UnityServer.STREAM = UnityServer.CONNECTION.GetStream();
 
                 attemptConnection = false;
             } else {
@@ -46,19 +58,19 @@ public class UnityServer
             TcpProtocol.SUMO_INIT_LISTENER, 
             "{\"message\": \"CONNECTION SUCCESS!\"}"
         );
-        this.SendMessage(initMessage);
-    } 
+        UnityServer.SendMessage(initMessage);
+    }
 
-    public void SendMessage(string message) {
-        if (this.socketConnection == null) {
+    public static void SendMessage(string message) {
+        if (UnityServer.CONNECTION == null) {
             UnityEngine.Debug.LogError("No server connection was found. SendMessage() aborted.");
         }
         
         try {
-            if (this.networkStream.CanWrite) {
+            if (UnityServer.STREAM.CanWrite) {
                 byte[] encodedMessage = Encoding.ASCII.GetBytes(message);
 
-                this.networkStream.Write(encodedMessage, 0, encodedMessage.Length);
+                UnityServer.STREAM.Write(encodedMessage, 0, encodedMessage.Length);
             }
         } catch (System.Exception exception) {
             UnityEngine.Debug.Log(exception.StackTrace);

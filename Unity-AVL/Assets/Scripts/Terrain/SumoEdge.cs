@@ -36,6 +36,7 @@ public class SumoEdge : MonoBehaviour
 
         for(int i = 0; i < lineCount; i++) {
             GameObject lineObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Destroy(lineObject.GetComponent<BoxCollider>());
             lineObject.name = "line";
             MeshRenderer meshRenderer = lineObject.GetComponent<MeshRenderer>();
             meshRenderer.material = initData.lineMaterial;

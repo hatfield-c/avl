@@ -151,10 +151,24 @@ public class VehicleBase : MonoBehaviour, IStorable
     }
 
     void OnTriggerEnter(Collider other) {
-        //Debug.Log($"{this.gameObject.name}, {other.name}");
+        /*string msg = $"{this.gameObject.name}, {other.name}, {other.tag}";
 
-        foreach(Collider collider in this.prefab.GetColliders()) {
-            //collider.isTrigger = false;
+        if (other.transform.parent != null) {
+            msg += $", {other.transform.parent.name}";
+        }*/
+
+        if (other.tag == "road" || other.tag == "Untagged" || other.transform.IsChildOf(this.transform)) {
+            return;
         }
+
+        foreach (Collider collider in this.prefab.GetColliders()) {
+            collider.isTrigger = false;
+        }
+
+        this.rb.isKinematic = false;
+
+        VehicleManager.OnVehicleCollision(this);
     }
+
+
 }

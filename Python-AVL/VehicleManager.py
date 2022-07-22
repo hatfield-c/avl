@@ -40,18 +40,18 @@ class VehicleManager:
             vehicleId = initData["vehicleId"]
             vehicleType = initData["vehicleType"]
 
-            traci.vehicle.add(
-                vehID = vehicleId,
-                routeID = ""
-            )
+            if vehicleId not in self.activeVehicles:
+                traci.vehicle.add(
+                    vehID = vehicleId,
+                    routeID = ""
+                )
+            else:
+                self.activeVehicles.pop(vehicleId)
+
             traci.vehicle.setSpeedMode(vehicleId, 0)
             traci.vehicle.setSpeed(vehID = vehicleId, speed = 0)
 
             self.egoVehicles[vehicleId] = SUMO_vehicle.SumoObject(vehicleId)
-
-            if vehicleId in self.activeVehicles:
-                self.activeVehicles.pop(vehicleId)
-
 
     def updateSumoVehicle(self, rawData):
         rawVehicleDatum = rawData.split(TcpProtocol.DATA_DELIM)

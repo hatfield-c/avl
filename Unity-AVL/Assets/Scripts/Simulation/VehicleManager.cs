@@ -21,6 +21,8 @@ public class VehicleManager : MonoBehaviour
     protected const string DELETE_ERR_MSG = "[Vehicle Manager:Delete Error]";
     protected const string INIT_ERR_MSG = "[Vehicle Manager:Init Error]";
 
+    protected float offset = 0;
+
     public void Init() {
         List<VehicleBase> vehicleList = this.factory.CreateAllVehicles(this.vehicleManifest);
         List<IStorable> storableList = vehicleList.Cast<IStorable>().ToList();
@@ -42,11 +44,9 @@ public class VehicleManager : MonoBehaviour
 
         string egoData = "";
 
-        string vehicleId;
         VehicleBase vehicle;
 
         foreach (KeyValuePair<string, VehicleBase> pair in this.egoVehicles) {
-            vehicleId = pair.Key;
             vehicle = pair.Value;
 
             string jsonData = vehicle.GetInitJson();
@@ -162,6 +162,8 @@ public class VehicleManager : MonoBehaviour
             
             vehicle.Init(initData);
             vehicle.transform.parent = this.vehicleContainer.transform;
+            vehicle.transform.position += Vector3.right * this.offset;
+            this.offset += 5;
             
 
             if (this.sumoVehicles.ContainsKey(initData.vehicleId)) {
@@ -249,6 +251,16 @@ public class VehicleManager : MonoBehaviour
         }
 
         return vehicleClass;
+    }
+
+    public static void OnVehicleCollision(VehicleBase vehicle) {
+        string initMessage = UnityServer.CompileMessage(
+            TcpProtocol.TO_SUMO,
+            TcpProtocol.SUMO_INIT_EGO,
+            vehicle.GetInitJson()
+        );
+
+        UnityServer.SendMessage(initMessage);
     }
 
     protected void LogError(string type, string msg) {
