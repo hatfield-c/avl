@@ -452,5 +452,35 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: tasks.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: tasks.Array.data[0]
+      value: task1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: tasks.Array.data[1]
+      value: task2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: tasks.Array.data[2]
+      value: task3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: tasks.Array.data[3]
+      value: task4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: tasks.Array.data[4]
+      value: task5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2211a8abbd786a45b0b49fa5df27e78, type: 3}

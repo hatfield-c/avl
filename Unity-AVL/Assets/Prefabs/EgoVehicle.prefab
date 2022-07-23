@@ -89,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 310605246637009529}
   - component: {fileID: 1590011655295242271}
+  - component: {fileID: 8190532008445925056}
   m_Layer: 0
   m_Name: EgoVehicle
   m_TagString: Untagged
@@ -137,6 +138,18 @@ MonoBehaviour:
   brakePower: 0.9
   turnRate: 3
   drag: 0.97
+--- !u!114 &8190532008445925056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310605246637009533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455ca8effaf593f4ea110b17ea9a22c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &517898536777572183
 GameObject:
   m_ObjectHideFlags: 0
