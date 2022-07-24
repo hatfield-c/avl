@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4340321879361600281}
   - component: {fileID: 6259328069319867279}
   - component: {fileID: 6590933023647901230}
+  - component: {fileID: 2279339251331174381}
   m_Layer: 0
   m_Name: Lidar_Sensor14
   m_TagString: Untagged
@@ -79,6 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2279339251331174381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297406047643120153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 46
+  maxDistance: 10
 --- !u!1 &310605246637009533
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +183,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensorRegistry:
   - {fileID: 5009443545968856874}
+  - {fileID: 6220551550933558057}
+  - {fileID: 2637339239760260129}
+  - {fileID: 4645697948369838193}
+  - {fileID: 957157872615158489}
+  - {fileID: 988066111396220723}
+  - {fileID: 2392562037528426525}
+  - {fileID: 1150112634764568455}
+  - {fileID: 2374845918920000235}
+  - {fileID: 5767122398042966931}
+  - {fileID: 673162621988820309}
+  - {fileID: 4673471339690446545}
+  - {fileID: 7380393583741095348}
+  - {fileID: 2783702810575764801}
+  - {fileID: 2279339251331174381}
+  - {fileID: 8018837311424104430}
 --- !u!114 &5425315317348793196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +221,7 @@ GameObject:
   - component: {fileID: 4023876638398355722}
   - component: {fileID: 5468098638011093105}
   - component: {fileID: 8780906645364226154}
+  - component: {fileID: 4673471339690446545}
   m_Layer: 0
   m_Name: Lidar_Sensor11
   m_TagString: Untagged
@@ -259,6 +290,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4673471339690446545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517898536777572183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 43
+  maxDistance: 10
 --- !u!1 &795675789896847341
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +315,7 @@ GameObject:
   - component: {fileID: 978403628048218612}
   - component: {fileID: 2694442959692675006}
   - component: {fileID: 751675600216702873}
+  - component: {fileID: 6220551550933558057}
   m_Layer: 0
   m_Name: Lidar_Sensor1
   m_TagString: Untagged
@@ -338,6 +384,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6220551550933558057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795675789896847341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 33
+  maxDistance: 10
 --- !u!1 &823442587170635330
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +409,7 @@ GameObject:
   - component: {fileID: 6291723386163726270}
   - component: {fileID: 5901533075902646400}
   - component: {fileID: 5327647171273131796}
+  - component: {fileID: 1150112634764568455}
   m_Layer: 0
   m_Name: Lidar_Sensor7
   m_TagString: Untagged
@@ -417,6 +478,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1150112634764568455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823442587170635330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 39
+  maxDistance: 10
 --- !u!1 &843214773487351747
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +503,7 @@ GameObject:
   - component: {fileID: 9190975558427338714}
   - component: {fileID: 388593440769904108}
   - component: {fileID: 8578196088750769128}
+  - component: {fileID: 988066111396220723}
   m_Layer: 0
   m_Name: Lidar_Sensor5
   m_TagString: Untagged
@@ -496,6 +572,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &988066111396220723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843214773487351747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 37
+  maxDistance: 10
 --- !u!1 &1080665585391385997
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,6 +787,7 @@ GameObject:
   - component: {fileID: 2276111664026325365}
   - component: {fileID: 2685728484124295815}
   - component: {fileID: 1053943689095513771}
+  - component: {fileID: 673162621988820309}
   m_Layer: 0
   m_Name: Lidar_Sensor10
   m_TagString: Untagged
@@ -765,6 +856,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &673162621988820309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256192686142364374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 42
+  maxDistance: 10
 --- !u!1 &1476673312338989031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,6 +1514,7 @@ GameObject:
   - component: {fileID: 6189459027268816981}
   - component: {fileID: 5125962897412723129}
   - component: {fileID: 4504731450113612062}
+  - component: {fileID: 2637339239760260129}
   m_Layer: 0
   m_Name: Lidar_Sensor2
   m_TagString: Untagged
@@ -1477,6 +1583,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2637339239760260129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2439481964844103522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 34
+  maxDistance: 10
 --- !u!1 &2613841873945759652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,6 +1719,7 @@ GameObject:
   - component: {fileID: 9077774135607617369}
   - component: {fileID: 4473743078502828564}
   - component: {fileID: 3030729401003957858}
+  - component: {fileID: 2374845918920000235}
   m_Layer: 0
   m_Name: Lidar_Sensor8
   m_TagString: Untagged
@@ -1667,6 +1788,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2374845918920000235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3065976264848443321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 40
+  maxDistance: 10
 --- !u!1 &3228454757958535570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,6 +1892,7 @@ GameObject:
   - component: {fileID: 4104894787789235602}
   - component: {fileID: 2267422983497964736}
   - component: {fileID: 3035675656469113102}
+  - component: {fileID: 5767122398042966931}
   m_Layer: 0
   m_Name: Lidar_Sensor9
   m_TagString: Untagged
@@ -1825,6 +1961,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5767122398042966931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3306771571475665893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 41
+  maxDistance: 10
 --- !u!1 &3481013458533066064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2105,6 +2255,7 @@ GameObject:
   - component: {fileID: 2060185754295799692}
   - component: {fileID: 1017457272209200474}
   - component: {fileID: 3646552992862712336}
+  - component: {fileID: 8018837311424104430}
   m_Layer: 0
   m_Name: Lidar_Sensor15
   m_TagString: Untagged
@@ -2173,6 +2324,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8018837311424104430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967711904341948839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 47
+  maxDistance: 10
 --- !u!1 &4025106841413134264
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2442,7 @@ GameObject:
   - component: {fileID: 8868619489745508769}
   - component: {fileID: 6378247225987133236}
   - component: {fileID: 7220120386663065098}
+  - component: {fileID: 957157872615158489}
   m_Layer: 0
   m_Name: Lidar_Sensor4
   m_TagString: Untagged
@@ -2345,6 +2511,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &957157872615158489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4039682477000993042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 36
+  maxDistance: 10
 --- !u!1 &4187454807141477818
 GameObject:
   m_ObjectHideFlags: 0
@@ -2356,6 +2536,7 @@ GameObject:
   - component: {fileID: 7814758449779736856}
   - component: {fileID: 19556046416384273}
   - component: {fileID: 3428386296690558343}
+  - component: {fileID: 2783702810575764801}
   m_Layer: 0
   m_Name: Lidar_Sensor13
   m_TagString: Untagged
@@ -2424,6 +2605,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2783702810575764801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4187454807141477818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 45
+  maxDistance: 10
 --- !u!1 &4430755277375214453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,6 +2630,7 @@ GameObject:
   - component: {fileID: 5462059640910266186}
   - component: {fileID: 792165535600395466}
   - component: {fileID: 3042534310424392887}
+  - component: {fileID: 4645697948369838193}
   m_Layer: 0
   m_Name: Lidar_Sensor3
   m_TagString: Untagged
@@ -2503,6 +2699,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4645697948369838193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4430755277375214453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 35
+  maxDistance: 10
 --- !u!1 &4642660192246506853
 GameObject:
   m_ObjectHideFlags: 0
@@ -3020,6 +3230,7 @@ GameObject:
   - component: {fileID: 6671575908119754082}
   - component: {fileID: 7150967837756507431}
   - component: {fileID: 348179403410898319}
+  - component: {fileID: 2392562037528426525}
   m_Layer: 0
   m_Name: Lidar_Sensor6
   m_TagString: Untagged
@@ -3088,6 +3299,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2392562037528426525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6362610727844575629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 38
+  maxDistance: 10
 --- !u!1 &6624871172640157474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3635,6 +3860,7 @@ GameObject:
   - component: {fileID: 5976078609887784610}
   - component: {fileID: 3615783686530195627}
   - component: {fileID: 2653098555045320658}
+  - component: {fileID: 7380393583741095348}
   m_Layer: 0
   m_Name: Lidar_Sensor12
   m_TagString: Untagged
@@ -3703,6 +3929,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7380393583741095348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7531107585273357712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 44
+  maxDistance: 10
 --- !u!1 &7619473601159422511
 GameObject:
   m_ObjectHideFlags: 0
@@ -3795,7 +4035,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  address: 25
+  address: 32
+  maxDistance: 10
 --- !u!1 &7745370829926302243
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,6 @@ public class Task1 : TaskInterface
 
         byte[] data = sensorBus.ReadData(address);
 
-        Debug.Log($"{data}, {data[0]}");
+        float distance = System.BitConverter.ToSingle(data, 0);
     }
 }

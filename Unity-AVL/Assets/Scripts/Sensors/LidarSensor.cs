@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class LidarSensor : AbstractSensor
 {
+    [SerializeField]
+    protected float maxDistance = 10;
 
     override public byte[] ReadSensor() {
-        byte[] sensorData = new byte[] { 1, 0, 0, 1 };
+        RaycastHit rayData;
+        byte[] sensorData;
+
+        bool isHit = Physics.Raycast(this.transform.position, this.transform.up, out rayData, this.maxDistance);
+
+        if (isHit) {
+            sensorData = System.BitConverter.GetBytes(rayData.distance);
+        } else {
+            sensorData = System.BitConverter.GetBytes(this.maxDistance);
+        }
 
         return sensorData;
     }
