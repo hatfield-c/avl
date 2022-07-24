@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27666a97274f79e489bc6a8ec60f3a47, type: 3}
+  m_Name: SovietCarRepository
+  m_EditorClassIdentifier: 
+  prefabList:
+  - {fileID: 5542447628728115160, guid: 0a9efe1ff911b7a4c990cd325e580952, type: 3}
+  - {fileID: 1048070815673552857, guid: 5d58098d3bbcf494e951eb7061ca3fde, type: 3}
