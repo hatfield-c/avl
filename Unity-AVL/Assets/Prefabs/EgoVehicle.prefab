@@ -90,6 +90,8 @@ GameObject:
   - component: {fileID: 310605246637009529}
   - component: {fileID: 1590011655295242271}
   - component: {fileID: 8190532008445925056}
+  - component: {fileID: 2716442681479298169}
+  - component: {fileID: 5425315317348793196}
   m_Layer: 0
   m_Name: EgoVehicle
   m_TagString: Untagged
@@ -128,7 +130,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310605246637009533}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 631c59943450efb44bdc3f9ad37fe97a, type: 3}
   m_Name: 
@@ -148,6 +150,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 455ca8effaf593f4ea110b17ea9a22c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskList: {fileID: 5425315317348793196}
+  sensorBus: {fileID: 2716442681479298169}
+--- !u!114 &2716442681479298169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310605246637009533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478f6d293df2b904e949ca50c1b719d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorRegistry:
+  - {fileID: 5009443545968856874}
+--- !u!114 &5425315317348793196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310605246637009533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b30ae442857230244b41eaa3b5848aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &517898536777572183
@@ -3684,6 +3714,7 @@ GameObject:
   - component: {fileID: 4559200462623152074}
   - component: {fileID: 4989964629766040438}
   - component: {fileID: 2153884842695310315}
+  - component: {fileID: 5009443545968856874}
   m_Layer: 0
   m_Name: Lidar_Sensor0
   m_TagString: Untagged
@@ -3752,6 +3783,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5009443545968856874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7619473601159422511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 25
 --- !u!1 &7745370829926302243
 GameObject:
   m_ObjectHideFlags: 0
