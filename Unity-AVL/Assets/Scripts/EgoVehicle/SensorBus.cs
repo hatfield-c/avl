@@ -23,18 +23,18 @@ public class SensorBus : MonoBehaviour, DataBusInterface
         }
     }
 
-    public byte[] ReadData(byte address) {
-        int addr = (int)address;
+    public byte[] ReadData(byte[] command) {
+        int address = (int)command[0];
 
-        if (!this.sensors.ContainsKey(addr)) {
-            Debug.LogError($"Error: Tried to read data from sensor with address '{addr}', but no sensor with that address has been registered with the RTOS. An empty byte array will be returned.");
+        if (!this.sensors.ContainsKey(address)) {
+            Debug.LogError($"Error: Tried to read data from sensor with address '{address}', but no sensor with that address has been registered with the RTOS. An empty byte array will be returned.");
 
             return new byte[4]; ;
         }
 
-        AbstractSensor sensor = this.sensors[addr];
+        AbstractSensor sensor = this.sensors[address];
 
-        return sensor.ReadSensor();
+        return sensor.ReadSensor(command[1]);
     }
 
     public void WriteData(byte[] data) { }

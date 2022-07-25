@@ -11,6 +11,6 @@ public abstract class AbstractSensor : MonoBehaviour
         return this.address;
     }
 
-    abstract public byte[] ReadSensor();
+    abstract public byte[] ReadSensor(byte option);
 
 }
