@@ -24,5 +24,6 @@ public class DirectionSensor : AbstractSensor
 
     void FixedUpdate() {
         this.spinner.LookAt(this.spinner.position + this.targetDirection.normalized);
+        this.spinner.eulerAngles = new Vector3(0, this.spinner.eulerAngles.y, 0);
     }
 }

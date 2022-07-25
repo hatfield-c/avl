@@ -5,7 +5,7 @@ using UnityEngine;
 public class Task1 : TaskInterface
 {
     public void Execute(DataBusInterface sensorBus, string actuatorBus) {
-        byte[] command0 = { 64, 0 };
+        byte[] command0 = { 65, 0 };
         
         byte[] data0 = sensorBus.ReadData(command0);
         
