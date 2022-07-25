@@ -545,6 +545,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4076648563771676569, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,
         type: 3}
       propertyPath: tasks.Array.size
