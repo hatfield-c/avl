@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetSensor : AbstractSensor
+public class TargetSensor : AbstractDevice
 {
     [SerializeField]
     protected Transform egoVehicle = null;
@@ -13,11 +13,13 @@ public class TargetSensor : AbstractSensor
     [SerializeField]
     protected Transform target = null;
 
-    override public byte[] ReadSensor(byte option) {
+    override public void CommandDevice(byte[] command, byte[] memory) {
         byte[] sensorData;
 
         if(this.target == null) {
-            return new byte[4];
+            for(int i = 0; i < 4; i++) {
+                memory[i] = 0;
+            }
         }
 
         Vector3 direction = new Vector3(
@@ -29,7 +31,9 @@ public class TargetSensor : AbstractSensor
         float angle = Vector3.SignedAngle(direction.normalized, this.egoVehicle.transform.forward, Vector3.up);
         sensorData = System.BitConverter.GetBytes(angle);
 
-        return sensorData;
+        for(int i = 0; i < sensorData.Length; i++) {
+            memory[i] = sensorData[i];
+        }
     }
 
     void FixedUpdate() {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Task2 : TaskInterface
 {
-    public void Execute(DataBusInterface sensorBus, string actuatorBus) {
+    public void Execute(DataBusInterface addressBus, DataBusInterface commandBus, byte[] memory) {
         //Debug.Log("Execute Task2");
     }
 }

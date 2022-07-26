@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractSensor : MonoBehaviour
+public abstract class AbstractDevice : MonoBehaviour
 {
     [SerializeField]
     protected int address = 0;
@@ -11,6 +11,6 @@ public abstract class AbstractSensor : MonoBehaviour
         return this.address;
     }
 
-    abstract public byte[] ReadSensor(byte option);
+    abstract public void CommandDevice(byte[] command, byte[] memory);
 
 }

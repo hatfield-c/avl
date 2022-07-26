@@ -1,5 +1,6 @@
 ﻿public interface DataBusInterface
 {
-    void WriteData(byte[] data);
-    byte[] ReadData(byte[] command);
+    void WriteBus(byte[] data);
+    byte[] ReadBus();
+    int GetSize();
 }

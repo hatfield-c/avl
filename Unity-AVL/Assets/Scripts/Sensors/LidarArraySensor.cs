@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LidarArraySensor : AbstractSensor
+public class LidarArraySensor : AbstractDevice
 {
     [SerializeField]
     protected float maxDistance = 10;
@@ -10,29 +10,25 @@ public class LidarArraySensor : AbstractSensor
     [SerializeField]
     protected List<Transform> lidarArray = new List<Transform>();
 
-    override public byte[] ReadSensor(byte option) {
+    override public void CommandDevice(byte[] command, byte[] memory) {
         RaycastHit rayData;
-        byte[] sensorData;
 
-        int sensorIndex = (int)option;
+        for (int i = 0; i < this.lidarArray.Count; i++) {
+            Transform lidar = this.lidarArray[i];
+            byte[] sensorData;
 
-        if(sensorIndex < 0 || sensorIndex >= this.lidarArray.Count) {
-            Debug.LogError($"Error: Tried to read data from lidar sensor at index '{sensorIndex}', but index must be between 0 and {this.lidarArray.Count - 1}. An empty byte array will be returned.");
+            bool isHit = Physics.Raycast(lidar.position, lidar.up, out rayData, this.maxDistance);
 
-            return new byte[4];
+            if (isHit) {
+                sensorData = System.BitConverter.GetBytes(rayData.distance);
+            } else {
+                sensorData = System.BitConverter.GetBytes(this.maxDistance);
+            }
+
+            for(int j = 0; j < sensorData.Length; j++) {
+                memory[(i * sensorData.Length) + j] = sensorData[j];
+            }
         }
-
-        Transform lidar = this.lidarArray[sensorIndex];
-
-        bool isHit = Physics.Raycast(lidar.position, lidar.up, out rayData, this.maxDistance);
-
-        if (isHit) {
-            sensorData = System.BitConverter.GetBytes(rayData.distance);
-        } else {
-            sensorData = System.BitConverter.GetBytes(this.maxDistance);
-        }
-
-        return sensorData;
     }
 
 }

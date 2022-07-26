@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GpsSensor : AbstractSensor
+public class GpsSensor : AbstractDevice
 {
-    
     [SerializeField]
     protected Transform target = null;
 
@@ -14,28 +13,20 @@ public class GpsSensor : AbstractSensor
     [SerializeField]
     protected float spinRate = 1f;
 
-    override public byte[] ReadSensor(byte option) {
-        byte[] sensorData;
+    override public void CommandDevice(byte[] command, byte[] memory) {
+        byte[] latitudeData;
+        byte[] longitudeData;
 
-        int index = (int)option;
+        latitudeData = System.BitConverter.GetBytes(this.target.position.x);
+        longitudeData = System.BitConverter.GetBytes(this.target.position.z);
 
-        if(index != 0 && index != 1) {
-            Debug.LogError($"Error: Tried to read data from GPS sensor using index '{index}', but index must be either 0 for Latitude or 1 for Longitude. An empty byte array will be returned.");
-
-            return new byte[4];
+        for(int i = 0; i < latitudeData.Length; i++) {
+            memory[i] = latitudeData[i];
+            memory[i + latitudeData.Length] = longitudeData[i];
         }
-
-        if (index == 0) {
-            sensorData = System.BitConverter.GetBytes(this.target.position.x);
-        } else {
-            sensorData = System.BitConverter.GetBytes(this.target.position.z);
-        }
-
-        return sensorData;
     }
 
     void FixedUpdate() {
         this.spinner.eulerAngles += Vector3.up * this.spinRate;
     }
-
 }

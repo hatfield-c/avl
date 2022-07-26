@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface TaskInterface
 {
-    void Execute(DataBusInterface sensorBus, string actuatorBus);
+    void Execute(DataBusInterface addressBus, DataBusInterface commandBus, byte[] memory);
 }
