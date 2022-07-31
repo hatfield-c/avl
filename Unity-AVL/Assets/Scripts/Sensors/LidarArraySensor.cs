@@ -10,8 +10,9 @@ public class LidarArraySensor : AbstractDevice
     [SerializeField]
     protected List<Transform> lidarArray = new List<Transform>();
 
-    override public void CommandDevice(byte[] command, byte[] memory) {
+    override public byte[] CommandDevice(byte[] command) {
         RaycastHit rayData;
+        byte[] lidarData = new byte[4 * this.lidarArray.Count];
 
         for (int i = 0; i < this.lidarArray.Count; i++) {
             Transform lidar = this.lidarArray[i];
@@ -26,9 +27,11 @@ public class LidarArraySensor : AbstractDevice
             }
 
             for(int j = 0; j < sensorData.Length; j++) {
-                memory[(i * sensorData.Length) + j] = sensorData[j];
+                lidarData[(i * sensorData.Length) + j] = sensorData[j];
             }
         }
+
+        return lidarData;
     }
 
 }

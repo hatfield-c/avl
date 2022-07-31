@@ -11,6 +11,6 @@ public abstract class AbstractDevice : MonoBehaviour
         return this.address;
     }
 
-    abstract public void CommandDevice(byte[] command, byte[] memory);
+    abstract public byte[] CommandDevice(byte[] command);
 
 }

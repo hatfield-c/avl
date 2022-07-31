@@ -12,24 +12,17 @@ public class AddressBus : MonoBehaviour, DataBusInterface
         return this.bus;
     }
 
-    public void WriteBus(byte[] address) {
+    public byte[] WriteBus(byte[] address) {
         if (address.Length != this.GetSize()) {
             Debug.LogError($"Error: Tried to put {address.Length} bytes on the address bus, but the bus has size of {this.GetSize()} bytes. Aborting address placement.");
             this.bus = new byte[this.GetSize()];
 
-            return;
-        }
-
-        int addr = System.BitConverter.ToInt32(address, 0);
-
-        if(addr >= RTOS.GetMemSize()) {
-            Debug.LogError($"Error: Tried to place address value of '{address}' on the address bus, but the maximum memory address is {RTOS.GetMemSize() - 1}. Aborting address placement.");
-            this.bus = new byte[this.GetSize()];
-
-            return;
+            return new byte[] { 0 };
         }
 
         this.bus = address;
+
+        return new byte[] { 1 };
     }
 
     public int GetSize() {

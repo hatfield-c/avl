@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class MemoryContainer : MonoBehaviour
 {
-    protected byte[] mem = new byte[RTOS.GetMemSize()];
+    [SerializeField]
+    protected int memSize = 256;
+
+    protected byte[] mem = null;
+
+    void Start() {
+        this.mem = new byte[this.memSize];
+    }
 
     public byte[] GetMemory() {
         return this.mem;
+    }
+
+    public int GetMemSize() {
+        return this.memSize;
     }
 }

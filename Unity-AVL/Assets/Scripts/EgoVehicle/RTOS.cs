@@ -14,10 +14,6 @@ public class RTOS : MonoBehaviour
     [SerializeField]
     protected CommandBus commandBus = null;
 
-    [SerializeField]
-    protected MemoryContainer memoryContainer = null;
-
-    protected const int MEM_SIZE = 1024;
     protected int taskIndex = 0;
 
     protected TaskInterface[] tasks = null;
@@ -33,12 +29,8 @@ public class RTOS : MonoBehaviour
         }
 
         TaskInterface task = this.tasks[this.taskIndex];
-        task.Execute(this.addressBus, this.commandBus, this.memoryContainer.GetMemory());
+        task.Execute(this.addressBus, this.commandBus);
 
         this.taskIndex++;
-    }
-
-    public static int GetMemSize() {
-        return RTOS.MEM_SIZE;
     }
 }

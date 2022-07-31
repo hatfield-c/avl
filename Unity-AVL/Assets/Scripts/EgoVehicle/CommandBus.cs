@@ -8,9 +8,6 @@ public class CommandBus : MonoBehaviour, DataBusInterface
     protected AddressBus addressBus = null;
 
     [SerializeField]
-    protected MemoryContainer memContainer = null;
-
-    [SerializeField]
     protected DeviceRegistry deviceRegistry = null;
 
     protected Dictionary<int, AbstractDevice> devices = null;
@@ -26,12 +23,12 @@ public class CommandBus : MonoBehaviour, DataBusInterface
         return this.bus;
     }
 
-    public void WriteBus(byte[] command) {
+    public byte[] WriteBus(byte[] command) {
         if(command.Length != this.GetSize()) {
-            Debug.LogError($"Error: Tried to put {command.Length} bytes on the command bus, but the bus has size of {this.GetSize()} bytes. Aborting command.");
+            Debug.LogError($"Error: Tried to put {command.Length} bytes on the sensor bus, but the bus has size of {this.GetSize()} bytes. Aborting command.");
             this.bus = new byte[this.GetSize()];
 
-            return;
+            return new byte[1];
         }
 
         this.bus = command;
@@ -41,11 +38,13 @@ public class CommandBus : MonoBehaviour, DataBusInterface
 
         if (!this.devices.ContainsKey(addr)) {
             Debug.LogError($"Error: The Command Bus tried to send a command to a device with address of '{addr}', but no device with that address has been registered with the RTOS. Aborting command.");
+
+            return new byte[1];
         }
 
         AbstractDevice device = this.devices[addr];
-
-        device.CommandDevice(command, this.memContainer.GetMemory());
+        
+        return device.CommandDevice(command);
     }
 
     public int GetSize() {

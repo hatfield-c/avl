@@ -13,17 +13,20 @@ public class GpsSensor : AbstractDevice
     [SerializeField]
     protected float spinRate = 1f;
 
-    override public void CommandDevice(byte[] command, byte[] memory) {
+    override public byte[] CommandDevice(byte[] command) {
         byte[] latitudeData;
         byte[] longitudeData;
+        byte[] sensorData = new byte[8];
 
         latitudeData = System.BitConverter.GetBytes(this.target.position.x);
         longitudeData = System.BitConverter.GetBytes(this.target.position.z);
 
         for(int i = 0; i < latitudeData.Length; i++) {
-            memory[i] = latitudeData[i];
-            memory[i + latitudeData.Length] = longitudeData[i];
+            sensorData[i] = latitudeData[i];
+            sensorData[i + 4] = longitudeData[i];
         }
+
+        return sensorData;
     }
 
     void FixedUpdate() {
