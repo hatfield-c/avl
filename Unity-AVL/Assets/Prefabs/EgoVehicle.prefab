@@ -1697,8 +1697,8 @@ MonoBehaviour:
   lens: {fileID: 2225645820188824734}
   pixelPrefab: {fileID: 8325198963557980099, guid: b98461f1fe8625b4397b0f70a2dc7c2e,
     type: 3}
-  pixelWidth: 16
-  pixelHeight: 8
+  pixelWidth: 15
+  pixelHeight: 7
   horzFov: 60
   vertFov: 30
   maxDistance: 500

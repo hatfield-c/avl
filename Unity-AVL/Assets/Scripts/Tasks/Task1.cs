@@ -13,7 +13,7 @@ public class Task1 : TaskInterface
         byte[] confirmation = addressBus.WriteBus(address);
         byte[] result = commandBus.WriteBus(command);
 
-        int index = 72 * 3;
+        int index = 52 * 3;
 
         int r = result[index];
         int g = result[index + 1];
