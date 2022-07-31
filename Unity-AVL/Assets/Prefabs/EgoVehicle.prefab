@@ -173,6 +173,7 @@ MonoBehaviour:
   - {fileID: 7817340057172726565}
   - {fileID: 5918950154694497483}
   - {fileID: 7542927817565105277}
+  - {fileID: 7459521857100823184}
 --- !u!114 &2716442681479298169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1700,8 +1701,10 @@ MonoBehaviour:
   pixelHeight: 8
   horzFov: 60
   vertFov: 30
+  maxDistance: 500
   cameraWidth: 0.2
   cameraHeight: 0.2
+  emptyColor: {r: 0, g: 0, b: 0, a: 0}
   visualizeCamera: 0
   renderDistance: 5
 --- !u!1 &2221428531726482120

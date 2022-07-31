@@ -440,7 +440,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3fd5f56cab61a6e479d9a2ee1f0e47b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -503,7 +503,7 @@ PrefabInstance:
     - target: {fileID: 310605246637009529, guid: f2211a8abbd786a45b0b49fa5df27e78,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.95
+      value: -5.68
       objectReference: {fileID: 0}
     - target: {fileID: 310605246637009529, guid: f2211a8abbd786a45b0b49fa5df27e78,
         type: 3}
@@ -578,6 +578,11 @@ PrefabInstance:
     - target: {fileID: 7459521857100823184, guid: f2211a8abbd786a45b0b49fa5df27e78,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459521857100823184, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: visualizeCamera
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,

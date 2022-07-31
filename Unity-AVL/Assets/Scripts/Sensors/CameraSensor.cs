@@ -23,10 +23,16 @@ public class CameraSensor : AbstractDevice
     protected float vertFov = 30;
 
     [SerializeField]
+    protected float maxDistance = 500f;
+
+    [SerializeField]
     protected float cameraWidth = 0.2f;
 
     [SerializeField]
     protected float cameraHeight = 0.2f;
+
+    [SerializeField]
+    protected Color emptyColor = new Color();
 
     [Header("Visualize Camera Rays")]
     [SerializeField]
@@ -35,8 +41,12 @@ public class CameraSensor : AbstractDevice
     [SerializeField]
     protected float renderDistance = 5f;
 
+    protected byte[] sensorData = null;
+
     void Start()
     {
+        this.sensorData = new byte[3 * this.pixelHeight * this.pixelWidth];
+
         Vector3 horzAmount = this.lens.right * (this.cameraWidth / (float)this.pixelWidth);
         Vector3 vertAmount = this.lens.up * (this.cameraWidth / (float)this.pixelHeight);
         float horzOffset = this.cameraWidth / 2;
@@ -81,15 +91,46 @@ public class CameraSensor : AbstractDevice
     }
 
     public override byte[] CommandDevice(byte[] command) {
+        RaycastHit rayData;
+        Transform pixel;
+        Material hitMat;
+
         int index = 0;
         for (int i = 0; i < this.pixelHeight; i++) {
             for (int j = 0; j < this.pixelWidth; j++) {
-                //memory[index] = this.emptyTexture.ReadPixels(this.cameraTexture, )
+                pixel = this.lens.GetChild(index);
+
+                bool isHit = Physics.Raycast(pixel.position, pixel.forward, out rayData, this.maxDistance);
+
+                if (!isHit) {
+                    this.AssignColorByte(this.sensorData, this.emptyColor, index);
+                } else {
+                    hitMat = rayData.transform.gameObject.GetComponent<MeshRenderer>().material;
+                    this.AssignColorByte(this.sensorData, hitMat.color, index);
+                }
 
                 index++;
             }
         }
 
-        return new byte[1];
+        return this.sensorData;
+    }
+
+    protected void AssignColorByte(byte[] sensorData, Color color, int index) {
+        byte[] colorByte = this.GetColorByte(color);
+
+        int byteIndex = (3 * index);
+
+        sensorData[byteIndex] = colorByte[0];
+        sensorData[byteIndex + 1] = colorByte[1];
+        sensorData[byteIndex + 2] = colorByte[2];
+    }
+
+    protected byte[] GetColorByte(Color color) {
+        return new byte[] {
+            (byte)(int)(255 * color.r),
+            (byte)(int)(255 * color.g),
+            (byte)(int)(255 * color.b),
+        };
     }
 }
