@@ -41,12 +41,8 @@ public class CameraSensor : AbstractDevice
     [SerializeField]
     protected float renderDistance = 5f;
 
-    protected byte[] sensorData = null;
-
     void Start()
     {
-        this.sensorData = new byte[3 * this.pixelHeight * this.pixelWidth];
-
         Vector3 horzAmount = this.lens.right * (this.cameraWidth / (float)this.pixelWidth);
         Vector3 vertAmount = this.lens.up * (this.cameraWidth / (float)this.pixelHeight);
         float horzOffset = this.cameraWidth / 2;
@@ -71,7 +67,7 @@ public class CameraSensor : AbstractDevice
                 pixelObj.transform.eulerAngles += (Vector3.right * vertAngle * i) - (Vector3.right * vertAngleOffset);
                 pixelObj.transform.eulerAngles += (Vector3.up * horzAngle * j) - (Vector3.up * horzAngleOffset);
 
-                pixelObj.name = index.ToString();
+                pixelObj.name = index.ToString() + "_" + i.ToString() + "," + j.ToString();
                 pixelObj.SetActive(false);
 
                 if (this.visualizeCamera) {
@@ -90,7 +86,7 @@ public class CameraSensor : AbstractDevice
         }
     }
 
-    public override byte[] CommandDevice(byte[] command) {
+    public override void ReadDevice(float[] empty, int[,,] memory) {
         RaycastHit rayData;
         Transform pixel;
         Material hitMat;
@@ -102,35 +98,38 @@ public class CameraSensor : AbstractDevice
 
                 bool isHit = Physics.Raycast(pixel.position, pixel.forward, out rayData, this.maxDistance);
 
+                int r, g, b;
+
                 if (!isHit) {
-                    this.AssignColorByte(this.sensorData, this.emptyColor, index);
+                    r = this.GetColor255(this.emptyColor.r);
+                    g = this.GetColor255(this.emptyColor.g);
+                    b = this.GetColor255(this.emptyColor.b);
                 } else {
                     hitMat = rayData.transform.gameObject.GetComponent<MeshRenderer>().material;
-                    this.AssignColorByte(this.sensorData, hitMat.color, index);
+
+                    r = this.GetColor255(hitMat.color.r);
+                    g = this.GetColor255(hitMat.color.g);
+                    b = this.GetColor255(hitMat.color.b);
                 }
+
+                memory[i, j, 0] = r;
+                memory[i, j, 1] = g;
+                memory[i, j, 2] = b;
 
                 index++;
             }
         }
-
-        return this.sensorData;
     }
 
-    protected void AssignColorByte(byte[] sensorData, Color color, int index) {
-        byte[] colorByte = this.GetColorByte(color);
-
-        int byteIndex = (3 * index);
-
-        sensorData[byteIndex] = colorByte[0];
-        sensorData[byteIndex + 1] = colorByte[1];
-        sensorData[byteIndex + 2] = colorByte[2];
+    protected int GetColor255(float intensity) {
+        return (int)(255 * intensity);
     }
 
-    protected byte[] GetColorByte(Color color) {
-        return new byte[] {
-            (byte)(int)(255 * color.r),
-            (byte)(int)(255 * color.g),
-            (byte)(int)(255 * color.b),
-        };
+    public int GetPixelHeight() {
+        return this.pixelHeight;
+    }
+
+    public int GetPixelWidth() {
+        return this.pixelWidth;
     }
 }

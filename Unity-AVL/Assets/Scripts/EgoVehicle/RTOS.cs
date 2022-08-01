@@ -9,10 +9,7 @@ public class RTOS : MonoBehaviour
     protected TaskList taskList = null;
 
     [SerializeField]
-    protected AddressBus addressBus = null;
-
-    [SerializeField]
-    protected CommandBus commandBus = null;
+    protected DeviceRegistry deviceRegistry = null;
 
     protected int taskIndex = 0;
 
@@ -28,8 +25,10 @@ public class RTOS : MonoBehaviour
             this.taskIndex = 0;
         }
 
+        this.deviceRegistry.ReadSensors();
+
         TaskInterface task = this.tasks[this.taskIndex];
-        task.Execute(this.addressBus, this.commandBus);
+        task.Execute(this.deviceRegistry);
 
         this.taskIndex++;
     }

@@ -13,11 +13,10 @@ public class TargetSensor : AbstractDevice
     [SerializeField]
     protected Transform target = null;
 
-    override public byte[] CommandDevice(byte[] command) {
-        byte[] sensorData;
+    override public void ReadDevice(float[] memory, int[,,] empty) {
 
         if(this.target == null) {
-            return new byte[4];
+            memory[0] = 0f;
         }
 
         Vector3 direction = new Vector3(
@@ -27,9 +26,8 @@ public class TargetSensor : AbstractDevice
         );
 
         float angle = Vector3.SignedAngle(direction.normalized, this.egoVehicle.transform.forward, Vector3.up);
-        sensorData = System.BitConverter.GetBytes(angle);
 
-        return sensorData;
+        memory[0] = angle;
     }
 
     void FixedUpdate() {

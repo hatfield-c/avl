@@ -11,6 +11,11 @@ public class MemoryContainer : MonoBehaviour
 
     void Start() {
         this.mem = new byte[this.memSize];
+        this.mem[5] = 22;
+    }
+
+    public byte Read(int index) {
+        return this.mem[index];
     }
 
     public byte[] GetMemory() {

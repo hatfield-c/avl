@@ -10,28 +10,25 @@ public class LidarArraySensor : AbstractDevice
     [SerializeField]
     protected List<Transform> lidarArray = new List<Transform>();
 
-    override public byte[] CommandDevice(byte[] command) {
+    override public void ReadDevice(float[] memory, int[,,] empty) {
         RaycastHit rayData;
-        byte[] lidarData = new byte[4 * this.lidarArray.Count];
+        Transform lidar;
 
         for (int i = 0; i < this.lidarArray.Count; i++) {
-            Transform lidar = this.lidarArray[i];
-            byte[] sensorData;
+            lidar = this.lidarArray[i];
 
             bool isHit = Physics.Raycast(lidar.position, lidar.up, out rayData, this.maxDistance);
 
             if (isHit) {
-                sensorData = System.BitConverter.GetBytes(rayData.distance);
+                memory[i] = rayData.distance;
             } else {
-                sensorData = System.BitConverter.GetBytes(this.maxDistance);
-            }
-
-            for(int j = 0; j < sensorData.Length; j++) {
-                lidarData[(i * sensorData.Length) + j] = sensorData[j];
+                memory[i] = this.maxDistance;
             }
         }
+    }
 
-        return lidarData;
+    public int GetLidarCount() {
+        return this.lidarArray.Count;
     }
 
 }

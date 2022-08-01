@@ -13,13 +13,10 @@ public class DirectionSensor : AbstractDevice
     [SerializeField]
     protected Vector3 targetDirection = Vector3.forward;
 
-    override public byte[] CommandDevice(byte[] command) {
-        byte[] sensorData;
-
+    override public void ReadDevice(float[] memory, int[,,] empty) {
         float angle = Vector3.SignedAngle(this.targetDirection, this.egoVehicle.transform.forward, Vector3.up);
-        sensorData = System.BitConverter.GetBytes(angle);
-
-        return sensorData;
+        
+        memory[0] = angle;
     }
 
     void FixedUpdate() {

@@ -91,8 +91,6 @@ GameObject:
   - component: {fileID: 1590011655295242271}
   - component: {fileID: 8190532008445925056}
   - component: {fileID: 1699936773008049121}
-  - component: {fileID: 2716442681479298169}
-  - component: {fileID: 4710979896779149789}
   - component: {fileID: 5425315317348793196}
   m_Layer: 0
   m_Name: EgoVehicle
@@ -154,8 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskList: {fileID: 5425315317348793196}
-  addressBus: {fileID: 4710979896779149789}
-  commandBus: {fileID: 2716442681479298169}
+  deviceRegistry: {fileID: 1699936773008049121}
 --- !u!114 &1699936773008049121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,38 +165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8646757fb0d0fe64dacb7042ad6bdf4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deviceRegistry:
-  - {fileID: 561436773600865301}
-  - {fileID: 7817340057172726565}
-  - {fileID: 5918950154694497483}
-  - {fileID: 7542927817565105277}
-  - {fileID: 7459521857100823184}
---- !u!114 &2716442681479298169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310605246637009533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 478f6d293df2b904e949ca50c1b719d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addressBus: {fileID: 4710979896779149789}
-  deviceRegistry: {fileID: 1699936773008049121}
---- !u!114 &4710979896779149789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310605246637009533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a0fc9209c5f9c943b97925247f4e00d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  gpsSensor: {fileID: 7542927817565105277}
+  lidarSensor: {fileID: 561436773600865301}
+  cameraSensor: {fileID: 7459521857100823184}
+  directionFinder: {fileID: 7817340057172726565}
+  targetFinder: {fileID: 5918950154694497483}
 --- !u!114 &5425315317348793196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -901,7 +871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  address: 32
   maxDistance: 10
   lidarArray:
   - {fileID: 4559200462623152074}
@@ -1693,7 +1662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e70e9bf451638bd49bc4f69ecf5b1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  address: 16
   lens: {fileID: 2225645820188824734}
   pixelPrefab: {fileID: 8325198963557980099, guid: b98461f1fe8625b4397b0f70a2dc7c2e,
     type: 3}
@@ -2286,7 +2254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea4b836a4aa2ea4cb5a4143333a4dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  address: 10
   target: {fileID: 310605246637009529}
   spinner: {fileID: 7727560988561860413}
   spinRate: 5
@@ -2888,7 +2855,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed96a21f997843a4696c17f346250e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  address: 64
   egoVehicle: {fileID: 310605246637009529}
   spinner: {fileID: 8494955425221201437}
   targetDirection: {x: 0, y: 0, z: 1}
@@ -3798,7 +3764,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2385987511030344292}
-  - component: {fileID: 330276995228047300}
   m_Layer: 0
   m_Name: Memory
   m_TagString: Untagged
@@ -3822,19 +3787,6 @@ Transform:
   m_Father: {fileID: 310605246637009529}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &330276995228047300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5227651099427126882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e56c0e827f090a04da694ecafe9abfaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  memSize: 256
 --- !u!1 &5240256253882125335
 GameObject:
   m_ObjectHideFlags: 0
@@ -3992,7 +3944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39611db562db75145aebccc7db028c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  address: 65
   egoVehicle: {fileID: 310605246637009529}
   spinner: {fileID: 5851093709801015964}
   target: {fileID: 0}
