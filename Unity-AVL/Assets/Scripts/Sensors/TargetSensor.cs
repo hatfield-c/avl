@@ -30,6 +30,8 @@ public class TargetSensor : AbstractDevice
         memory[0] = angle;
     }
 
+    public override void CommandDevice(float[] empty) { }
+
     void FixedUpdate() {
         if(this.target == null) {
             return;

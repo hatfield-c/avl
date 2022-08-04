@@ -145,4 +145,6 @@ public class CameraSensor : AbstractDevice
     public int GetPixelWidth() {
         return this.pixelWidth;
     }
+
+    public override void CommandDevice(float[] empty) { }
 }

@@ -18,6 +18,8 @@ public class GpsSensor : AbstractDevice
         memory[1] = this.target.position.z;
     }
 
+    public override void CommandDevice(float[] empty) { }
+
     void FixedUpdate() {
         this.spinner.eulerAngles += Vector3.up * this.spinRate;
     }

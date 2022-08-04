@@ -27,6 +27,8 @@ public class LidarArraySensor : AbstractDevice
         }
     }
 
+    public override void CommandDevice(float[] empty) { }
+
     public int GetLidarCount() {
         return this.lidarArray.Count;
     }

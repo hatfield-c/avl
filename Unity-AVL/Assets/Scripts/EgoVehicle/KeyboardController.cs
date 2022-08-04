@@ -8,6 +8,9 @@ public class KeyboardController : MonoBehaviour
     [SerializeField]
     protected PhysicsBody body = null;
 
+    [SerializeField]
+    protected Accelerator accelerator = null;
+
     [Header("Parameters")]
     [SerializeField]
     protected float gasPower = 0.1f;
@@ -18,10 +21,18 @@ public class KeyboardController : MonoBehaviour
     [SerializeField]
     protected float turnRate = 3f;
 
+    protected float[] accelCommand = new float[1];
+
     void FixedUpdate()
     {
         if (Input.GetKey("w")) {
-            this.body.AddSpeed(this.gasPower);
+            this.accelCommand[0] = 100f;
+            this.accelerator.CommandDevice(this.accelCommand);
+        }
+
+        if (Input.GetKey("s")) {
+            this.accelCommand[0] = 0f;
+            this.accelerator.CommandDevice(this.accelCommand);
         }
 
         if (Input.GetKey("a")) {

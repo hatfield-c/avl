@@ -19,6 +19,8 @@ public class DirectionSensor : AbstractDevice
         memory[0] = angle;
     }
 
+    public override void CommandDevice(float[] empty) { }
+
     void FixedUpdate() {
         this.spinner.LookAt(this.spinner.position + this.targetDirection.normalized);
         this.spinner.eulerAngles = new Vector3(0, this.spinner.eulerAngles.y, 0);

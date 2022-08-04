@@ -34,4 +34,8 @@ public class PhysicsBody : MonoBehaviour
     public void Rotate(float amount) {
         this.transform.eulerAngles = this.transform.eulerAngles + (Vector3.up * amount);
     }
+
+    public float GetSpeed() {
+        return this.velocity;
+    }
 }
