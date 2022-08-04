@@ -11,40 +11,49 @@ public class KeyboardController : MonoBehaviour
     [SerializeField]
     protected Accelerator accelerator = null;
 
-    [Header("Parameters")]
     [SerializeField]
-    protected float gasPower = 0.1f;
+    protected SteeringSubsystem steering = null;
 
     [SerializeField]
-    protected float brakePower = 0.9f;
+    protected BrakeController brakes = null;
+
+    [Header("Parameters")]
 
     [SerializeField]
     protected float turnRate = 3f;
 
-    protected float[] accelCommand = new float[1];
+    protected float[] acceleratorCommand = new float[1];
+    protected float[] rotateCommand = new float[1];
+    protected float[] brakeCommand = new float[1];
 
     void FixedUpdate()
     {
         if (Input.GetKey("w")) {
-            this.accelCommand[0] = 100f;
-            this.accelerator.CommandDevice(this.accelCommand);
+            this.acceleratorCommand[0] = 100f;
+            this.accelerator.CommandDevice(this.acceleratorCommand);
         }
 
         if (Input.GetKey("s")) {
-            this.accelCommand[0] = 0f;
-            this.accelerator.CommandDevice(this.accelCommand);
+            this.acceleratorCommand[0] = 0f;
+            this.accelerator.CommandDevice(this.acceleratorCommand);
         }
 
-        if (Input.GetKey("a")) {
-            this.body.Rotate(-this.turnRate);
-        }
+        if (Input.GetKey("a") || Input.GetKey("d")) {
+            if (Input.GetKey("a")) {
+                this.rotateCommand[0] = -this.turnRate;
+            } else {
+                this.rotateCommand[0] = this.turnRate;
+            }
 
-        if (Input.GetKey("d")) {
-            this.body.Rotate(this.turnRate);
+            this.steering.CommandDevice(this.rotateCommand);
+        } else {
+            this.rotateCommand[0] = 0f;
+            this.steering.CommandDevice(this.rotateCommand);
         }
 
         if (Input.GetKey("space")) {
-            this.body.ApplyDrag(this.brakePower);
+            this.brakeCommand[0] = Time.fixedDeltaTime;
+            this.brakes.CommandDevice(this.brakeCommand);
         }
     }
 }
