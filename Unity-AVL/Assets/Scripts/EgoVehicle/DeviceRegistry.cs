@@ -20,6 +20,18 @@ public class DeviceRegistry : MonoBehaviour
     public float[] targetAlignment;
 
     [System.NonSerialized]
+    public float[] speedometer;
+
+    [System.NonSerialized]
+    public float[] speedControl;
+
+    [System.NonSerialized]
+    public float[] brakeControl;
+
+    [System.NonSerialized]
+    public float[] steeringControl;
+
+    [System.NonSerialized]
     public byte[,] memory;
 
     [Header("Sensors")]
@@ -38,6 +50,16 @@ public class DeviceRegistry : MonoBehaviour
     [SerializeField]
     protected TargetSensor targetFinder = null;
 
+    [Header("Actuators")]
+    [SerializeField]
+    protected Accelerator accelerator = null;
+
+    [SerializeField]
+    protected BrakeController brakeController = null;
+
+    [SerializeField]
+    protected SteeringSubsystem steeringSystem = null;
+
     void Start()
     {
         this.gps = new float[2];
@@ -45,6 +67,10 @@ public class DeviceRegistry : MonoBehaviour
         this.pixels = new int[this.cameraSensor.GetPixelHeight(), this.cameraSensor.GetPixelWidth(), 3];
         this.compass = new float[1];
         this.targetAlignment = new float[1];
+        this.speedometer = new float[1];
+        this.speedControl = new float[1];
+        this.steeringControl = new float[1];
+        this.brakeControl = new float[1];
         this.memory = new byte[64, 4];
     }
 
@@ -67,6 +93,24 @@ public class DeviceRegistry : MonoBehaviour
 
         if (this.targetFinder != null) {
             this.targetFinder.ReadDevice(this.targetAlignment, null);
+        }
+
+        if(this.accelerator != null) {
+            this.accelerator.ReadDevice(this.speedometer, null);
+        }
+    }
+
+    public void CommandActuators() {
+        if (this.accelerator != null) {
+            this.accelerator.CommandDevice(this.speedControl);
+        }
+
+        if (this.steeringSystem != null) {
+            this.steeringSystem.CommandDevice(this.steeringControl);
+        }
+
+        if (this.brakeController != null) {
+            this.brakeController.CommandDevice(this.brakeControl);
         }
     }
 
