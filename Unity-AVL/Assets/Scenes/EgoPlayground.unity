@@ -545,6 +545,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1590011655295242271, guid: f2211a8abbd786a45b0b49fa5df27e78,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4076648563771676569, guid: f2211a8abbd786a45b0b49fa5df27e78,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -578,11 +583,6 @@ PrefabInstance:
     - target: {fileID: 7459521857100823184, guid: f2211a8abbd786a45b0b49fa5df27e78,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7459521857100823184, guid: f2211a8abbd786a45b0b49fa5df27e78,
-        type: 3}
-      propertyPath: visualizeCamera
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7459521857100823184, guid: f2211a8abbd786a45b0b49fa5df27e78,

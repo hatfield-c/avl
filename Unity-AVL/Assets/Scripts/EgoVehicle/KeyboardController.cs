@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class KeyboardController : MonoBehaviour
 {
-    [Header("Parameters")]
-
+    [Header("References")]
     [SerializeField]
-    protected float maxSpeed = 0.33f;
+    protected PhysicsBody body = null;
 
+    [Header("Parameters")]
     [SerializeField]
     protected float gasPower = 0.1f;
 
@@ -18,35 +18,22 @@ public class KeyboardController : MonoBehaviour
     [SerializeField]
     protected float turnRate = 3f;
 
-    [SerializeField]
-    protected float drag = 0.97f;
-
-    protected float velocity = 0f;
-
     void FixedUpdate()
     {
-        if (Input.GetKey("w") && this.velocity < this.maxSpeed) {
-            this.velocity = this.velocity + this.gasPower;
-
-            if(this.velocity > this.maxSpeed) {
-                this.velocity = this.maxSpeed;
-            }
+        if (Input.GetKey("w")) {
+            this.body.AddSpeed(this.gasPower);
         }
 
         if (Input.GetKey("a")) {
-            this.transform.eulerAngles = this.transform.eulerAngles + (Vector3.up * this.turnRate);
+            this.body.Rotate(-this.turnRate);
         }
 
         if (Input.GetKey("d")) {
-            this.transform.eulerAngles = this.transform.eulerAngles + (Vector3.up * -this.turnRate);
+            this.body.Rotate(this.turnRate);
         }
 
         if (Input.GetKey("space")) {
-            this.velocity = this.velocity * this.brakePower;
+            this.body.ApplyDrag(this.brakePower);
         }
-
-        this.transform.position = this.transform.position + (this.transform.forward * this.velocity);
-
-        this.velocity = this.velocity * this.drag;
     }
 }
