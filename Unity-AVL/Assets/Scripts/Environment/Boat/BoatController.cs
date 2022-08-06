@@ -27,10 +27,10 @@ public class BoatController : MonoBehaviour
     protected float speed = 0.1f;
 
     [SerializeField]
-    protected float minWaitTime = 10f;
+    protected float minWaitTime = 5f;
 
     [SerializeField]
-    protected float maxWaitTime = 25f;
+    protected float maxWaitTime = 15f;
 
     [Header("Bridge Parameters")]
     [SerializeField]
