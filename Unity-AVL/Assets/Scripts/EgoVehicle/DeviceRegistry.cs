@@ -75,41 +75,41 @@ public class DeviceRegistry : MonoBehaviour
     }
 
     public void ReadSensors() {
-        if (this.gpsSensor != null) {
+        if (this.gpsSensor != null && this.gpsSensor.enabled) {
             this.gpsSensor.ReadDevice(this.gps, null);
         }
 
-        if (this.lidarSensor != null) {
+        if (this.lidarSensor != null && this.lidarSensor.enabled) {
             this.lidarSensor.ReadDevice(this.lidar, null);
         }
 
-        if (this.cameraSensor != null) {
+        if (this.cameraSensor != null && this.cameraSensor.enabled) {
             this.cameraSensor.ReadDevice(null, this.pixels);
         }
 
-        if (this.directionFinder != null) {
+        if (this.directionFinder != null && this.directionFinder.enabled) {
             this.directionFinder.ReadDevice(this.compass, null);
         }
 
-        if (this.targetFinder != null) {
+        if (this.targetFinder != null && this.targetFinder.enabled) {
             this.targetFinder.ReadDevice(this.targetAlignment, null);
         }
 
-        if(this.accelerator != null) {
+        if(this.accelerator != null && this.accelerator.enabled) {
             this.accelerator.ReadDevice(this.speedometer, null);
         }
     }
 
     public void CommandActuators() {
-        if (this.accelerator != null) {
+        if (this.accelerator != null && this.accelerator.enabled) {
             this.accelerator.CommandDevice(this.speedControl);
         }
 
-        if (this.steeringSystem != null) {
+        if (this.steeringSystem != null && this.steeringSystem.enabled) {
             this.steeringSystem.CommandDevice(this.steeringControl);
         }
 
-        if (this.brakeController != null) {
+        if (this.brakeController != null && this.brakeController.enabled) {
             this.brakeController.CommandDevice(this.brakeControl);
         }
     }
