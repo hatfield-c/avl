@@ -26,6 +26,7 @@ public class RTOS : MonoBehaviour
         }
 
         this.deviceRegistry.ReadSensors();
+        this.deviceRegistry.CommandActuators();
 
         TaskInterface task = this.tasks[this.taskIndex];
         task.Execute(this.deviceRegistry);

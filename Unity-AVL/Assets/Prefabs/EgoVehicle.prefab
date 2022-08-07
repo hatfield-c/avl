@@ -210,9 +210,11 @@ MonoBehaviour:
   cameraSensor: {fileID: 7459521857100823184}
   directionFinder: {fileID: 7817340057172726565}
   targetFinder: {fileID: 5918950154694497483}
+  microphoneSensor: {fileID: 4957742487939689585}
   accelerator: {fileID: 2242608965123849298}
   brakeController: {fileID: 7376900802064344654}
   steeringSystem: {fileID: 8712287642525139421}
+  transmitter: {fileID: 5249982325449448483}
 --- !u!114 &5425315317348793196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4645,6 +4647,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1208711620672359014}
+  - component: {fileID: 5249982325449448483}
   m_Layer: 0
   m_Name: Transmitter
   m_TagString: Untagged
@@ -4669,6 +4672,20 @@ Transform:
   m_Father: {fileID: 310605246637009529}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5249982325449448483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6691183674639895040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b2d6c7ff41b3f4db9cb62ac844fb34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  receiver: {fileID: 0}
+  maxDistance: 15
 --- !u!1 &6846523024322606056
 GameObject:
   m_ObjectHideFlags: 0
@@ -4844,6 +4861,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5966453556272150107}
+  - component: {fileID: 4957742487939689585}
   m_Layer: 0
   m_Name: Microphone
   m_TagString: Untagged
@@ -4869,6 +4887,19 @@ Transform:
   m_Father: {fileID: 310605246637009529}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4957742487939689585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6935783103535461629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917d3e923e2e34e4bbbc5b9159599849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
 --- !u!1 &7075127732461609659
 GameObject:
   m_ObjectHideFlags: 0

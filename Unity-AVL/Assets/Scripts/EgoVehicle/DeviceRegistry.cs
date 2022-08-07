@@ -20,6 +20,9 @@ public class DeviceRegistry : MonoBehaviour
     public float[] targetAlignment;
 
     [System.NonSerialized]
+    public float[] microphone;
+
+    [System.NonSerialized]
     public float[] speedometer;
 
     [System.NonSerialized]
@@ -30,6 +33,9 @@ public class DeviceRegistry : MonoBehaviour
 
     [System.NonSerialized]
     public float[] steeringControl;
+
+    [System.NonSerialized]
+    public float[] transmitterControl;
 
     [System.NonSerialized]
     public byte[,] memory;
@@ -50,6 +56,9 @@ public class DeviceRegistry : MonoBehaviour
     [SerializeField]
     protected TargetSensor targetFinder = null;
 
+    [SerializeField]
+    protected MicrophoneSensor microphoneSensor = null;
+
     [Header("Actuators")]
     [SerializeField]
     protected Accelerator accelerator = null;
@@ -60,6 +69,9 @@ public class DeviceRegistry : MonoBehaviour
     [SerializeField]
     protected SteeringSubsystem steeringSystem = null;
 
+    [SerializeField]
+    protected Transmitter transmitter = null;
+
     void Start()
     {
         this.gps = new float[2];
@@ -67,10 +79,12 @@ public class DeviceRegistry : MonoBehaviour
         this.pixels = new int[this.cameraSensor.GetPixelHeight(), this.cameraSensor.GetPixelWidth(), 3];
         this.compass = new float[1];
         this.targetAlignment = new float[1];
+        this.microphone = new float[1];
         this.speedometer = new float[1];
         this.speedControl = new float[1];
         this.steeringControl = new float[1];
         this.brakeControl = new float[1];
+        this.transmitterControl = new float[1];
         this.memory = new byte[64, 4];
     }
 
@@ -95,6 +109,10 @@ public class DeviceRegistry : MonoBehaviour
             this.targetFinder.ReadDevice(this.targetAlignment, null);
         }
 
+        if(this.microphoneSensor != null && this.microphoneSensor.enabled) {
+            this.microphoneSensor.ReadDevice(this.microphone, null);
+        }
+
         if(this.accelerator != null && this.accelerator.enabled) {
             this.accelerator.ReadDevice(this.speedometer, null);
         }
@@ -111,6 +129,10 @@ public class DeviceRegistry : MonoBehaviour
 
         if (this.brakeController != null && this.brakeController.enabled) {
             this.brakeController.CommandDevice(this.brakeControl);
+        }
+
+        if(this.transmitter != null && this.transmitter.enabled) {
+            this.transmitter.CommandDevice(this.transmitterControl);
         }
     }
 

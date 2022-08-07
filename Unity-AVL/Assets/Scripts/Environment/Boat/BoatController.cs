@@ -45,6 +45,13 @@ public class BoatController : MonoBehaviour
     [SerializeField]
     protected float raiseSpeed = 0.2f;
 
+    [Header("Alarm Parameters")]
+    [SerializeField]
+    protected BridgeAlarmSpeaker alarmSpeaker = null;
+
+    [SerializeField]
+    protected BridgeAlarmReceiver alarmReceiver = null;
+
     protected float currentDistance = 0f;
     protected float currentTime = 0f;
     protected float currentCheckTime = 0f;
@@ -73,6 +80,7 @@ public class BoatController : MonoBehaviour
         this.currentCheckTime -= Time.fixedDeltaTime;
 
         if(this.currentCheckTime <= 0) {
+            this.alarmReceiver.ReceiveMessage(BridgeAlarmReceiver.SIGNAL_RAISED);
             this.currentBridgeState = BridgeState.bridge_raising;
             this.currentBoatState = BoatState.boat_moving;
             this.currentCheckTime = 0;
@@ -117,6 +125,7 @@ public class BoatController : MonoBehaviour
                 this.bridge.eulerAngles = Vector3.zero;
 
                 this.currentBridgeState = BridgeState.bridge_lowered;
+                this.alarmReceiver.ReceiveMessage(BridgeAlarmReceiver.SIGNAL_SILENT);
             }
 
             return;
@@ -135,7 +144,7 @@ public class BoatController : MonoBehaviour
             this.boat.gameObject.SetActive(false);
 
             this.currentCheckTime = Random.Range(this.minWaitTime, this.maxWaitTime);
-            Debug.Log(this.currentCheckTime);
+            Debug.Log($"Time to next boat: {this.currentCheckTime}");
 
             return;
         }
