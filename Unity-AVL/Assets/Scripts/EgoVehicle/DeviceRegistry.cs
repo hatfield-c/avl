@@ -89,52 +89,52 @@ public class DeviceRegistry : MonoBehaviour
     }
 
     public void ReadSensors() {
-        if (this.gpsSensor != null && this.gpsSensor.enabled) {
+        if (this.gpsSensor != null && this.gpsSensor.gameObject.activeSelf) {
             this.gpsSensor.ReadDevice(this.gps, null);
         }
 
-        if (this.lidarSensor != null && this.lidarSensor.enabled) {
+        if (this.lidarSensor != null && this.lidarSensor.gameObject.activeSelf) {
             this.lidarSensor.ReadDevice(this.lidar, null);
         }
 
-        if (this.cameraSensor != null && this.cameraSensor.enabled) {
+        if (this.cameraSensor != null && this.cameraSensor.gameObject.activeSelf) {
             this.cameraSensor.ReadDevice(null, this.pixels);
         }
 
-        if (this.directionFinder != null && this.directionFinder.enabled) {
+        if (this.directionFinder != null && this.directionFinder.gameObject.activeSelf) {
             this.directionFinder.ReadDevice(this.compass, null);
         }
 
-        if (this.targetFinder != null && this.targetFinder.enabled) {
+        if (this.targetFinder != null && this.targetFinder.gameObject.activeSelf) {
             this.targetFinder.ReadDevice(this.targetAlignment, null);
         }
 
-        if(this.microphoneSensor != null && this.microphoneSensor.enabled) {
+        if(this.microphoneSensor != null && this.microphoneSensor.gameObject.activeSelf) {
             this.microphoneSensor.ReadDevice(this.microphone, null);
         }
 
-        if(this.accelerator != null && this.accelerator.enabled) {
+        if(this.accelerator != null && this.accelerator.gameObject.activeSelf) {
             this.accelerator.ReadDevice(this.speedometer, null);
         }
     }
 
     public void CommandActuators() {
-        if (this.accelerator != null && this.accelerator.enabled && this.speedControl[0] != 0) {
+        if (this.accelerator != null && this.accelerator.gameObject.activeSelf && this.speedControl[0] != 0) {
             this.accelerator.CommandDevice(this.speedControl);
             this.speedControl[0] = 0;
         }
 
-        if (this.steeringSystem != null && this.steeringSystem.enabled && this.steeringControl[0] != 0) {
+        if (this.steeringSystem != null && this.steeringSystem.gameObject.activeSelf && this.steeringControl[0] != 0) {
             this.steeringSystem.CommandDevice(this.steeringControl);
             this.steeringControl[0] = 0;
         }
 
-        if (this.brakeController != null && this.brakeController.enabled && this.brakeControl[0] != 0) {
+        if (this.brakeController != null && this.brakeController.gameObject.activeSelf && this.brakeControl[0] != 0) {
             this.brakeController.CommandDevice(this.brakeControl);
             this.brakeControl[0] = 0;
         }
 
-        if(this.transmitter != null && this.transmitter.enabled && this.transmitterControl[0] != 0) {
+        if(this.transmitter != null && this.transmitter.gameObject.activeSelf && this.transmitterControl[0] != 0) {
             this.transmitter.CommandDevice(this.transmitterControl);
             this.transmitterControl[0] = 0;
         }
