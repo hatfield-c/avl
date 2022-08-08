@@ -722,6 +722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b937e2732e9070d4c9fd5074536e1119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  silentColor: {r: 0, g: 0, b: 1, a: 0}
+  crossingColor: {r: 0, g: 1, b: 0, a: 1}
+  raisingColor: {r: 1, g: 0, b: 0, a: 1}
+  alarmRenderer: {fileID: 1859540339}
   maxDistance: 10
   soundCrossing: 33
   soundRaising: 41
@@ -754,7 +758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1063968669
 Transform:
   m_ObjectHideFlags: 0
@@ -1206,7 +1210,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6b433891ed8cc24ba6ac3dd776bc497, type: 2}
+  - {fileID: 2100000, guid: c9f103713fae750458fbe957fbd79881, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

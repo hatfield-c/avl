@@ -174,10 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631c59943450efb44bdc3f9ad37fe97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 5782958610780921076}
-  accelerator: {fileID: 2242608965123849298}
-  steering: {fileID: 8712287642525139421}
-  brakes: {fileID: 7376900802064344654}
+  devices: {fileID: 1699936773008049121}
   turnRate: 3
 --- !u!114 &8190532008445925056
 MonoBehaviour:

@@ -20,8 +20,7 @@ public class Transmitter : AbstractDevice {
             return;
         }
 
-        this.receiver.ReceiveMessage(options[0]);
-        options[0] = 0;
+        this.receiver.ReceiveMessage(options[1]);
     }
 
     public override void ReadDevice(float[] memory, int[,,] memoryPixels) { }

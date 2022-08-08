@@ -25,7 +25,6 @@ public class BrakeController : AbstractDevice
     }
 
     public override void CommandDevice(float[] options) {
-        this.brakeTime = options[0];
-        options[0] = 0f;
+        this.brakeTime = options[1];
     }
 }

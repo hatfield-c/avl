@@ -19,8 +19,7 @@ public class SteeringSubsystem : AbstractDevice {
     }
 
     public override void CommandDevice(float[] options) {
-        this.currentAngle = options[0];
-        options[0] = 0f;
+        this.currentAngle = options[1];
     }
 
 }

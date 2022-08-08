@@ -6,54 +6,41 @@ public class KeyboardController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
-    protected PhysicsBody body = null;
-
-    [SerializeField]
-    protected Accelerator accelerator = null;
-
-    [SerializeField]
-    protected SteeringSubsystem steering = null;
-
-    [SerializeField]
-    protected BrakeController brakes = null;
+    protected DeviceRegistry devices = null;
 
     [Header("Parameters")]
 
     [SerializeField]
     protected float turnRate = 3f;
 
-    protected float[] acceleratorCommand = new float[1];
-    protected float[] rotateCommand = new float[1];
-    protected float[] brakeCommand = new float[1];
-
     void FixedUpdate()
     {
         if (Input.GetKey("w")) {
-            this.acceleratorCommand[0] = 100f;
-            this.accelerator.CommandDevice(this.acceleratorCommand);
+            this.devices.speedControl[0] = 1f;
+            this.devices.speedControl[1] = 100f;
         }
 
         if (Input.GetKey("s")) {
-            this.acceleratorCommand[0] = 0f;
-            this.accelerator.CommandDevice(this.acceleratorCommand);
+            this.devices.speedControl[0] = 1f;
+            this.devices.speedControl[1] = 0f;
         }
 
         if (Input.GetKey("a") || Input.GetKey("d")) {
-            if (Input.GetKey("a")) {
-                this.rotateCommand[0] = -this.turnRate;
-            } else {
-                this.rotateCommand[0] = this.turnRate;
-            }
+            this.devices.steeringControl[0] = 1f;
 
-            this.steering.CommandDevice(this.rotateCommand);
+            if (Input.GetKey("a")) {
+                this.devices.steeringControl[1] = -this.turnRate;
+            } else {
+                this.devices.steeringControl[1] = this.turnRate;
+            }
         } else {
-            this.rotateCommand[0] = 0f;
-            this.steering.CommandDevice(this.rotateCommand);
+            this.devices.steeringControl[0] = 1f;
+            this.devices.steeringControl[1] = 0f;
         }
 
         if (Input.GetKey("space")) {
-            this.brakeCommand[0] = Time.fixedDeltaTime;
-            this.brakes.CommandDevice(this.brakeCommand);
+            this.devices.brakeControl[0] = 1f;
+            this.devices.brakeControl[1] = Time.fixedDeltaTime;
         }
     }
 }

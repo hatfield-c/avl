@@ -81,10 +81,10 @@ public class DeviceRegistry : MonoBehaviour
         this.targetAlignment = new float[1];
         this.microphone = new float[1];
         this.speedometer = new float[1];
-        this.speedControl = new float[1];
-        this.steeringControl = new float[1];
-        this.brakeControl = new float[1];
-        this.transmitterControl = new float[1];
+        this.speedControl = new float[2];
+        this.steeringControl = new float[2];
+        this.brakeControl = new float[2];
+        this.transmitterControl = new float[2];
         this.memory = new byte[64, 4];
     }
 
@@ -119,20 +119,24 @@ public class DeviceRegistry : MonoBehaviour
     }
 
     public void CommandActuators() {
-        if (this.accelerator != null && this.accelerator.enabled) {
+        if (this.accelerator != null && this.accelerator.enabled && this.speedControl[0] != 0) {
             this.accelerator.CommandDevice(this.speedControl);
+            this.speedControl[0] = 0;
         }
 
-        if (this.steeringSystem != null && this.steeringSystem.enabled) {
+        if (this.steeringSystem != null && this.steeringSystem.enabled && this.steeringControl[0] != 0) {
             this.steeringSystem.CommandDevice(this.steeringControl);
+            this.steeringControl[0] = 0;
         }
 
-        if (this.brakeController != null && this.brakeController.enabled) {
+        if (this.brakeController != null && this.brakeController.enabled && this.brakeControl[0] != 0) {
             this.brakeController.CommandDevice(this.brakeControl);
+            this.brakeControl[0] = 0;
         }
 
-        if(this.transmitter != null && this.transmitter.enabled) {
+        if(this.transmitter != null && this.transmitter.enabled && this.transmitterControl[0] != 0) {
             this.transmitter.CommandDevice(this.transmitterControl);
+            this.transmitterControl[0] = 0;
         }
     }
 

@@ -23,7 +23,6 @@ public class Accelerator : AbstractDevice
     }
 
     public override void CommandDevice(float[] options) {
-        this.targetSpeed = options[0];
-        options[0] = 0f;
+        this.targetSpeed = options[1];
     }
 }

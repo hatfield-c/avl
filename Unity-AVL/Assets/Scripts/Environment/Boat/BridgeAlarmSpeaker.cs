@@ -10,6 +10,18 @@ public class BridgeAlarmSpeaker : AbstractSoundSource {
     };
 
     [SerializeField]
+    protected Color silentColor = new Color(0f, 0f, 1f);
+
+    [SerializeField]
+    protected Color crossingColor = new Color(0f, 1f, 0f);
+
+    [SerializeField]
+    protected Color raisingColor = new Color(1f, 0f, 0f);
+
+    [SerializeField]
+    protected MeshRenderer alarmRenderer = null;
+
+    [SerializeField]
     protected float maxDistance = 10f;
 
     [SerializeField]
@@ -41,14 +53,17 @@ public class BridgeAlarmSpeaker : AbstractSoundSource {
     public void ModifyState(float stateMessage) {
         if (stateMessage == BridgeAlarmReceiver.SIGNAL_SILENT) {
             this.currentstate = AlarmState.silent;
+            this.alarmRenderer.material.color = this.silentColor;
         }
 
         if (stateMessage == BridgeAlarmReceiver.SIGNAL_CROSS && this.currentstate == AlarmState.silent) {
             this.currentstate = AlarmState.bridge_crossing;
+            this.alarmRenderer.material.color = this.crossingColor;
         }
 
         if (stateMessage == BridgeAlarmReceiver.SIGNAL_RAISED) {
             this.currentstate = AlarmState.bridge_raising;
+            this.alarmRenderer.material.color = this.raisingColor;
         }
     }
 }
