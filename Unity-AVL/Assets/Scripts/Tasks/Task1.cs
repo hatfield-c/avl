@@ -10,6 +10,8 @@ public class Task1 : TaskInterface
         devices.transmitterControl[0] = 1;
         devices.transmitterControl[1] = BridgeAlarmReceiver.SIGNAL_CROSS;
 
+        float lattitude = devices.gps[1];
+
         Debug.Log($"Sound: {devices.microphone[0]}");
     }
 }
