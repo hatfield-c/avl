@@ -132,6 +132,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyRenderer: {fileID: 1292506647232049321}
   topRenderer: {fileID: 1292506647663292003}
+  egoDistance: 3.3
+  egoAngle: 30
+  maxDistance: 5.2
+  speed: 0.04
 --- !u!1 &1292506647082348490
 GameObject:
   m_ObjectHideFlags: 0

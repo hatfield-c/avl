@@ -5581,6 +5581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4058e2f454f2e24f9e74d25ba73c92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  egoVehicle: {fileID: 310605246134810190}
   carContainer: {fileID: 43002560}
   carMaterials:
   - {fileID: 2100000, guid: 36404019def33474cba0e175e34853f5, type: 2}
@@ -5588,6 +5589,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3fd5f56cab61a6e479d9a2ee1f0e47b9, type: 2}
   - {fileID: 2100000, guid: 460ef703277d75442b59839329ba0115, type: 2}
   - {fileID: 2100000, guid: f35a107c1b8b11b409d1f2416d07b323, type: 2}
+  minTime: 0
+  maxTime: 0
+  isCarsActive: 0
 --- !u!1 &1094187320
 GameObject:
   m_ObjectHideFlags: 0
