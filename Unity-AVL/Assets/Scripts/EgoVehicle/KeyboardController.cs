@@ -22,6 +22,11 @@ public class KeyboardController : MonoBehaviour
 
         if (Input.GetKey("s")) {
             this.devices.speedControl[0] = 1f;
+            this.devices.speedControl[1] = -100f;
+        }
+
+        if (Input.GetKey("x")) {
+            this.devices.speedControl[0] = 1f;
             this.devices.speedControl[1] = 0f;
         }
 

@@ -22,12 +22,18 @@ public class PhysicsBody : MonoBehaviour
     public void AddSpeed(float amount) {
         this.velocity = this.velocity + amount;
 
-        if (this.velocity > this.maxSpeed) {
-            this.velocity = this.maxSpeed;
+        if (amount >= 0) {
+            if (this.velocity > this.maxSpeed) {
+                this.velocity = this.maxSpeed;
+            }
+        } else {
+            if (this.velocity < -this.maxSpeed) {
+                this.velocity = -this.maxSpeed;
+            }
         }
     }
 
-    public void ApplyDrag(float amount) {
+        public void ApplyDrag(float amount) {
         this.velocity = this.velocity * amount;
     }
 

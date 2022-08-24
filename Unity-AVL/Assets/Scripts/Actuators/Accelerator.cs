@@ -13,9 +13,17 @@ public class Accelerator : AbstractDevice
     protected float targetSpeed = 0f;
 
     void FixedUpdate() {
-        if(this.body.GetSpeed() < this.targetSpeed) {
-            this.body.AddSpeed(this.gasPower);
+        if(this.targetSpeed >= 0) {
+            if (this.body.GetSpeed() < this.targetSpeed) {
+                this.body.AddSpeed(this.gasPower);
+            }
+        } else {
+            if (this.body.GetSpeed() > this.targetSpeed) {
+                this.body.AddSpeed(-this.gasPower);
+            }
         }
+
+        
     }
 
     public override void ReadDevice(float[] memory, int[,,] empty) {
