@@ -38,7 +38,7 @@ public class DeviceRegistry : MonoBehaviour
     public float[] transmitterControl;
 
     [System.NonSerialized]
-    public byte[,] memory;
+    public float[] memory;
 
     [Header("Sensors")]
     [SerializeField]
@@ -85,7 +85,7 @@ public class DeviceRegistry : MonoBehaviour
         this.steeringControl = new float[2];
         this.brakeControl = new float[2];
         this.transmitterControl = new float[2];
-        this.memory = new byte[64, 4];
+        this.memory = new float[64];
     }
 
     public void ReadSensors() {
