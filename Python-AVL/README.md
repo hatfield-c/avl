@@ -1,6 +1,8 @@
-## UT Dallas Autonomous Vehicle Lab [AVL]
+## AVL - Traffic Simulator
 
-Welcome to the repository for UT Dallas' Autonomous Vehicle Lab. This is an early prototype for the lab environment, and as such everything is subject to change.
+In a previous project, the AVL was set up to work with the SUMO traffic simulator as a means to further test FSD algorithms. The AVL has since changed from a testing environment to an educational one, and the traffic simulator was not deemed necessary for the educational requirements at this present time.
+
+Most of the code should still be functional even after the mission change, so this folder, which controls the traffic simulator, has been left as a part of the file hierarchy in the event that the traffic simulator functionality is deemed necessary once again.
 
 ## Requirements
 
