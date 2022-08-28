@@ -4,7 +4,10 @@ Welcome to the repository for UT Dallas' Autonomous Vehicle Lab. This is an earl
 
 ## Introduction
 
-Briefly explain in a paragraph what the AVL is, and what it is meant to be used for
+The Autonomous Vehicle Lab (AVL) is an open-source project at The University of Texas at Dallas. The AVL serves as a testing environment for student-developed autonomous vehicle control systems that run on a simplified simulation of a real-time operating system. 
+Students will find multiple assignment scenarios in which they will utilize these vehicles to maneuver about various environments and obstacles. Further documentation is provided to explain the techinal details of these assignment environments, task creation and implimentation, vehicle properties, and more. 
+Both the assignments and documentation can be found in the UTD-RTOS folder.
+
 
 ## Requirements
 
@@ -19,39 +22,37 @@ Briefly explain in a paragraph what the AVL is, and what it is meant to be used 
   Graphics card with DX10 (shader model 4.0) capabilities.
   
 **Programs:**
+
 -Unity 2021.3.7f1
 
-*Note: This code is not compatible with older versions of Unity. Ensure that the correct Unity version is installed before proceeding.*
+*Note: This project is not compatible with older versions of Unity. Ensure that the correct Unity version is installed before proceeding.*
 
 ## Unity Installation
 
-These steps are for installation of Unity 2021.3.7f1. Check system requirements to ensure the program will run properly before proceeding.
+These steps are for installation of Unity 2021.3.7f1. Check system requirements to verify the program will run properly before installation.
 
-1. Visit unity.com/download
-2. Download the Unity Hub for the correct OS
-3. Open UnityHubSetup.exe
-4. Allow app to make changes to your device
-5. Agree to TOS
-6. Select folder to save program (usually best to keep as is)
-7. Install and Run Unity Hub
-8. Create an Unity account if you do not already have one
-9. Once account is created, Unity Hub will prompt to download the latest version of Unity. Make sure this version is 2021.3.7f1 to avoid compatibility issues.
-10. If the suggested version is not correct, you will need to download from the Unity archive. Visit unity3d.com/get-unity/download/archive.
-11. The correct version of Unity will be found under Unity 2021.x. Version 2021.3.7f1 was released July 28, 2022 to confirm it is correct.
-12. Download Windows Editor 64 bit. Open the setup file once downloaded.
-13. Allow to make changes.
-14. Follow prompts to install. Installation may take several minutes.
-15. Once installation is comlete, click finish.
-16. The downloaded version of Unity should be on your desktop, and can now be used to access this project.
+1. Visit https://unity.com/download.
+2. Download Unity Hub for the correct OS.
+3. Open UnityHubSetup.exe.
+4. Follow instructions in Unity installation prompt window.
+5. Install and Run Unity Hub.
+6. Create an Unity account if you do not already have one.
+7. Once account is created, Unity Hub will prompt to download the latest version of Unity. Make sure this version is 2021.3.7f1 to avoid compatibility issues.
+8. If the suggested version is not correct, you will need to download from the Unity archive. Visit https://unity3d.com/get-unity/download/archive.
+9. The necessary version of Unity will be found under Unity 2021.x. Version 2021.3.7f1 was released July 28, 2022 to confirm it is correct.
+10. Download Windows Editor 64 bit. Open the setup file once downloaded.
+11. Follow prompts to install. Installation may take several minutes.
+12. Once installation is complete, click finish.
+13. The downloaded version of Unity should be on your desktop, and can now be used to access this project.
 
 ## Project Installation
 
-Follow these instructions to download the project directly from GitHub, without using git.
+Follow these instructions to download the project directly from GitHub.
 
-1. Visit the GitHub page for the project, https://github.com/hatfield-c/avl
+1. Visit the GitHub page for the project, https://github.com/hatfield-c/avl.
 2. Click on the green Code button near the upper right.
 3. Select to download the repository as a ZIP file.
-4. It is possible for the filename to differ than what is pictured. Go to downloads and select the correct .zip file. File name should include avl-dev.
+4. Go to downloads and select the correct .zip file. File name should include avl-dev. (It is possible for the filename to differ than what is pictured, confirm you are selecting the correct file.)
 5. Unzip the file (right click + Extract). This creates a local directory (folder) named after the Github Repository.
 6. Move the directory somewhere that is easy to locate, such as your Documents folder. These files are now accessible to locally run the project on Unity.
 7. To set up the project to be used in Unity, first open Unity. DO NOT UPDATE VERSIONS IF PROMPTED!
