@@ -8,16 +8,16 @@ Briefly explain in a paragraph what the AVL is, and what it is meant to be used 
 
 ## Requirements
 
-System Requirements:
+**System Requirements:**
 -OS: 
   Windows 7 SP1+, 8, 10, 64-bit versions only; Mac OS X 10.12+; Ubuntu 16.04, 18.04, and CentOS 7.
 -GPU: 
   Graphics card with DX10 (shader model 4.0) capabilities.
-Programs:
+**Programs:**
 - Unity 2021.3.7f1
 
 
-Note: This code is not compatible with older versions of Unity. Ensure that the correct Unity version is installed before proceeding.
+*Note: This code is not compatible with older versions of Unity. Ensure that the correct Unity version is installed before proceeding.*
 
 ##Unity Installation
 
@@ -36,12 +36,19 @@ These steps are for installation of Unity 2021.3.7f1. Check system requirements 
 11. The correct version of Unity will be found under Unity 2021.x. Version 2021.3.7f1 was released July 28, 2022 to confirm it is correct.
 12. Download Windows Editor 64 bit. Open the setup file once downloaded.
 13. Allow to make changes.
-14. Follow prompts to install
-15. 
+14. Follow prompts to install. Installation may take several minutes.
+15. Once installation is comlete, click finish.
+16. The downloaded version of Unity should be on your desktop, and can now be used to access this project.
 
 ##Project Installation
 
-List the steps necessary to download the project from github (without using git, as students might not know how to use git). Also describe how to set up the project to be used in Unity
+Follow these instructions to download the project directly from GitHub, without using git.
+
+1. Visit the GitHub page for the project, https://github.com/hatfield-c/avl
+2. Click on the green Code button near the upper right.
+3. Select to download the repository as a ZIP file.
+4. It is possible for the filename to differ than what is pictured. Go to downloads and select the correct .zip file.
+5. Unzip the file. This creates a local directory (folder) named after the Github Repository.
 
 ##Quick Start Guide
 
