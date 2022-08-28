@@ -51,34 +51,20 @@ Follow these instructions to download the project directly from GitHub, without 
 1. Visit the GitHub page for the project, https://github.com/hatfield-c/avl
 2. Click on the green Code button near the upper right.
 3. Select to download the repository as a ZIP file.
-4. It is possible for the filename to differ than what is pictured. Go to downloads and select the correct .zip file.
+4. It is possible for the filename to differ than what is pictured. Go to downloads and select the correct .zip file. File name should include avl-dev.
 5. Unzip the file (right click + Extract). This creates a local directory (folder) named after the Github Repository.
 6. Move the directory somewhere that is easy to locate, such as your Documents folder. These files are now accessible to locally run the project on Unity.
-7. To set up the project to be used in Unity, open Unity. DO NOT UPDATE VERSIONS IF PROMPTED!
-8. Unity will be opened to Projects automatically, which will be empty if this is the first time being used. 
+7. To set up the project to be used in Unity, first open Unity. DO NOT UPDATE VERSIONS IF PROMPTED!
+8. Unity will be opened to Projects automatically. This will be empty if this is the first time being used. 
 9. Click Open, and navigate to the directory you downloaded avl-dev. Open the next avl-dev folder, then select Unity-AVL and open in Unity. This will add the project to Unity and it can now be accessed.
 10. The EgoPlayground scene for this project will automatically open at this point in Unity.
 
 ## Quick Start Guide
 
-Explain how to open the Playground scene file, and explain how to control the Ego vehicle with the keyboard
+If all instructions were properly followed above, you should be able to access the EgoPlayground scene in Unity. Open Unity and select Unity-AVL from your listed projects.
+ego vehicles are now supported, and an ego vehicle is added to the scene at runtime. To control the ego vehicle, click the 'Game Window' in Unity while the scene is running, and use the WASD keys.
 
-## Instructions
+## Contributors
 
-1. Download this repository
-2. Open Unity, and open the existing scene:
-    - Unity-AVL/Assets/Scenes/ClearScene.Unity
-4. Open a command line with access to python, and navigate to the folder Python-AVL
-5. Open the file Python-AVL/Config.py in vim (or your preferred text exitor), and set the file path configurations. Specifically, set the following variables:
-    - ROOT_PATH  :  The path to the cloned repository on your local machine
-    - SUMO_BINARY_PATH : The path to the sumo-gui.exe file in your SUMO installation directory (remove the '.exe' ending from the path)
-6. On the command line, use python to run the file Python-AVL/AvlApplication.py from within the Python-AVL folder. The SUMO application should open
-7. In Unity, hit the "play" button
-8. The Unity scene should instantiate the topology of the SUMO road network, as well as the vehicles in the sumo scene.
-9. As of Alpha Release 0.0.2, ego vehicles are now supported, and an ego vehicle is added to the scene at runtime. To control the ego vehicle, click the 'Game Window' in Unity while the scene is running, and use the WASD keys.
-
-## Credits
-
-This application suite was based on the work done by the BME Automated Drive team, and the original code as well as their research paper can be found at the following links:
-- https://github.com/BMEAutomatedDrive/SUMO-Unity3D-connection
-- https://ieeexplore.ieee.org/document/8519486
+Cody Hatfield - Lead Developer - cxh124730@utdallas.edu
+Hannah Ostoja - Junior Developer - hjostoja@gmail.com
