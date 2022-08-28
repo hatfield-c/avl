@@ -2,24 +2,28 @@
 
 Welcome to the repository for UT Dallas' Autonomous Vehicle Lab. This is an early prototype for the lab environment, and as such everything is subject to change.
 
-##Introduction
+## Introduction
 
 Briefly explain in a paragraph what the AVL is, and what it is meant to be used for
 
 ## Requirements
 
 **System Requirements:**
--OS: 
-  Windows 7 SP1+, 8, 10, 64-bit versions only; Mac OS X 10.12+; Ubuntu 16.04, 18.04, and CentOS 7.
--GPU: 
-  Graphics card with DX10 (shader model 4.0) capabilities.
-**Programs:**
-- Unity 2021.3.7f1
 
+-OS: 
+
+  Windows 7 SP1+, 8, 10, 64-bit versions only; Mac OS X 10.12+; Ubuntu 16.04, 18.04, and CentOS 7.
+
+-GPU:
+ 
+  Graphics card with DX10 (shader model 4.0) capabilities.
+  
+**Programs:**
+-Unity 2021.3.7f1
 
 *Note: This code is not compatible with older versions of Unity. Ensure that the correct Unity version is installed before proceeding.*
 
-##Unity Installation
+## Unity Installation
 
 These steps are for installation of Unity 2021.3.7f1. Check system requirements to ensure the program will run properly before proceeding.
 
@@ -40,7 +44,7 @@ These steps are for installation of Unity 2021.3.7f1. Check system requirements 
 15. Once installation is comlete, click finish.
 16. The downloaded version of Unity should be on your desktop, and can now be used to access this project.
 
-##Project Installation
+## Project Installation
 
 Follow these instructions to download the project directly from GitHub, without using git.
 
@@ -48,9 +52,14 @@ Follow these instructions to download the project directly from GitHub, without 
 2. Click on the green Code button near the upper right.
 3. Select to download the repository as a ZIP file.
 4. It is possible for the filename to differ than what is pictured. Go to downloads and select the correct .zip file.
-5. Unzip the file. This creates a local directory (folder) named after the Github Repository.
+5. Unzip the file (right click + Extract). This creates a local directory (folder) named after the Github Repository.
+6. Move the directory somewhere that is easy to locate, such as your Documents folder. These files are now accessible to locally run the project on Unity.
+7. To set up the project to be used in Unity, open Unity. DO NOT UPDATE VERSIONS IF PROMPTED!
+8. Unity will be opened to Projects automatically, which will be empty if this is the first time being used. 
+9. Click Open, and navigate to the directory you downloaded avl-dev. Open the next avl-dev folder, then select Unity-AVL and open in Unity. This will add the project to Unity and it can now be accessed.
+10. The EgoPlayground scene for this project will automatically open at this point in Unity.
 
-##Quick Start Guide
+## Quick Start Guide
 
 Explain how to open the Playground scene file, and explain how to control the Ego vehicle with the keyboard
 
