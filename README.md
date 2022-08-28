@@ -53,7 +53,7 @@ Follow these instructions to download the project directly from GitHub.
 2. Click on the green Code button near the upper right.
 3. Select to download the repository as a ZIP file.
 4. Go to downloads and select the correct .zip file. File name should include avl-dev. (It is possible for the filename to differ than what is pictured, confirm you are selecting the correct file.)
-5. Unzip the file (right click + Extract). This creates a local directory (folder) named after the Github Repository.
+5. Unzip the file (right click + Extract.) This creates a local directory (folder) named after the Github Repository.
 6. Move the directory somewhere that is easy to locate, such as your Documents folder. These files are now accessible to locally run the project on Unity.
 7. To set up the project to be used in Unity, first open Unity. DO NOT UPDATE VERSIONS IF PROMPTED!
 8. Unity will be opened to Projects automatically. This will be empty if this is the first time being used. 
