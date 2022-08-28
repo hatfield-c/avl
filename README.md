@@ -61,10 +61,17 @@ Follow these instructions to download the project directly from GitHub, without 
 
 ## Quick Start Guide
 
-If all instructions were properly followed above, you should be able to access the EgoPlayground scene in Unity. Open Unity and select Unity-AVL from your listed projects.
-ego vehicles are now supported, and an ego vehicle is added to the scene at runtime. To control the ego vehicle, click the 'Game Window' in Unity while the scene is running, and use the WASD keys.
+If all instructions were properly followed above, you should be able to easily access the EgoPlayground scene in Unity. 
+Open Unity and select Unity-AVL from your listed projects. The EgoPlayground scene will run at this point by default.
+This scene can also be accessed by directly opening the Ego Playground scene file located at avl-dev\avl-dev\Unity-AVL\Assets\Scenes.
+To control the Ego vehicle, click the 'Game' window in Unity while the scene is running (press play if the scene is not running).
+The vehicle will automatically start moving in a forward direction unless other input is received. Use the WASD keys to move around in the environment.
+Be sure to pause the scene when finished.
 
 ## Contributors
 
 Cody Hatfield - Lead Developer - cxh124730@utdallas.edu
+
 Hannah Ostoja - Junior Developer - hjostoja@gmail.com
+
+*Please direct any inquiries about the project to the Lead Developer.*
