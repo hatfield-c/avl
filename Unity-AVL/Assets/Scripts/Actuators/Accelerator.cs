@@ -8,7 +8,7 @@ public class Accelerator : AbstractDevice
     protected PhysicsBody body = null;
 
     [SerializeField]
-    protected float gasPower = 0.1f;
+    protected float gasPower = 1.5f;
 
     protected float targetSpeed = 0f;
 

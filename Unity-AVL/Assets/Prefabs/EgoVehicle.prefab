@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2de77b637943648a2c2c3df42a4d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0.33
+  maxSpeed: 20
   drag: 0.97
 --- !u!114 &1590011655295242271
 MonoBehaviour:
@@ -1565,7 +1565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5782958610780921076}
-  gasPower: 0.1
+  gasPower: 1.5
 --- !u!1 &1766827436793026671
 GameObject:
   m_ObjectHideFlags: 0

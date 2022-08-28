@@ -17,12 +17,12 @@ public class KeyboardController : MonoBehaviour
     {
         if (Input.GetKey("w")) {
             this.devices.speedControl[0] = 1f;
-            this.devices.speedControl[1] = 100f;
+            this.devices.speedControl[1] = 10f;
         }
 
         if (Input.GetKey("s")) {
             this.devices.speedControl[0] = 1f;
-            this.devices.speedControl[1] = -100f;
+            this.devices.speedControl[1] = -10f;
         }
 
         if (Input.GetKey("x")) {

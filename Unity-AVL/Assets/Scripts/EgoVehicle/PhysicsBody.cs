@@ -5,7 +5,7 @@ using UnityEngine;
 public class PhysicsBody : MonoBehaviour
 {
     [SerializeField]
-    protected float maxSpeed = 0.33f;
+    protected float maxSpeed = 20f;
 
     [SerializeField]
     protected float drag = 0.97f;
@@ -14,7 +14,7 @@ public class PhysicsBody : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.transform.position = this.transform.position + (this.transform.forward * this.velocity);
+        this.transform.position = this.transform.position + (this.transform.forward * this.velocity * Time.fixedDeltaTime);
 
         this.ApplyDrag(this.drag);
     }
@@ -33,7 +33,7 @@ public class PhysicsBody : MonoBehaviour
         }
     }
 
-        public void ApplyDrag(float amount) {
+    public void ApplyDrag(float amount) {
         this.velocity = this.velocity * amount;
     }
 
