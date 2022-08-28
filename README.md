@@ -38,7 +38,7 @@ These steps are for the installation of Unity 2021.3.7f1. Check system requireme
 4. Follow instructions for the Unity installation prompt window.
 5. Run Unity Hub.
 6. Create a Unity account if you do not already have one.
-7. Once account is created, Unity Hub will prompt to download the latest version of Unity. Make sure this version is 2021.3.7f1 to avoid compatibility issues.
+7. Once your account is created, Unity Hub will prompt to download the latest version of Unity. Make sure this version is 2021.3.7f1 to avoid compatibility issues.
     - If the suggested version is not correct, you will need to download from the Unity archive. Visit https://unity3d.com/get-unity/download/archive.
     - The necessary version of Unity will be found under Unity 2021.x. Version 2021.3.7f1 was released July 28, 2022.
 8. Follow prompts to install the Unity Editor. Installation may take anywhere from 10 to 45 minutes depending on your PC. Install times of over an hour have been reported, but are rare.
@@ -61,18 +61,18 @@ Follow these instructions to download the project directly from GitHub.
 ## Quick Start Guide
 
 If all instructions were properly followed above, you should be able to easily access the EgoPlayground scene in Unity as follows:
-- Open Unity and select Unity-AVL from your listed projects.
-- Click "File" then "Open" in the Unity Editor, and select the "EgoPlayground.scene" file located at Unity-AVL/Assets/Scenes/.
-- Press the "Play" button at the top of the editor.
-- To control the Ego vehicle, click the 'Game' window in Unity
-- Use the keyboard to move around in the environment. 
+1. Open Unity and select Unity-AVL from your listed projects.
+2. Click "File" then "Open" in the Unity Editor, and select the "EgoPlayground.scene" file located at Unity-AVL/Assets/Scenes/.
+3. Press the "Play" button at the top of the editor.
+4. To control the Ego vehicle, click the 'Game' window in Unity
+5. Use the keyboard to move around in the environment. 
     - W causes the Ego vehicle to begin moving forward at constant speed 
     - S causes the Ego vehicle to begin moving backward at constant speed
     - A turns the Ego vehicle left
     - D turns the Ego vehicle right
     - X causes the Ego vehicle to stop applying gas, but the vehicle will keep moving
     - Space bar causes the Ego vehicle to apply the brakes. Note: If you haven't pressed X before pressing the space bar, then pressing the space bar will do nothing
-- Click the "Stop" button at the top of the editor when finished.
+6. Click the "Stop" button at the top of the editor when finished.
 
 ## Contributors
 
