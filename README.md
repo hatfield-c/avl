@@ -2,6 +2,8 @@
 
 Welcome to the repository for UT Dallas' Autonomous Vehicle Lab. This is an early prototype for the lab environment, and as such everything is subject to change.
 
+The current version of the AVL is 0.0.5.
+
 ## Introduction
 
 The Autonomous Vehicle Lab (AVL) is an open-source project at The University of Texas at Dallas. The AVL serves as a testing environment for student-developed autonomous vehicle control systems that run on a simplified simulation of a real-time operating system. 
