@@ -5,8 +5,8 @@ using UnityEngine;
 public class TaskList : MonoBehaviour
 {
     protected TaskInterface[] tasks = new TaskInterface[] {
-        new Task1(),
-        new Task2()
+        // STUDENTS
+        // Instantiate your tasks here as decsribed in the documentation
     };
 
     public TaskInterface[] GetTasks() {
