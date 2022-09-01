@@ -17,6 +17,10 @@ public class RTOS : MonoBehaviour
 
     void Start() {
         this.tasks = this.taskList.GetTasks();
+
+        if(this.tasks.Length < 1) {
+            Debug.Log("There are no tasks added to the task list. No tasks will be executed as a result.");
+        }
     }
 
     void FixedUpdate()
@@ -27,6 +31,10 @@ public class RTOS : MonoBehaviour
 
         this.deviceRegistry.ReadSensors();
         this.deviceRegistry.CommandActuators();
+
+        if(this.tasks.Length == 0) {
+            return;
+        }
 
         TaskInterface task = this.tasks[this.taskIndex];
         task.Execute(this.deviceRegistry);

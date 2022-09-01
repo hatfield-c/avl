@@ -61,8 +61,6 @@ public class BoatController : MonoBehaviour
     void Start() {
         this.currentCheckTime = Random.Range(this.minWaitTime, this.maxWaitTime);
         this.boat.gameObject.SetActive(false);
-
-        Debug.Log(this.currentCheckTime);
     }
 
     void FixedUpdate()
@@ -144,7 +142,6 @@ public class BoatController : MonoBehaviour
             this.boat.gameObject.SetActive(false);
 
             this.currentCheckTime = Random.Range(this.minWaitTime, this.maxWaitTime);
-            Debug.Log($"Time to next boat: {this.currentCheckTime}");
 
             return;
         }
