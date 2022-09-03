@@ -566,7 +566,6 @@ GameObject:
   - component: {fileID: 8690110428480347623}
   - component: {fileID: 173636912859319541}
   - component: {fileID: 2089953987150718582}
-  - component: {fileID: 5522803741395110520}
   m_Layer: 0
   m_Name: MetalClip (6)
   m_TagString: Untagged
@@ -639,19 +638,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5522803741395110520
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913747673212322235}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &958731658991392189
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,7 +649,6 @@ GameObject:
   - component: {fileID: 2099137622024387383}
   - component: {fileID: 6526448642846788388}
   - component: {fileID: 6418558982089713461}
-  - component: {fileID: 8022819974454477095}
   m_Layer: 0
   m_Name: MetalClip (2)
   m_TagString: Untagged
@@ -736,19 +721,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8022819974454477095
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958731658991392189}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &975451490279862806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,7 +1111,6 @@ GameObject:
   - component: {fileID: 4098755664064469737}
   - component: {fileID: 5836112638462712794}
   - component: {fileID: 4164795076057415500}
-  - component: {fileID: 2206820053367146784}
   m_Layer: 0
   m_Name: MetalClip
   m_TagString: Untagged
@@ -1212,19 +1183,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2206820053367146784
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267232188230463109}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1297266719075778642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,7 +2062,6 @@ GameObject:
   - component: {fileID: 4977419733400706449}
   - component: {fileID: 610569549479444679}
   - component: {fileID: 7813474956799144154}
-  - component: {fileID: 2070083215775735903}
   m_Layer: 0
   m_Name: MetalClip (1)
   m_TagString: Untagged
@@ -2177,19 +2134,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2070083215775735903
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2381643528447111815}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2405027256717843917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3212,7 +3156,6 @@ GameObject:
   - component: {fileID: 5740450655107899056}
   - component: {fileID: 1767663029352448983}
   - component: {fileID: 4127706763897747752}
-  - component: {fileID: 1203692089822156545}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -3285,19 +3228,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1203692089822156545
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4025106841413134264}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.9307122, z: 1.2883273}
-  m_Center: {x: 0, y: 0.4653562, z: 0.14416379}
 --- !u!1 &4039682477000993042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3686,7 +3616,6 @@ GameObject:
   - component: {fileID: 5417635594236754078}
   - component: {fileID: 537201205307997288}
   - component: {fileID: 6206971707720609587}
-  - component: {fileID: 8857692142281708315}
   m_Layer: 0
   m_Name: MetalClip (5)
   m_TagString: Untagged
@@ -3759,19 +3688,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8857692142281708315
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4497023605576533526}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4642660192246506853
 GameObject:
   m_ObjectHideFlags: 0
@@ -5671,7 +5587,6 @@ GameObject:
   - component: {fileID: 6139030883002155998}
   - component: {fileID: 7714128558730772380}
   - component: {fileID: 5359666228830852968}
-  - component: {fileID: 5706910210101688828}
   m_Layer: 0
   m_Name: MetalClip (4)
   m_TagString: Untagged
@@ -5744,19 +5659,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5706910210101688828
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8421507453408084409}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8489344754442303519
 GameObject:
   m_ObjectHideFlags: 0
@@ -5934,7 +5836,6 @@ GameObject:
   - component: {fileID: 2901295394548955568}
   - component: {fileID: 1731781047982554646}
   - component: {fileID: 2519290978427707547}
-  - component: {fileID: 6016388875140265465}
   m_Layer: 0
   m_Name: MetalClip (7)
   m_TagString: Untagged
@@ -6007,19 +5908,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6016388875140265465
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8613527428310583582}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8620650339641645374
 GameObject:
   m_ObjectHideFlags: 0
@@ -6197,7 +6085,6 @@ GameObject:
   - component: {fileID: 4457444683537484069}
   - component: {fileID: 3937415109789710862}
   - component: {fileID: 429541543718147576}
-  - component: {fileID: 806303859001921396}
   m_Layer: 0
   m_Name: MetalClip (3)
   m_TagString: Untagged
@@ -6270,16 +6157,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &806303859001921396
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9065317306737056133}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
