@@ -15,11 +15,21 @@ public class Accelerator : AbstractDevice
     void FixedUpdate() {
         if(this.targetSpeed >= 0) {
             if (this.body.GetSpeed() < this.targetSpeed) {
-                this.body.AddSpeed(this.gasPower);
+                if(this.targetSpeed < this.gasPower) {
+                    float speedDiff = this.targetSpeed - this.body.GetSpeed();
+                    this.body.AddSpeed(speedDiff);
+                } else {
+                    this.body.AddSpeed(this.gasPower);
+                }
             }
         } else {
             if (this.body.GetSpeed() > this.targetSpeed) {
-                this.body.AddSpeed(-this.gasPower);
+                if (this.targetSpeed < this.gasPower) {
+                    float speedDiff = this.targetSpeed - this.body.GetSpeed();
+                    this.body.AddSpeed(speedDiff);
+                } else {
+                    this.body.AddSpeed(-this.gasPower);
+                }
             }
         }
 
