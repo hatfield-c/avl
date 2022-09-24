@@ -2,7 +2,7 @@
 
 Welcome to the repository for UT Dallas' Autonomous Vehicle Lab. This is an early prototype for the lab environment, and as such everything is subject to change.
 
-The current version of the AVL is 0.0.5.2.
+The current version of the AVL is 0.0.5.3.
 
 ## Introduction
 
