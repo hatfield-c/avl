@@ -30,14 +30,16 @@ public class RTOS : MonoBehaviour
         }
 
         this.deviceRegistry.ReadSensors();
-        this.deviceRegistry.CommandActuators();
+        
 
-        if(this.tasks.Length == 0) {
+        if (this.tasks.Length == 0) {
             return;
         }
 
         TaskInterface task = this.tasks[this.taskIndex];
         task.Execute(this.deviceRegistry);
+
+        this.deviceRegistry.CommandActuators();
 
         this.taskIndex++;
     }
