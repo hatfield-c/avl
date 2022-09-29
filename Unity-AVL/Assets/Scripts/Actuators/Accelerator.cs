@@ -12,8 +12,12 @@ public class Accelerator : AbstractDevice
 
     protected float targetSpeed = 0f;
 
-    void FixedUpdate() {
-        if(this.targetSpeed >= 0) {
+    public void PhysicsUpdate() {
+        if(this.targetSpeed == 0f) {
+            return;
+        }
+
+        if(this.targetSpeed > 0) {
             if (this.body.GetSpeed() < this.targetSpeed) {
                 if(this.targetSpeed < this.gasPower) {
                     float speedDiff = this.targetSpeed - this.body.GetSpeed();
@@ -24,7 +28,7 @@ public class Accelerator : AbstractDevice
             }
         } else {
             if (this.body.GetSpeed() > this.targetSpeed) {
-                if (this.targetSpeed < this.gasPower) {
+                if (Mathf.Abs(this.targetSpeed) < this.gasPower) {
                     float speedDiff = this.targetSpeed - this.body.GetSpeed();
                     this.body.AddSpeed(speedDiff);
                 } else {
@@ -32,8 +36,6 @@ public class Accelerator : AbstractDevice
                 }
             }
         }
-
-        
     }
 
     public override void ReadDevice(float[] memory, int[,,] empty) {

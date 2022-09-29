@@ -123,18 +123,21 @@ public class DeviceRegistry : MonoBehaviour
             this.accelerator.CommandDevice(this.speedControl);
             this.speedControl[0] = 0;
         }
+        this.accelerator.PhysicsUpdate();
 
         if (this.steeringSystem != null && this.steeringSystem.gameObject.activeSelf && this.steeringControl[0] != 0) {
             this.steeringSystem.CommandDevice(this.steeringControl);
             this.steeringControl[0] = 0;
         }
+        this.steeringSystem.PhysicsUpdate();
 
         if (this.brakeController != null && this.brakeController.gameObject.activeSelf && this.brakeControl[0] != 0) {
             this.brakeController.CommandDevice(this.brakeControl);
             this.brakeControl[0] = 0;
         }
+        this.brakeController.PhysicsUpdate();
 
-        if(this.transmitter != null && this.transmitter.gameObject.activeSelf && this.transmitterControl[0] != 0) {
+        if (this.transmitter != null && this.transmitter.gameObject.activeSelf && this.transmitterControl[0] != 0) {
             this.transmitter.CommandDevice(this.transmitterControl);
             this.transmitterControl[0] = 0;
         }

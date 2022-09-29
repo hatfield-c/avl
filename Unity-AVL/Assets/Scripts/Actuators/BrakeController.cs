@@ -12,7 +12,7 @@ public class BrakeController : AbstractDevice
 
     float brakeTime = 0f;
 
-    void FixedUpdate() {
+    public void PhysicsUpdate() {
         if(this.brakeTime > 0) {
             this.body.ApplyDrag(this.brakePower);
 

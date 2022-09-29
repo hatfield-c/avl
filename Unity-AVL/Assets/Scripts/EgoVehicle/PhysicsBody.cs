@@ -12,8 +12,7 @@ public class PhysicsBody : MonoBehaviour
 
     protected float velocity = 0f;
 
-    void FixedUpdate()
-    {
+    public void UpdatePhysics() {
         this.transform.position = this.transform.position + (this.transform.forward * this.velocity * Time.fixedDeltaTime);
 
         this.ApplyDrag(this.drag);

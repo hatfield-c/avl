@@ -8,9 +8,10 @@ public class SteeringSubsystem : AbstractDevice {
 
     protected float currentAngle = 0f;
 
-    void FixedUpdate() {
+    public void PhysicsUpdate() {
         if (this.currentAngle != 0f) {
             this.body.Rotate(this.currentAngle);
+            this.currentAngle = 0f;
         }
     }
 

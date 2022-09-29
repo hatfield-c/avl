@@ -11,6 +11,9 @@ public class RTOS : MonoBehaviour
     [SerializeField]
     protected DeviceRegistry deviceRegistry = null;
 
+    [SerializeField]
+    protected PhysicsBody body = null;
+
     protected int taskIndex = 0;
 
     protected TaskInterface[] tasks = null;
@@ -25,13 +28,16 @@ public class RTOS : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(this.tasks == null || this.deviceRegistry == null || this.body == null) {
+            return;
+        }
+
         if(this.taskIndex >= this.tasks.Length) {
             this.taskIndex = 0;
         }
 
         this.deviceRegistry.ReadSensors();
         
-
         if (this.tasks.Length == 0) {
             return;
         }
@@ -40,6 +46,7 @@ public class RTOS : MonoBehaviour
         task.Execute(this.deviceRegistry);
 
         this.deviceRegistry.CommandActuators();
+        this.body.UpdatePhysics();
 
         this.taskIndex++;
     }

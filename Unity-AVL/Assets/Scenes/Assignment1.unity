@@ -1557,11 +1557,6 @@ PrefabInstance:
       propertyPath: displayCamera
       value: 
       objectReference: {fileID: 260767518}
-    - target: {fileID: 7459521857100823184, guid: f2211a8abbd786a45b0b49fa5df27e78,
-        type: 3}
-      propertyPath: visualizeCamera
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8190532008445925056, guid: f2211a8abbd786a45b0b49fa5df27e78,
         type: 3}
       propertyPath: tasks.Array.size
