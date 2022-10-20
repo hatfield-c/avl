@@ -38,6 +38,9 @@ public class DeviceRegistry : MonoBehaviour
     public float[] transmitterControl;
 
     [System.NonSerialized]
+    public float[] cameraControl;
+
+    [System.NonSerialized]
     public float[] memory;
 
     [Header("Sensors")]
@@ -72,6 +75,9 @@ public class DeviceRegistry : MonoBehaviour
     [SerializeField]
     protected Transmitter transmitter = null;
 
+    [SerializeField]
+    protected CameraArm cameraArm = null;
+
     void Start()
     {
         this.gps = new float[2];
@@ -85,6 +91,7 @@ public class DeviceRegistry : MonoBehaviour
         this.steeringControl = new float[2];
         this.brakeControl = new float[2];
         this.transmitterControl = new float[2];
+        this.cameraControl = new float[2];
         this.memory = new float[64];
     }
 
@@ -140,6 +147,11 @@ public class DeviceRegistry : MonoBehaviour
         if (this.transmitter != null && this.transmitter.gameObject.activeSelf && this.transmitterControl[0] != 0) {
             this.transmitter.CommandDevice(this.transmitterControl);
             this.transmitterControl[0] = 0;
+        }
+
+        if (this.cameraArm != null && this.cameraArm.gameObject.activeSelf && this.cameraControl[0] != 0) {
+            this.cameraArm.CommandDevice(this.cameraControl);
+            this.cameraControl[0] = 0;
         }
     }
 
