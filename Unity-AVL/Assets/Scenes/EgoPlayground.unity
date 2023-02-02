@@ -316,8 +316,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pixelPrefab: {fileID: 5978877276553321437, guid: d9e8c6bcebaaa5941b00c4848d896665,
     type: 3}
-  canvasDistance: 8
-  pixelWidth: 1
 --- !u!1 &1077748484
 GameObject:
   m_ObjectHideFlags: 0

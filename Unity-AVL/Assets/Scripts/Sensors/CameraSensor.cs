@@ -35,15 +35,13 @@ public class CameraSensor : AbstractDevice
     [SerializeField]
     protected Color emptyColor = new Color();
 
-    [Header("Visualize Camera Rays")]
-    [SerializeField]
-    protected bool visualizeCamera = false;
-
-    [SerializeField]
-    protected float renderDistance = 5f;
+    protected MeshRenderer[,] rays = null;
+    protected bool showingRays = false;
 
     void Start()
     {
+        this.rays = new MeshRenderer[this.pixelHeight, this.pixelWidth];
+
         Vector3 horzAmount = this.lens.right * (this.cameraWidth / (float)this.pixelWidth);
         Vector3 vertAmount = this.lens.up * (this.cameraWidth / (float)this.pixelHeight);
         float horzOffset = this.cameraWidth / 2;
@@ -71,18 +69,45 @@ public class CameraSensor : AbstractDevice
                 pixelObj.name = index.ToString() + "_" + i.ToString() + "," + j.ToString();
                 pixelObj.SetActive(false);
 
-                if (this.visualizeCamera) {
-                    
-                    pixelObj.transform.localScale = new Vector3(
-                        pixelObj.transform.localScale.x,
-                        pixelObj.transform.localScale.y,
-                        this.renderDistance
-                    );
-
-                    pixelObj.SetActive(true);
-                }
+                this.rays[i, j] = pixelObj.transform.GetChild(0).GetComponent<MeshRenderer>();
                 
                 index++;
+            }
+        }
+
+    }
+
+    public void ShowRays(float rayDistance) {
+        if (this.showingRays) {
+            return;
+        }
+
+        this.showingRays = true;
+
+        foreach (Transform child in this.lens.transform) {
+            GameObject pixelObj = child.gameObject;
+
+            pixelObj.transform.localScale = new Vector3(
+                pixelObj.transform.localScale.x,
+                pixelObj.transform.localScale.y,
+                rayDistance
+            );
+
+            pixelObj.SetActive(true);
+        }
+        
+    }
+
+    public void UpdateRays(int[,,] pixels) {
+        for(int i = 0; i < pixels.GetLength(0); i++) {
+            for(int j = 0; j < pixels.GetLength(1); j++) {
+                MeshRenderer ray = this.rays[i, j];
+
+                ray.material.color = new Color(
+                    pixels[i, j, 0] / 255f,
+                    pixels[i, j, 1] / 255f,
+                    pixels[i, j, 2] / 255f
+                );
             }
         }
     }
@@ -119,6 +144,10 @@ public class CameraSensor : AbstractDevice
 
                 index++;
             }
+        }
+
+        if (this.showingRays) {
+            this.UpdateRays(memory);
         }
     }
 

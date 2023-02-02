@@ -7,21 +7,31 @@ public class CameraVisualizer : MonoBehaviour
     [SerializeField]
     protected GameObject pixelPrefab = null;
 
-    [SerializeField]
-    protected float canvasDistance = 10f;
-
-    [SerializeField]
-    protected float pixelWidth = 1f;
-
     protected CameraSensor cameraSensor = null;
+    protected float canvasDistance = 0f;
+    protected float pixelWidth = 0f;
+    protected bool showRays = false;
+    protected float rayLength = 0f;
+
     protected float[] empty;
     protected int[,,] pixelVals;
     protected MeshRenderer[,] pixels;
 
     protected bool isInit = false;
 
-    public void Init(CameraSensor cameraSensor) {
+    public void Init(
+        CameraSensor cameraSensor, 
+        float canvasDistance, 
+        float pixelWidth,
+        bool showRays,
+        float rayLength
+       ) {
         this.cameraSensor = cameraSensor;
+        this.canvasDistance = canvasDistance;
+        this.pixelWidth = pixelWidth;
+        this.showRays = showRays;
+        this.rayLength = rayLength;
+
         this.pixelVals = new int[this.cameraSensor.GetPixelHeight(), this.cameraSensor.GetPixelWidth(), 3];
         this.empty = new float[1];
         this.pixels = new MeshRenderer[this.cameraSensor.GetPixelHeight(), this.cameraSensor.GetPixelWidth()];
@@ -32,6 +42,10 @@ public class CameraVisualizer : MonoBehaviour
     }
 
     void FixedUpdate() {
+        if (this.showRays) {
+            this.cameraSensor.ShowRays(this.rayLength);
+        }
+
         this.cameraSensor.ReadDevice(this.empty, this.pixelVals);
 
         this.RenderPixels(this.pixelVals);

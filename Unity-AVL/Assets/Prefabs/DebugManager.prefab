@@ -46,3 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraSensor: {fileID: 0}
   cameraVisualizer: {fileID: 0}
+  pixelWidth: 1
+  pixelDistance: 8
+  showRays: 0
+  rayLength: 5
