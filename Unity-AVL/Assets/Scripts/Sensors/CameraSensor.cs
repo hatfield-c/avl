@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class CameraSensor : AbstractDevice
 {
-    [Header("Render Display")]
-    [SerializeField]
-    protected Transform displayPosition = null;
-
-    [SerializeField]
-    protected Transform displayCamera = null;
-
     [Header("Sensor Parameters")]
     [SerializeField]
     protected Transform lens = null;
@@ -48,11 +41,6 @@ public class CameraSensor : AbstractDevice
 
     [SerializeField]
     protected float renderDistance = 5f;
-
-    void FixedUpdate() {
-        this.displayCamera.position = this.displayPosition.position;
-        this.displayCamera.rotation = this.displayPosition.rotation;
-    }
 
     void Start()
     {
