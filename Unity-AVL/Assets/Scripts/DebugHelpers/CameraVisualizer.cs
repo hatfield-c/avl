@@ -42,11 +42,11 @@ public class CameraVisualizer : MonoBehaviour
     }
 
     void FixedUpdate() {
+        this.cameraSensor.ReadDevice(this.empty, this.pixelVals);
+
         if (this.showRays) {
             this.cameraSensor.ShowRays(this.rayLength);
         }
-
-        this.cameraSensor.ReadDevice(this.empty, this.pixelVals);
 
         this.RenderPixels(this.pixelVals);
     }

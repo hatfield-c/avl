@@ -883,6 +883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7358972398223360283}
   - component: {fileID: 561436773600865301}
+  - component: {fileID: 8097346907620933026}
   m_Layer: 0
   m_Name: LidarArray
   m_TagString: Untagged
@@ -918,6 +919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c9b6214096e984a900e4b0f6759c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rayPrefab: {fileID: 8325198963557980099, guid: b98461f1fe8625b4397b0f70a2dc7c2e,
+    type: 3}
   maxDistance: 10
   lidarArray:
   - {fileID: 4559200462623152074}
@@ -936,6 +939,20 @@ MonoBehaviour:
   - {fileID: 7814758449779736856}
   - {fileID: 4340321879361600281}
   - {fileID: 2060185754295799692}
+--- !u!114 &8097346907620933026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180064569075708514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730dec122416a1e4dae715b84c1e81bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelPrefab: {fileID: 8325198963557980099, guid: b98461f1fe8625b4397b0f70a2dc7c2e,
+    type: 3}
 --- !u!1 &1223422473873605789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1826,8 +1843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e70e9bf451638bd49bc4f69ecf5b1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayPosition: {fileID: 1323613341782948124}
-  displayCamera: {fileID: 0}
   lens: {fileID: 2225645820188824734}
   pixelPrefab: {fileID: 8325198963557980099, guid: b98461f1fe8625b4397b0f70a2dc7c2e,
     type: 3}
@@ -1839,8 +1854,6 @@ MonoBehaviour:
   cameraWidth: 0.2
   cameraHeight: 0.2
   emptyColor: {r: 0, g: 0, b: 0, a: 0}
-  visualizeCamera: 0
-  renderDistance: 5
 --- !u!114 &6475313713900801486
 MonoBehaviour:
   m_ObjectHideFlags: 0
