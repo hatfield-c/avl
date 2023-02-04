@@ -149,4 +149,12 @@ public class BoatController : MonoBehaviour
         this.boat.position += this.boat.forward * this.speed;
         this.currentDistance += this.speed;
     }
+
+    public void TriggerBoat() {
+        if(this.currentBridgeState != BridgeState.bridge_lowered) {
+            return;
+        }
+
+        this.currentCheckTime = 0f;
+    }
 }

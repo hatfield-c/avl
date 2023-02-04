@@ -1162,6 +1162,11 @@ PrefabInstance:
       objectReference: {fileID: 310605246134810190}
     - target: {fileID: 2504583822944778371, guid: df42f2a0b647143488d28d67e541ee78,
         type: 3}
+      propertyPath: boatController
+      value: 
+      objectReference: {fileID: 1063968670}
+    - target: {fileID: 2504583822944778371, guid: df42f2a0b647143488d28d67e541ee78,
+        type: 3}
       propertyPath: lidarVisualizer
       value: 
       objectReference: {fileID: 310605246134810191}

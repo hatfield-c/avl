@@ -18,6 +18,9 @@ public class DebugManager : MonoBehaviour
     [SerializeField]
     protected LidarVisualizer lidarVisualizer = null;
 
+    [SerializeField]
+    protected BoatController boatController = null;
+
     [Header("Camera Debugging")]
 
     [SerializeField]
@@ -44,9 +47,11 @@ public class DebugManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void ActivateBoat() {
+        if(this.boatController == null) {
+            return;
+        }
+
+        this.boatController.TriggerBoat();
     }
 }
