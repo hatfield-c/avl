@@ -21,6 +21,9 @@ public class DebugManager : MonoBehaviour
     [SerializeField]
     protected BoatController boatController = null;
 
+    [SerializeField]
+    protected CarController carController = null;
+
     [Header("Camera Debugging")]
 
     [SerializeField]
@@ -48,10 +51,26 @@ public class DebugManager : MonoBehaviour
     }
 
     public void ActivateBoat() {
-        if(this.boatController == null) {
+        if(this.boatController == null || !Application.isPlaying) {
             return;
         }
 
         this.boatController.TriggerBoat();
+    }
+
+    public void RandomEmptySpace() {
+        if(this.carController == null || !Application.isPlaying) {
+            return;
+        }
+
+        this.carController.SetAction(CarController.SpawnAction.RandomSpace);
+    }
+
+    public void RandomFirstRow() {
+        if (this.carController == null || !Application.isPlaying) {
+            return;
+        }
+
+        this.carController.SetAction(CarController.SpawnAction.RandomFirstRow);
     }
 }
