@@ -66,15 +66,9 @@ If all instructions were properly followed above, you should be able to easily a
 1. Open Unity and select Unity-AVL from your listed projects.
 2. Click "File" then "Open" in the Unity Editor, and select the "EgoPlayground.scene" file located at Unity-AVL/Assets/Scenes/.
 3. Press the "Play" button at the top of the editor.
-4. To control the Ego vehicle, click the 'Game' window in Unity
-5. Use the keyboard to move around in the environment. 
-    - W causes the Ego vehicle to begin moving forward at constant speed 
-    - S causes the Ego vehicle to begin moving backward at constant speed
-    - A turns the Ego vehicle left
-    - D turns the Ego vehicle right
-    - X causes the Ego vehicle to stop applying gas, but the vehicle will keep moving
-    - Space bar causes the Ego vehicle to apply the brakes. Note: If you haven't pressed X before pressing the space bar, then pressing the space bar will do nothing
-6. Click the "Stop" button at the top of the editor when finished.
+4. The simulation will begin, and the game window will render the Ego vehicle's 16x8 pixel camera.
+5. Click the "Stop" button at the top of the editor to stop the simulation.
+6. Practice opening the other scenes in the same folder as the EgoPlayground, and see how their simulations behave.
 
 ## Contributors
 
