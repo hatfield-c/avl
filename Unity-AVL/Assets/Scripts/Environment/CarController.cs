@@ -31,13 +31,13 @@ public class CarController : MonoBehaviour
 
     protected float timer = 0f;
     protected int emptyIndex = -1;
-    protected SpawnAction currentAction = SpawnAction.FinishedAction;
+    protected SpawnAction currentAction = SpawnAction.RandomSpace;
 
     public void SetAction(SpawnAction newAction) {
         if (this.currentAction != SpawnAction.DoNothing) {
             return;
         }
-
+        
         this.currentAction = newAction;
     }
 
@@ -108,8 +108,6 @@ public class CarController : MonoBehaviour
             Material randomMat = this.GetRandomMat();
             carObstacle.SetMaterial(randomMat);
         }
-
-        this.SetAction(SpawnAction.RandomSpace);
 
         if (this.isCarsActive) {
             this.MoveCar();
