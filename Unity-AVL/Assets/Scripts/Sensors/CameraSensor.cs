@@ -152,7 +152,7 @@ public class CameraSensor : AbstractDevice
     }
 
     protected int GetColor255(float intensity) {
-        return (int)(255 * intensity);
+        return Mathf.RoundToInt(255 * intensity);
     }
 
     public int GetPixelHeight() {
